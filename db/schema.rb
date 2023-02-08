@@ -10,9 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_29_174245) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_08_203322) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "announcements", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "books", force: :cascade do |t|
     t.string "title"
@@ -21,6 +28,43 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_29_174245) do
     t.string "author"
     t.decimal "price"
     t.datetime "publishedDate"
+  end
+
+  create_table "committees", force: :cascade do |t|
+    t.string "committee_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+    t.date "date"
+    t.integer "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "polls", force: :cascade do |t|
+    t.string "question"
+    t.string "answer_one"
+    t.string "answer_two"
+    t.string "answer_three"
+    t.string "answer_four"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", primary_key: "user_id", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "phone"
+    t.string "password"
+    t.boolean "isActive"
+    t.integer "role"
+    t.integer "classify"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
