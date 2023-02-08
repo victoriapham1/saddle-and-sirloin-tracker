@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<h2>Are you sure you want to permanently delete this book?</h2>
+<%= link_to "Back to books", books_path %>
+
+<%= render @book %>
+
+<%= button_to "Destroy this book", @book, method: :delete %>
+<br>
+
