@@ -75,3 +75,5 @@ end
 
 gem 'brakeman'
 gem 'rubocop'
+
+gem "tailwindcss-rails", "~> 2.0"
