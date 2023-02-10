@@ -1,0 +1,44 @@
+<div id="users" class="shadow overflow-hidden rounded border-b border-gray-200">
+    <table class="min-w-full bg-white pretty" style="width: 75%; margin-left: auto; margin-right: auto;">
+        <thead class="bg-gray-800 text-white">
+            <tr>
+                <th 
+                    id="users-uin" 
+                    class="text-left py-3 px-6 uppercase font-semibold text-sm hover:cursor-pointer"
+                > 
+                    <%= sortable "uin" %></th>
+                <th 
+                    id="users-first_name" class="text-left py-3 px-6 uppercase font-semibold text-sm hover:cursor-pointer"
+                >
+                    <%= sortable "first_name", "First Name" %></th>
+                </th>
+                <th 
+                    id="users-last_name" class="text-left py-3 px-6 uppercase font-semibold text-sm hover:cursor-pointer"
+                >
+                    <%= sortable "last_name", "Last Name" %></th>
+                </th>
+                <th id="users-classify" class="text-left py-3 px-6 uppercase font-semibold text-sm hover:cursor-pointer">Classification</th>
+                <th id="users-email" class="text-left py-3 px-6 uppercase font-semibold text-sm hover:cursor-pointer">Email</th>
+                <th id="users-phone" class="text-left py-3 px-6 uppercase font-semibold text-sm hover:cursor-pointer">Phone</th>
+                <th id="users-role" class="text-left py-3 px-6 uppercase font-semibold text-sm hover:cursor-pointer">Role</th>
+                <th id="users-activate" class="text-left py-3 px-6 uppercase font-semibold text-sm hover:cursor-pointer" >Activated</th>
+            </tr>
+        </thead>
+
+        <tbody class="text-gray-700">
+            <% @users.each do |user| %>
+                <tr class="<%= cycle("even", "odd") %>">
+                <td class="text-left py-3 px-6"><%= link_to user.uin, edit_user_path(user), class: 'action show' %></td>
+                <td class="text-left py-3 px-6"><%= user.first_name %></td>
+                <td class="text-left py-3 px-6"><%= user.last_name %></td>
+                <td class="text-left py-3 px-6"><%= user.classify %></td>
+                <td class="text-left py-3 px-6"><%= user.email %></td>
+                <td class="text-left py-3 px-6"><%= user.phone %></td>
+                <td class="text-left py-3 px-6"><%= user.role %></td>
+                <td class="text-left py-3 px-6"><%= check_box_tag 'isActive', 'true', user.isActive, id: 'isActive' %></td>
+                </tr>
+            <% end %>
+    </tbody>
+
+    </table>
+</div>

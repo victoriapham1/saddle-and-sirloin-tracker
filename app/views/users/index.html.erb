@@ -1,30 +1,10 @@
-<h1>Member Directory</h1>
-<%= link_to "Add Member", new_user_path %>
+<%# TODO: Make page responsive to size: https://tailwindcss.com/docs/responsive-design %>
 
-<table class="listing" summary="User list" style="width: 75%; margin-left: auto; margin-right: auto;">
-  <tr class="header">
-    <th>UIN</th>
-    <th>First Name</th>
-    <th>Last Name</th>
-    <th>Classification</th>
-    <th>Email</th>
-    <th>Phone</th>
-    <th>Role</th>
-    <th>Activated</th>
-  </tr>
+<div class="max-w-7xl mx-auto mt-10">
 
-  <% @users.each do |user| %>
-    <tr>
-      <td><%= link_to user.uin, edit_user_path(user), class: 'action show' %></td>
-      <td><%= user.first_name %></td>
-      <td><%= user.last_name %></td>
-      <td><%= user.classify %></td>
-      <td><%= user.email %></td>
-      <td><%= user.phone %></td>
-      <td><%= user.role %></td>
-      <td><%= check_box_tag 'isActive', 'true', user.isActive, id: 'isActive' %></td>
-    </tr>
-  <% end %>
-
-</table>
+  <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Member Directory</h1>
+  <%= link_to "Add New Member", new_user_path %>
+  <br><br>
+    <%= render "user", users: @users %>
+</div>
 

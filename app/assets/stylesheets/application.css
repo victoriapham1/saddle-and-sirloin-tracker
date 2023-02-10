@@ -21,3 +21,18 @@
 .odd {
     background: #dedede;
 }
+
+/* Arrows for sorting table. */
+.pretty th .current {
+    padding-right: 25px;
+    background-repeat: no-repeat;
+    background-position: right center;
+}
+
+.pretty th .asc {
+    background-image: url("https://img.icons8.com/windows/20/null/thick-arrow-pointing-up.png");
+}
+
+.pretty th .desc {
+    background-image: url("https://img.icons8.com/windows/20/null/thick-arrow-pointing-down.png");
+}
