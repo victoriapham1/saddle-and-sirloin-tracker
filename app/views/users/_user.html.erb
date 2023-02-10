@@ -1,6 +1,6 @@
 <div id="users" class="shadow overflow-hidden rounded border-b border-gray-200">
     <table class="min-w-full bg-white pretty" style="width: 75%; margin-left: auto; margin-right: auto;">
-        <thead class="bg-gray-800 text-white">
+        <thead class="bg-gray-800 text-white" style="background-color: rgb(80,0,0)">
             <tr>
                 <th 
                     id="users-uin" 
@@ -28,7 +28,10 @@
         <tbody class="text-gray-700">
             <% @users.each do |user| %>
                 <tr class="<%= cycle("even", "odd") %>">
-                <td class="text-left py-3 px-6"><%= link_to user.uin, edit_user_path(user), class: 'action show' %></td>
+                <%# TODO: Connect UIN to member page.
+                <%# <td class="text-left py-3 px-6"><%= link_to user.uin, edit_user_path(user), class: 'action show' %></td>
+                <td class="text-left py-3 px-6"><%= user.uin %></td>
+
                 <td class="text-left py-3 px-6"><%= user.first_name %></td>
                 <td class="text-left py-3 px-6"><%= user.last_name %></td>
                 <td class="text-left py-3 px-6">
