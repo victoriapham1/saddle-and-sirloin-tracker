@@ -1,4 +1,13 @@
-<div>
-  <h1 class="font-bold text-4xl">Announcements#delete</h1>
-  <p>Find me in app/views/announcements/delete.html.erb</p>
-</div>
+<h2>Are you sure you want to permanently delete this announcement?</h2>
+<%= link_to "Back to announcements", announcements_path %>
+
+  <%= form_for(@announcement, method: 'delete') do |f| %>
+
+    <p><%= @announcement.title %></p>
+
+    <div class="form-buttons">
+      <%= f.submit("Delete Announcement") %>
+    </div>
+
+  <% end %>
+

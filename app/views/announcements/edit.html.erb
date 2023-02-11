@@ -1,4 +1,19 @@
+<h1>Editing announcement</h1>
+
+  <%= form_for(@announcement) do |f| %>
+    <% # url: tasks_path, method: 'post' %>
+
+    <%= render(partial: 'form',locals: {f: f}) %>
+
+    <div class="form-buttons">
+      <%= f.submit("Edit Announcement") %>
+    </div>
+
+  <% end %>
+
+<br>
+
 <div>
-  <h1 class="text-3xl font-bold">Announcements#edit</h1>
-  <p>Find me in app/views/announcements/edit.html.erb</p>
+  <%= link_to "Show this announcement", @announcement %> |
+  <%= link_to "Back to announcemnts", announcements_path %>
 </div>
