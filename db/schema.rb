@@ -32,6 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_08_203322) do
 
   create_table "committees", force: :cascade do |t|
     t.string "committee_name"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -54,7 +55,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_08_203322) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", primary_key: "user_id", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
+    t.integer "uin"
     t.string "first_name"
     t.string "last_name"
     t.string "email"
