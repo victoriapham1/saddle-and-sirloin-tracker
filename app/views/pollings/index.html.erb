@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Pollings</h1>
+
+<div id="pollings">
+  <% @pollings.each do |polling| %>
+    <%= render polling %>
+    <p>
+      <%= link_to "Show this polling", polling %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New polling", new_polling_path %>

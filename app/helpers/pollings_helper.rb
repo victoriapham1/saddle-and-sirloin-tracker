@@ -1,0 +1,2 @@
+module PollingsHelper
+end

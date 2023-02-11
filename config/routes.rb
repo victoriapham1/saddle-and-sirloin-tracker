@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  root "books#index"
-  resources :books do 
+  root "pollings#index"
+  resources :pollings do 
     member do
       get :delete
     end

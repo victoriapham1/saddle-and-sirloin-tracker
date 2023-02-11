@@ -1,0 +1,2 @@
+class Polling < ApplicationRecord
+end

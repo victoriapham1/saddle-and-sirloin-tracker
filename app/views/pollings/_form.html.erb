@@ -1,0 +1,42 @@
+<%= form_with(model: polling) do |form| %>
+  <% if polling.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(polling.errors.count, "error") %> prohibited this polling from being saved:</h2>
+
+      <ul>
+        <% polling.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :question, style: "display: block" %>
+    <%= form.text_field :question %>
+  </div>
+
+  <div>
+    <%= form.label :answer1, style: "display: block" %>
+    <%= form.text_field :answer1 %>
+  </div>
+
+  <div>
+    <%= form.label :answer2, style: "display: block" %>
+    <%= form.text_field :answer2 %>
+  </div>
+
+  <div>
+    <%= form.label :answer3, style: "display: block" %>
+    <%= form.text_field :answer3 %>
+  </div>
+
+  <div>
+    <%= form.label :answer4, style: "display: block" %>
+    <%= form.text_field :answer4 %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
