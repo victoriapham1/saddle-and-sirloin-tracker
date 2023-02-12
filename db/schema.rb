@@ -31,22 +31,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_10_012805) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "bookies", force: :cascade do |t|
-    t.string "title"
-    t.string "author"
-    t.decimal "price"
-    t.datetime "published_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "books", force: :cascade do |t|
     t.string "title"
-    t.string "author"
-    t.decimal "price"
-    t.datetime "published_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "author"
+    t.decimal "price"
+    t.datetime "publishedDate"
   end
 
   create_table "committees", force: :cascade do |t|
@@ -65,34 +56,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_10_012805) do
     t.string "description"
   end
 
-  create_table "pollings", force: :cascade do |t|
-    t.string "question"
-    t.string "answer1"
-    t.string "answer2"
-    t.string "answer3"
-    t.string "answer4"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "polls", force: :cascade do |t|
     t.string "question"
-    t.string "answer1"
-    t.string "answer2"
-    t.string "answer3"
-    t.string "answer4"
+    t.string "answer_one"
+    t.string "answer_two"
+    t.string "answer_three"
+    t.string "answer_four"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_books", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "book_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "users", primary_key: "user_id", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
+    t.integer "uin"
     t.string "first_name"
     t.string "last_name"
     t.string "email"
