@@ -12,7 +12,9 @@ Rails.application.routes.draw do
       get :delete
     end
   end
-
+  
+  resources :users
+  
   match 'calendar', to: 'announcements#calendar', via: :get
 
   #OATH
