@@ -1,0 +1,15 @@
+<h1 class="text-3xl font-bold">New announcement</h1>
+  <%= form_for(@announcement) do |f| %>
+    <% # url: tasks_path, method: 'post' %>
+
+    <%= render(partial: 'form',locals: {f: f}) %>
+
+    <div class="form-buttons">
+      <%= f.submit("Create Book") %>
+    </div>
+
+  <% end %>
+
+<div>
+  <%= link_to "Back to announcements", announcements_path %>
+</div>

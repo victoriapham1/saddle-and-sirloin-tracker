@@ -1,0 +1,10 @@
+<%# TODO: Make page responsive to size: https://tailwindcss.com/docs/responsive-design %>
+
+<div class="max-w-7xl mx-auto mt-10">
+
+  <h1 style="font-size: 35px;">Member Directory</h1>
+  <%#<%= link_to "Add New Member", new_user_path %>
+  <br><br>
+    <%= render "user", users: @users %>
+</div>
+

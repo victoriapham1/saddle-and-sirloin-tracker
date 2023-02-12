@@ -13,3 +13,26 @@
  *= require_tree .
  *= require_self
  */
+
+.even {
+    background: white;
+}
+
+.odd {
+    background: #dedede;
+}
+
+/* Arrows for sorting table. */
+.pretty th .current {
+    padding-right: 25px;
+    background-repeat: no-repeat;
+    background-position: right center;
+}
+
+.pretty th .asc {
+    background-image: url("./arrow-up.gif");
+}
+
+.pretty th .desc {
+    background-image: url("./arrow-down.gif");
+}

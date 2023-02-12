@@ -1,0 +1,10 @@
+<h1>Announcement: <%= @announcement.title %></h1>
+<%= render @announcement %>
+
+<div>
+  <%= link_to "Edit announcement", edit_announcement_path(@announcement) %> |
+  <%= link_to "Delete announcement", delete_announcement_path(@announcement) %> 
+  <br>
+  <br>
+  <%= link_to "Back to announcements", announcements_path %>
+</div>
