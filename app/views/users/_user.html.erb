@@ -28,10 +28,8 @@
         <tbody class="text-gray-700">
             <% @users.each do |user| %>
                 <tr class="<%= cycle("even", "odd") %>">
-                <%# TODO: Connect UIN to member page.
-                <%# <td class="text-left py-3 px-6"><%= link_to user.uin, edit_user_path(user), class: 'action show' %></td>
-                <td class="text-left py-3 px-6"><%= user.uin %></td>
-
+                <%# TODO: Styling for edit user page%>
+                <td class="text-left py-3 px-6"><%= link_to user.uin, edit_user_path(user), class: 'action show' %></td>
                 <td class="text-left py-3 px-6"><%= user.first_name %></td>
                 <td class="text-left py-3 px-6"><%= user.last_name %></td>
                 <td class="text-left py-3 px-6">
