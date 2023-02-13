@@ -1,8 +1,0 @@
-<%# OATH %>
-<div class="grid h-screen place-items-center">
-    <h2 class="text-3xl font-bold text-center">You're Logged out!<br> Log in to the Admin Dashboard</h2>
-     <%# <%= link_to "Sign in with Google", admin_google_oauth2_omniauth_authorize_path, method: :post  %>
-     <%= button_to admin_google_oauth2_omniauth_authorize_path, class: "btn btn-danger", method: :post, data: {turbo: "false"} do %>
-        <p class = "underline">Sign in</p>
-    <% end %>
-</div>
