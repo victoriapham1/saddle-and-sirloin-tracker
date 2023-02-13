@@ -8,6 +8,7 @@ class PollingsController < ApplicationController
 
   # GET /pollings/1 or /pollings/1.json
   def show
+    @polling = Polling.find(params[:id])
   end
 
   # GET /pollings/new
@@ -17,6 +18,7 @@ class PollingsController < ApplicationController
 
   # GET /pollings/1/edit
   def edit
+    @polling = Polling.find(params[:id])
   end
 
   # POST /pollings or /pollings.json

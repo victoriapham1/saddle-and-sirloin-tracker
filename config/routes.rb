@@ -19,6 +19,12 @@ Rails.application.routes.draw do
     end
   end
   
+  resources :pollings do 
+    member do
+      get :delete
+    end
+  end
+  
   resources :users
   
   match 'calendar', to: 'announcements#calendar', via: :get
