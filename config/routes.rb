@@ -13,6 +13,13 @@ Rails.application.routes.draw do
     end
   end
 
+  # Routes for committes
+  resources :committees do
+    member do
+      get :delete
+    end
+  end
+
   match 'calendar', to: 'announcements#calendar', via: :get
 
   #OATH
