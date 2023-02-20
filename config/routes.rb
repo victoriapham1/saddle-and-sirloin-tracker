@@ -1,24 +1,41 @@
 Rails.application.routes.draw do
   root "dashboards#show"
 
+  # Routes for annoucements
   resources :announcements do 
     member do
       get :delete
     end
   end
 
+  # TODO DELETE BOOK COLLECTION
   resources :books do 
     member do
       get :delete
     end
   end
 
-  resources :users do
+  # Routes for committees
+  resources :committees do
+      member do
+      get :delete
+    end
+  end
+
+resources :users do
     member do
       get :delete
     end
   end
 
+
+  # Routes for events
+  resources :events do
+    member do
+      get :delete
+    end
+  end
+  
   match 'calendar', to: 'announcements#calendar', via: :get
 
   #OATH
@@ -31,10 +48,4 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  # root "articles#index"
-  resources :events do
-    member do
-      get :delete
-    end
-  end
 end
