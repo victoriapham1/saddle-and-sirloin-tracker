@@ -1,0 +1,64 @@
+<div id="users">
+    <%# Display all members in table format%> 
+    <table style="width: 75%; margin-left: auto; margin-right: auto;">
+        <thead>
+            <tr>
+                <th 
+                    id="users-uin" 
+                > 
+                    <%= sortable "uin" %></th>
+                <th 
+                    id="users-first_name"
+                >
+                    <%= sortable "first_name", "First Name" %></th>
+                </th>
+                <th 
+                    id="users-last_name"
+                >
+                    <%= sortable "last_name", "Last Name" %></th>
+                </th>
+                <th id="users-classify">Year</th>
+                <th id="users-email">Email</th>
+                <th id="users-phone">Phone</th>
+                <th id="users-role">Role</th>
+                <th id="users-activate">Active</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% @users.each do |user| %>
+                <tr class="<%= cycle("even", "odd") %>">
+                <td><%= link_to user.uin, edit_user_path(user), class: 'action show' %></td>
+                <td><%= user.first_name %></td>
+                <td><%= user.last_name %></td>
+                <td>
+                    <% if user.classify == 1 -%>
+                        U1
+                    <% elsif user.classify == 2 -%>
+                        U2
+                    <% elsif user.classify == 3 -%>
+                        U3
+                    <% elsif user.classify == 4 -%>
+                        U4
+                    <% else -%>
+                        G
+                    <% end -%>
+                </td>
+                <td><%= user.email %></td>
+                <td><%= number_to_phone(user.phone) %></td>
+                <td>
+                <% if user.role == 1 -%>
+                        Officer
+                    <% elsif user.role == 2 -%>
+                        Committee
+                    <% else -%>
+                        Member
+                    <% end -%>
+                </td>
+                <td><%= check_box_tag 'isActive', 'true', user.isActive, id: 'isActive' %></td>
+                </tr>
+            <% end %>
+    </tbody>
+
+    </table>
+</div>
