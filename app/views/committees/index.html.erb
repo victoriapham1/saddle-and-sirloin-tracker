@@ -1,0 +1,24 @@
+<h1>Committee</h1>
+<%= link_to "Dashboard", "/" %>
+<br>
+<%= link_to "Add New Committee", new_committee_path %>
+
+<%# Display the index view of the committes in table format %>
+<table class="listing" summary="Committee list" style="width: 75%; margin-left: auto; margin-right: auto;">
+  <tr class="header">
+    <th>Name</th>
+    <th>Description</th>
+    <th></th>
+  </tr>
+
+  <% @committees.each do |committee| %>
+    <tr>
+      <td><%= link_to committee.committee_name, edit_committee_path(committee), class: 'action show' %></td>
+      <td><%= committee.description %></td>
+      <td class="actions"> 
+        <%= button_to "Delete", committee, method: :delete %>
+      <td>
+    </tr>
+  <% end %>
+
+</table>
