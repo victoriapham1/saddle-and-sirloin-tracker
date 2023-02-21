@@ -29,15 +29,26 @@
             <%# Customer Logo (/app/assets/images) %>
             <%= link_to image_tag("SnS.jfif", height: 40, width: 40), "/"  %> 
           </li>
-          <li class="p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100 hover:text-maroon duration-200 cursor-pointer active">
-            <%= link_to "Announcements", announcements_path %>
-          </li>
-          <li class="p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100 hover:text-maroon duration-200 cursor-pointer active">
-            <%= link_to "Events", events_path %>
-          </li>
-          <li class="p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100 hover:text-maroon duration-200 cursor-pointer active">
-            <%= link_to "Calendar", calendar_path %>
-          </li>
+          <a href="/announcements">
+            <li class="p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100
+            hover:text-maroon duration-200 cursor-pointer active">Announcements</li>
+          </a>
+          <a href="/events">
+            <li class="p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100
+            hover:text-maroon duration-200 cursor-pointer active">Events</li>
+          </a>
+          <a href="/calendar">
+            <li class="p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100
+            hover:text-maroon duration-200 cursor-pointer active">Calendar</li>
+          </a>
+          <a href="/committees">
+            <li class="p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100
+            hover:text-maroon duration-200 cursor-pointer active">Committees</li>
+          </a>
+          <a href="/users">
+            <li class="p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100
+            hover:text-maroon duration-200 cursor-pointer active">Members</li>
+          </a>
         </ul>
       </nav>
       
