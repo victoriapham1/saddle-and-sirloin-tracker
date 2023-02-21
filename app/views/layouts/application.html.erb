@@ -11,7 +11,7 @@
     <%= javascript_importmap_tags %>
 
     <style>
-        /* OATH */
+        /* OAUTH */
         .flash__alert   { color: red; }
         .flash__notice  { color: blue; }
         .flash__success { color: green; }
@@ -19,18 +19,53 @@
 
   </head>
 
+ <%# Displays the nav bar on all pages EXCEPT sign in  %>
+  <% if !current_page?("/admins/sign_in") %>
+    <header class="header sticky top-0 bg-white shadow-md flex items-center justify-between px-8 py-02">
+      <!-- navigation -->
+      <nav class="nav font-semibold text-lg">
+        <ul class="flex items-center">
+          <li>
+            <%# Customer Logo (/app/assets/images) %>
+            <%= link_to image_tag("SnS.jfif", height: 40, width: 40), "/"  %> 
+          </li>
+          <li class="p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100 hover:text-maroon duration-200 cursor-pointer active">
+            <%= link_to "Announcements", announcements_path %>
+          </li>
+          <li class="p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100 hover:text-maroon duration-200 cursor-pointer active">
+            <%= link_to "Events", events_path %>
+          </li>
+          <li class="p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100 hover:text-maroon duration-200 cursor-pointer active">
+            <%= link_to "Calendar", calendar_path %>
+          </li>
+        </ul>
+      </nav>
+      
+      <!-- profile picture/sign-out -->
+      <div class="w-3/12 flex justify-end mr-4">
+        <div class="group dropdown relative font-semibold">
+          <label tabindex="0"><img class="rounded-full w-11 h-11 cursor-pointer" src=<%= current_admin.avatar_url %> referrerpolicy="no-referrer"/></label>
+          <ul tabindex="0" class="absolute hidden group-hover:block bg-white shadow-md w-20 mr-3">
+            <li class="cursor-pointer h-8 text-center bg-white hover:text-maroon duration-200"><a><%= link_to "Sign Out", destroy_admin_session_path %><a></li>
+          </ul>
+        </div>
+
+    </header>
+  <% end %>
+  
+
+
+  <%# Oauth action alerts %>
+  <% if flash.any? %>
+    <% flash.each do |key, value| -%>
+      <section class="flash flash__<%= key %>"><%= value.html_safe %></section>
+    <% end -%>
+  <% end %>
+
   <body>
-
-      <%# Added for OATH! %>
-    <% if flash.any? %>
-      <% flash.each do |key, value| -%>
-        <section class="flash flash__<%= key %>"><%= value.html_safe %></section>
-      <% end -%>
-    <% end %>
-
-    <%# <main class="container mx-auto mt-28 px-5 flex"> %>
     <main>
       <%= yield %>
     </main>
+
   </body>
 </html>
