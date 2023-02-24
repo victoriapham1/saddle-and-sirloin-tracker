@@ -1,5 +1,14 @@
 <h1 class="text-3xl font-bold">Member Directory</h1>
-<%= link_to "Add New Member", new_user_path %>
+
+<%# Search bar %>
+<div class="search">
+    <%= form_tag(users_path, method: :get) do %>
+        <%= text_field_tag :search, params[:search], placeholder: "Enter name or surname..." %>
+    <%= submit_tag 'Search', name: nil %>
+    <% end %>
+</div> 
+
 <br><br>
-  <%= render "user", users: @users %>
+<div>
+<%= render "user", users: @users %>
 </div>

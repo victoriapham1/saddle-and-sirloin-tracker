@@ -3,7 +3,18 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
 
   def index
-    @users = User.order(sort_column + " " + sort_direction)
+    # Search bar
+    if params[:search]
+      # Only able to search first OR last name
+      # search_term = params[:search].downcase.gsub(/\s+/, "")
+      # @users = User.order(sort_column + " " + sort_direction).select { |user| user.first_name.downcase.include?(search_term) ||  user.last_name.downcase.include?(search_term) }
+
+      # Able to search for first, last or both
+      @users = User.order(sort_column + " " + sort_direction).where("CONCAT_WS(' ', first_name, last_name) ILIKE ?", "%#{params[:search].strip.downcase}%")
+
+    else
+      @users = User.order(sort_column + " " + sort_direction)
+    end
   end
 
   def new
@@ -41,5 +52,5 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :uin, :email, :phone, :password, :classify, :isActive, :role)
-  end
+  end 
 end
