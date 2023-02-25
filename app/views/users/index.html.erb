@@ -6,9 +6,18 @@
         <%= text_field_tag :search, params[:search], placeholder: "Enter name or surname..." %>
     <%= submit_tag 'Search', name: nil %>
     <% end %>
-</div> 
+</div>
 
 <br><br>
 <div>
+<%# Allow for altering size of table %>
+Show <%= select_tag :per_page, options_for_select([10, 20, 50, 100], params[:per_page].to_i),
+       :onchange => "if(this.value){window.location='?per_page='+this.value;}" %> entries
 <%= render "user", users: @users %>
+
+<%# Paginate users table %>
+<br>
+<div class="mx-auto text-center my-4">
+  <%= will_paginate @users %>
+</div>
 </div>
