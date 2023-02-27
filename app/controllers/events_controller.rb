@@ -2,6 +2,8 @@ class EventsController < ApplicationController
       # GET /books or /books.json
   def index
     @events = Event.all
+    # @events = Event.search(params[:search])
+    @events = Event.search(params[:search], params[:category])
   end
 
   # GET /books/1 or /books/1.json
@@ -67,6 +69,6 @@ class EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.require(:event).permit(:name, :date, :event_type, :description)
+      params.require(:event).permit(:name, :date, :event_type, :description, :search)
     end
 end
