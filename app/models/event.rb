@@ -3,6 +3,8 @@ class Event < ApplicationRecord
     validates :date, presence: true
     validates :event_type, presence: true
     validates :description, presence: true
+    validates :start_time, presence: false
+    validates :end_time, presence: false
 
     TYPE = {
         "Service" => 1,
