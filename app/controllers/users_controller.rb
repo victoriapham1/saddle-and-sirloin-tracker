@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authorize_user
   helper_method :sort_column, :sort_direction
   before_action :set_user, only: %i[ show edit update destroy ]
 
@@ -8,6 +9,34 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+  end
+
+  def create
+    @user = User.new(new_user_params)
+    @user.email = current_admin.email
+    @user.password = current_admin.uid
+    @user.role = "0"
+    
+
+    #Don't allow duplicate user creation (Unique user per email)
+    if(User.find_by(email: @user.email))
+      puts("USER EXISTS!") #Show error here
+    #DEBUG
+    # puts("USER CLASSIFY: " + @user.classify.to_s)
+    else
+      respond_to do |format|
+        if @user.save
+          @error = false
+          format.html { redirect_to users_path, notice: "User was successfully created." }
+          format.json { render :show, status: :created, location: @user }
+        else
+          puts(@user.errors.inspect)
+          @error = true
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
+      end
+    end
   end
 
   def edit
@@ -41,5 +70,20 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :uin, :email, :phone, :password, :classify, :isActive, :role)
+  end
+
+  #Select only non-default values from new user creation
+  def new_user_params
+    params.require(:user).permit(:first_name, :last_name, :uin, :phone, :classify)
+  end
+
+  # Verify User has created thier profile. Redirect to create profile if not
+  def authorize_user
+    #Prevents infinite routing loop, allows the new route to execute without calling this function
+    if request.env['PATH_INFO'] != '/users/new'
+      if User.find_by(email: current_admin.email) == nil
+        redirect_to :controller => 'users', :action => 'new'
+      end
+    end
   end
 end

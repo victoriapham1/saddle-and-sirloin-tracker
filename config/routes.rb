@@ -9,11 +9,11 @@ Rails.application.routes.draw do
   end
 
   # TODO DELETE BOOK COLLECTION
-  resources :books do 
-    member do
-      get :delete
-    end
-  end
+  # resources :books do 
+  #   member do
+  #     get :delete
+  #   end
+  # end
 
   # Routes for committees
   resources :committees do
