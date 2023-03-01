@@ -8,7 +8,7 @@ class Event < ApplicationRecord
 
     TYPE = {
         "Service" => 1,
-        "Meetings" => 2,
+        "Meeting" => 2,
         "Social" => 3
     }
 

@@ -1,1 +1,1 @@
-<h2 class = "text-right"><%= event.start_time.to_s(:time)%> - <%=event.end_time.to_s(:time) %></h2>
+<h3 class = <%=locals[:style]%>><%= locals[:event].start_time.to_s(:time)%> - <%= locals[:event].end_time.to_s(:time) %></h3>
