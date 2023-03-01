@@ -4,7 +4,15 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
 
   def index
-    @users = User.order(sort_column + " " + sort_direction)
+    # Search bar
+    @per_page = params[:per_page] || User.per_page || 10
+    if params[:search]
+      # Able to search for first, last or both (where)
+      # Paginate splits table (paginate)
+      @users = User.order(sort_column + " " + sort_direction).where("CONCAT_WS(' ', first_name, last_name) ILIKE ?", "%#{params[:search].strip.downcase}%").paginate( :per_page => @per_page, :page => params[:page])
+    else
+      @users = User.order(sort_column + " " + sort_direction).paginate( :per_page => @per_page, :page => params[:page])
+    end
   end
 
   def new

@@ -7,4 +7,9 @@ class User < ApplicationRecord
     validates :isActive, presence: true, allow_blank: true
     validates :role, presence: true
     validates :classify, presence: true
+
+    # Set page to default of size 10 - will change.
+    def self.per_page
+        10
+    end
 end
