@@ -1,5 +1,6 @@
 class CommitteesController < ApplicationController
-  before_action :set_committee, only: %i[ show edit update destroy ]
+  before_action :authorize_user
+  before_action :set_committee, only: %i[ show edit update destroy ] 
 
   def index
     @committees = Committee.all
@@ -60,5 +61,12 @@ class CommitteesController < ApplicationController
 
   def committee_params
     params.require(:committee).permit(:committee_name, :description)
+  end
+
+  # Verify User has created thier profile. Redirect to create profile if not
+  def authorize_user
+    if User.find_by(email: current_admin.email) == nil
+      redirect_to :controller => 'users', :action => 'new'
+    end
   end
 end
