@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  before_action :authorize_user
       # GET /books or /books.json
   def index
     @events = Event.all
@@ -68,5 +69,12 @@ class EventsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def event_params
       params.require(:event).permit(:name, :date, :event_type, :description)
+    end
+
+    # Verify User has created thier profile. Redirect to create profile if not
+    def authorize_user
+      if User.find_by(email: current_admin.email) == nil
+        redirect_to :controller => 'users', :action => 'new'
+      end
     end
 end
