@@ -83,3 +83,6 @@ gem 'brakeman'
 gem 'rubocop'
 gem "tailwindcss-rails", "~> 2.0"
 gem 'rake'
+
+# Allow for paginate data
+gem 'will_paginate', '~> 3.3'

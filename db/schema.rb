@@ -83,11 +83,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_28_170644) do
     t.string "email"
     t.string "phone"
     t.string "password"
-    t.boolean "isActive"
+    t.boolean "isActive", default: false
     t.integer "role"
     t.integer "classify"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "isRequesting", default: true
   end
 
 end
