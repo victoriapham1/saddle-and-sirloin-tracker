@@ -1,5 +1,10 @@
-<%#= render "nav-bar" %>
-<h1>Events new</h1>
+<div class="container mx-auto">
+    <br>
+    <h1 class="text-3xl font-bold">New Event</h1>
+    <br>
+</div>
+
+<div class="container mx-auto">
 <%= form_for(@event) do |form| %>
   <% if @event.errors.any? %>
     <div style="color: red">
@@ -11,33 +16,48 @@
         <% end %>
       </ul>
     </div>
+    <br>
   <% end %>
 
   <div>
     <%= form.label :name, style: "display: block" %>
-    <%= form.text_field(:name) %>
+    <%= form.text_field(:name, placeholder: "Event Name") %>
   </div>
 
   <div>
     <br>
     <%= form.label :date, style: "display: block" %>
-    <%= form.text_field(:date) %>
+    <%= form.date_select :date %>
+  </div>
+
+  <div>
+    <br>
+    <%= form.label :start_time, style: "display: block" %>
+    <%= form.time_select(:start_time) %>
+  </div>
+
+  <div>
+    <br>
+    <%= form.label :end_time, style: "display: block" %>
+    <%= form.time_select(:end_time) %>
   </div>
 
   <div>
     <br>
     <%= form.label :event_type, style: "display: block" %>
-    <%= form.text_field(:event_type) %>
+    <%= form.select :event_type, [["Service", 1], ["Meeting", 2], ["Social", 3]] %>
   </div>
 
   <div>
     <br>
     <%= form.label :description, style: "display: block" %>
-    <%= form.text_field(:description) %>
+    <%= form.text_field(:description,  placeholder: "Description") %>
   </div>
 
   <div>
     <br>
     <%= form.submit %>
   </div>
-<% end %>
+  <% end %>
+</div>
+  
