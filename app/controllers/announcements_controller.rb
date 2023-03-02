@@ -1,4 +1,6 @@
 class AnnouncementsController < ApplicationController
+  before_action :authorize_user
+
   def index
     @announcements = Announcement.all
   end
@@ -58,6 +60,12 @@ class AnnouncementsController < ApplicationController
   private
     def announcement_params
       params.require(:announcement).permit(:title, :description)
+    end
+
+    def authorize_user
+      if User.find_by(email: current_admin.email) == nil
+        redirect_to :controller => 'users', :action => 'new'
+      end
     end
 
 end

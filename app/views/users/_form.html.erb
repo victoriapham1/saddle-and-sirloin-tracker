@@ -2,9 +2,9 @@
     <%# Checks if users inputted has all necessary attributes.%> 
     <% if user.errors.any? %>
       <div style="color: red">
-        <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+        <h2 class="text-3xl font-bold absolute"><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
   
-        <ul>
+        <ul class="absolute top-24">
           <% user.errors.each do |error| %>
             <li><%= error.full_message %></li>
           <% end %>
@@ -12,36 +12,48 @@
       </div>
     <% end %>
   
-    <div>
+    <br><br>
+
+    <div class="text-center">
       <%= form.label :first, style: "display: block" %>
       <%= form.text_field(:first_name) %>
     </div>
   
-    <div>
+    <div class="text-center">
       <br>
       <%= form.label :last, style: "display: block" %>
       <%= form.text_field(:last_name) %>
     </div>
   
-    <div>
+    <div class="text-center">
       <br>
       <%= form.label :uin, style: "display: block" %>
       <%= form.text_field(:uin) %>
     </div>
   
-    <div>
+    <div class="text-center">
       <br>
       <%= form.label :phone, style: "display: block" %>
       <%= form.text_field(:phone) %>
     </div>
-  
-    <div>
+
+    <div class="text-center">
       <br>
-      <%= form.label :email, style: "display: block" %>
-      <%= form.text_field(:email) %>
+      <%# Map each selection to enumerated val %>
+      <% arr = ['Freshman','Sophmore','Junior','Senior']
+        options = arr.map.with_index { |gd,idx| [gd, idx+1]}
+      %>
+      <%= form.label :class, style: "display: block"%>
+      <%= form.select :classify, options%>
     </div>
   
-    <div>
+    <div class="text-center">
+      <br>
+      <%= form.label :email, style: "display: block" %>
+      <%= current_admin.email %>
+    </div>
+
+    <div class="text-center">
       <br>
       <%= form.submit %>
     </div>

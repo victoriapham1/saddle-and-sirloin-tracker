@@ -3,25 +3,29 @@
     <table style="width: 75%; margin-left: auto; margin-right: auto;">
         <thead>
             <tr>
-                <th 
-                    id="users-uin" 
-                > 
+                <th id="users-uin" > 
                     <%= sortable "uin" %></th>
-                <th 
-                    id="users-first_name"
-                >
+                <th id="users-first_name">
                     <%= sortable "first_name", "First Name" %></th>
                 </th>
-                <th 
-                    id="users-last_name"
-                >
+                <th id="users-last_name">
                     <%= sortable "last_name", "Last Name" %></th>
                 </th>
-                <th id="users-classify">Year</th>
-                <th id="users-email">Email</th>
-                <th id="users-phone">Phone</th>
-                <th id="users-role">Role</th>
-                <th id="users-activate">Active</th>
+                <th id="users-classify">
+                    <%= sortable "classify", "Year" %></th>
+                </th>
+                <th id="users-email">
+                    <%= sortable "email", "Email" %></th>
+                </th>
+                <th id="users-phone">
+                    <%= sortable "phone", "Phone" %></th>
+                </th>
+                <th id="users-role">
+                    <%= sortable "role", "Role" %></th>
+                </th>
+                <th id="users-activate">
+                    <%= sortable "isActive", "Active" %></th>
+                </th>
             </tr>
         </thead>
 
