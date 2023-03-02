@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authorize_user
+  before_action :authorize_user, except: [:new, :create]
   helper_method :sort_column, :sort_direction
   before_action :set_user, only: %i[ show edit update destroy ]
 
@@ -87,11 +87,8 @@ class UsersController < ApplicationController
 
   # Verify User has created thier profile. Redirect to create profile if not
   def authorize_user
-    #Prevents infinite routing loop, allows the new route to execute without calling this function
-    if request.env['PATH_INFO'] != '/users/new'
-      if User.find_by(email: current_admin.email) == nil
-        redirect_to :controller => 'users', :action => 'new'
-      end
+    if User.find_by(email: current_admin.email) == nil
+      redirect_to :controller => 'users', :action => 'new'
     end
   end
 end
