@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   end
 
   #routes for user-events
-  resources :user_events do
+  resources :user_event do
     member do
       post :create
     end

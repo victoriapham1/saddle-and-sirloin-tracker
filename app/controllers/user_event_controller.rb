@@ -4,10 +4,12 @@ class UserEventController < ApplicationController
 
   def create
     @user_event = UserEvent.new(user_event_params)
-
+    @user = User.where(uin: @user_event.user_id).first
+    @user_event.user_id = @user.id
+    @event = Event.where(id: @user_event.event_id)
     respond_to do |format|
       if @user_event.save
-        format.html { redirect_to event_url(@event), notice: "Event was successfully created." }
+        format.html { redirect_to event_url(@event), notice: "Attendance recorded" }
         format.json { render :show, status: :created, location: @event }
       else
         format.html { render :new, status: :unprocessable_entity }
