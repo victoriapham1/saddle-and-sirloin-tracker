@@ -1,0 +1,304 @@
+Inspecting 73 files
+...C.C.CC.C.C.C...............CCC...CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC......
+
+Offenses:
+
+app/controllers/admins/omniauth_callbacks_controller.rb:7:27: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        flash[:success] = t 'devise.omniauth_callbacks.success', kind: 'Google'
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/admins/omniauth_callbacks_controller.rb:8:9: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        sign_in_and_redirect admin, event: :authentication
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/admins/omniauth_callbacks_controller.rb:10:25: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        flash[:alert] = t 'devise.omniauth_callbacks.failure', kind: 'Google', reason: "#{auth.info.email} is not authorized."
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/admins/omniauth_callbacks_controller.rb:11:9: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        redirect_to new_admin_session_path
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/announcements_controller.rb:14:7: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+      redirect_to announcements_path
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/announcements_controller.rb:17:9: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        redirect_to announcements_path, notice: "Announcement created."
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/announcements_controller.rb:34:7: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+      redirect_to announcement_path(@announcement), notice: "Announcement updated."
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/announcements_controller.rb:52:5: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+    redirect_to announcements_path, notice: "Announcement was successfully destroyed."
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/books_controller.rb:30:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.html { redirect_to book_url(@book), notice: "Book was successfully created." }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/books_controller.rb:31:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.json { render :show, status: :created, location: @book }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/books_controller.rb:33:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.html { render :new, status: :unprocessable_entity }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/books_controller.rb:34:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.json { render json: @book.errors, status: :unprocessable_entity }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/books_controller.rb:43:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.html { redirect_to book_url(@book), notice: "Book was successfully updated." }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/books_controller.rb:44:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.json { render :show, status: :ok, location: @book }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/books_controller.rb:46:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.html { render :edit, status: :unprocessable_entity }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/books_controller.rb:47:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.json { render json: @book.errors, status: :unprocessable_entity }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/books_controller.rb:60:5: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+    redirect_to books_path, notice: "Book was successfully destroyed."
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/committees_controller.rb:25:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.html { redirect_to committees_path, notice: "Committee was successfully created." }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/committees_controller.rb:26:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.json { render :show, status: :created, location: @committee }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/committees_controller.rb:28:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.html { render :new, status: :unprocessable_entity }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/committees_controller.rb:29:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.json { render json: @committee.errors, status: :unprocessable_entity }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/committees_controller.rb:37:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.html { redirect_to committees_path, notice: "Committee was successfully updated." }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/committees_controller.rb:38:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.json { render :show, status: :ok, location: @committee }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/committees_controller.rb:40:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.html { render :edit, status: :unprocessable_entity }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/committees_controller.rb:41:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.json { render json: @committee.errors, status: :unprocessable_entity }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/committees_controller.rb:53:5: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+    redirect_to committees_path, notice: "Committee was successfully deleted."
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/events_controller.rb:28:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.html { redirect_to event_url(@event), notice: "Event was successfully created." }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/events_controller.rb:29:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.json { render :show, status: :created, location: @event }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/events_controller.rb:31:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.html { render :new, status: :unprocessable_entity }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/events_controller.rb:32:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.json { render json: @event.errors, status: :unprocessable_entity }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/events_controller.rb:42:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.html { redirect_to event_url(@event), notice: "Event was successfully updated." }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/events_controller.rb:43:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.json { render :show, status: :ok, location: @event }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/events_controller.rb:45:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.html { render :edit, status: :unprocessable_entity }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/events_controller.rb:46:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.json { render json: @event.errors, status: :unprocessable_entity }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/events_controller.rb:59:5: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+    redirect_to events_path, notice: "Event was successfully destroyed."
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/users_controller.rb:20:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.html { redirect_to users_path, notice: "User was successfully updated." }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/users_controller.rb:21:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.json { render :show, status: :ok, location: @user }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/users_controller.rb:23:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.html { render :edit, status: :unprocessable_entity }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/controllers/users_controller.rb:24:23: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/helpers/application_helper.rb:6:9: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+        link_to title, {:sort => column, :direction => direction}, {:class => css_class}
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/views/books/_book.json.jbuilder:1:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+json.extract! book, :id, :title, :created_at, :updated_at
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/views/books/_book.json.jbuilder:2:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+json.url book_url(book, format: :json)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/views/books/index.json.jbuilder:1:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+json.array! @books, partial: "books/book", as: :book
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app/views/books/show.json.jbuilder:1:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+json.partial! "books/book", book: @book
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/helpers/announcements_helper_spec.rb:13:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe AnnouncementsHelper, type: :helper do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/helpers/committees_helper_spec.rb:13:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe CommitteesHelper, type: :helper do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/helpers/events_helper_spec.rb:13:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe EventsHelper, type: :helper do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/helpers/polls_helper_spec.rb:13:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe PollsHelper, type: :helper do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/helpers/users_helper_spec.rb:13:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe UsersHelper, type: :helper do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/models/admin_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe Admin, type: :model do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/models/announcement_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe Announcement, type: :model do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/models/announcement_spec.rb:8:7: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+      expect(ann).to eq(false)
+      ^^^^^^^^^^^^^^^^^^^^^^^^
+spec/models/announcement_spec.rb:13:7: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+      expect(ann).to eq(false)
+      ^^^^^^^^^^^^^^^^^^^^^^^^
+spec/models/committee_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe Committee, type: :model do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/models/committee_spec.rb:9:7: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+      expect(com).to eq(false)
+      ^^^^^^^^^^^^^^^^^^^^^^^^
+spec/models/committee_spec.rb:15:7: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+      expect(com).to eq(false)
+      ^^^^^^^^^^^^^^^^^^^^^^^^
+spec/models/committee_spec.rb:21:7: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+      expect(com).to eq(true)
+      ^^^^^^^^^^^^^^^^^^^^^^^
+spec/models/event_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe Event, type: :model do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/models/event_spec.rb:9:7: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+      expect(event).to eq(false)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/models/event_spec.rb:14:7: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+      expect(event).to eq(false)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/models/event_spec.rb:22:7: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+      expect(event).to eq(false)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/models/event_spec.rb:27:7: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+      expect(event).to eq(false)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/models/poll_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe Poll, type: :model do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/models/user_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe User, type: :model do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/models/user_spec.rb:9:7: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+      expect(user).to eq(false)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/models/user_spec.rb:15:7: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+      expect(user).to eq(false)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/models/user_spec.rb:21:7: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+      expect(user).to eq(false)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/models/user_spec.rb:28:7: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+      expect(user).to eq(true)
+      ^^^^^^^^^^^^^^^^^^^^^^^^
+spec/rails_helper.rb:30:3: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+  abort e.to_s.strip
+  ^^^^^^^^^^^^^^^^^^
+spec/requests/committees_spec.rb:4:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe "Committees", type: :request do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/requests/events_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe "Events", type: :request do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/requests/polls_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe "Polls", type: :request do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/requests/users_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe "Users", type: :request do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/unit/unit_spec.rb:4:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe Book, type: :model do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/unit/unit_spec.rb:10:5: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+    expect(subject).to be_valid
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/unit/unit_spec.rb:15:5: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+    expect(subject).not_to be_valid
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/unit/unit_spec.rb:20:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe Book, type: :model do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/unit/unit_spec.rb:26:7: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+      expect(subject).to be_valid
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/unit/unit_spec.rb:31:7: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+      expect(subject).not_to be_valid
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/unit/unit_spec.rb:36:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe Book, type: :model do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/unit/unit_spec.rb:42:7: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+      expect(subject).to be_valid
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/unit/unit_spec.rb:47:7: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+      expect(subject).not_to be_valid
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/unit/unit_spec.rb:52:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe Book, type: :model do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/unit/unit_spec.rb:58:7: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+      expect(subject).to be_valid
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/unit/unit_spec.rb:63:7: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+      expect(subject).not_to be_valid
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/views/announcements/delete.html.tailwindcss_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe "announcements/delete.html.tailwindcss", type: :view do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/views/announcements/edit.html.tailwindcss_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe "announcements/edit.html.tailwindcss", type: :view do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/views/announcements/index.html.tailwindcss_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe "announcements/index.html.tailwindcss", type: :view do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/views/announcements/new.html.tailwindcss_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe "announcements/new.html.tailwindcss", type: :view do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/views/announcements/show.html.tailwindcss_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe "announcements/show.html.tailwindcss", type: :view do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/views/committees/delete.html.tailwindcss_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe "committees/delete.html.tailwindcss", type: :view do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/views/committees/edit.html.tailwindcss_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe "committees/edit.html.tailwindcss", type: :view do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/views/committees/index.html.tailwindcss_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe "committees/index.html.tailwindcss", type: :view do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/views/committees/new.html.tailwindcss_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe "committees/new.html.tailwindcss", type: :view do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/views/users/delete.html.tailwindcss_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe "users/delete.html.tailwindcss", type: :view do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/views/users/edit.html.tailwindcss_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe "users/edit.html.tailwindcss", type: :view do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/views/users/index.html.tailwindcss_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe "users/index.html.tailwindcss", type: :view do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/views/users/new.html.tailwindcss_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe "users/new.html.tailwindcss", type: :view do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+spec/views/users/show.html.tailwindcss_spec.rb:3:1: C: [Correctable] Style/MethodCallWithArgsParentheses: Use parentheses for method calls with arguments.
+RSpec.describe "users/show.html.tailwindcss", type: :view do
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+72 files inspected, 99 offenses detected, 99 offenses autocorrectable
