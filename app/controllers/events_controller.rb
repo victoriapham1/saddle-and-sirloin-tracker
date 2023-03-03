@@ -10,6 +10,7 @@ class EventsController < ApplicationController
   # GET /books/1 or /books/1.json
   def show
     @event = Event.find(params[:id])
+    @user_event = UserEvent.new(id: 4)
   end
 
   # GET /books/new

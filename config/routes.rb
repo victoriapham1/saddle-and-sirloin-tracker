@@ -8,12 +8,12 @@ Rails.application.routes.draw do
     end
   end
 
-  # TODO DELETE BOOK COLLECTION
-  # resources :books do 
-  #   member do
-  #     get :delete
-  #   end
-  # end
+  #routes for user-events
+  resources :user_events do
+    member do
+      post :create
+    end
+  end
 
   # Routes for committees
   resources :committees do
