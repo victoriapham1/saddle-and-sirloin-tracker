@@ -8,6 +8,9 @@ class User < ApplicationRecord
     validates :role, presence: true
     validates :classify, presence: true
 
+    has_many :user_events
+    has_many :events, through: :user_events
+
     # Set page to default of size 10 - will change.
     def self.per_page
         10
