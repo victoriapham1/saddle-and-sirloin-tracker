@@ -34,7 +34,7 @@
         <%= form.hidden_field :attendance, value: true %>
         <%= form.hidden_field :event_id, value: @event.id %>
         <%= form.label :user_id, style: "display: block" %>
-        <%= form.text_field(:user_id,  placeholder: "UIN") %>
+        <%= form.text_field(:user_id,  placeholder: "UIN", minlength: 9, maxlength: 9) %>
     </div>
 
     <div>
