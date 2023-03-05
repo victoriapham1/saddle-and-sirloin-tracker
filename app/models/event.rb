@@ -6,6 +6,9 @@ class Event < ApplicationRecord
     validates :start_time, presence: false
     validates :end_time, presence: false
 
+    has_many :user_events
+    has_many :users, :through => :user_events
+
     TYPE = {
         "Service" => 1,
         "Meeting" => 2,
