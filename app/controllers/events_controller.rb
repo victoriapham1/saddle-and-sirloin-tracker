@@ -59,7 +59,8 @@ class EventsController < ApplicationController
     client = get_google_calendar_client current_admin
     task = params[:event]
     event = get_event task
-    client.insert_event('primary', event)
+    ge = client.insert_event('primary', event)
+    params[:event][:google_event_id] = ge.id
     flash[:notice] = 'Event was successfully added.'
     @event = Event.new(event_params)
 
@@ -94,8 +95,12 @@ class EventsController < ApplicationController
   
   # DELETE /books/1 or /books/1.json
   def destroy
+    client = get_google_calendar_client current_admin
+    
     @event = Event.find(params[:id])
+    client.delete_event('primary',@event[:google_event_id])
     @event.destroy
+  
     redirect_to events_path, notice: "Event was successfully destroyed."
   end
 
@@ -109,6 +114,7 @@ class EventsController < ApplicationController
     event = Google::Apis::CalendarV3::Event.new(
       summary: task[:name],
       location: '275 Joe Routt Blvd, College Station, TX 77840',
+
       description: task[:description],
       start: {
         date_time: Time.new(task['date(1i)'],task['date(2i)'],task['date(3i)'],task['start_time(4i)'],task['start_time(5i)'],00).to_datetime,
@@ -131,7 +137,7 @@ class EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.require(:event).permit(:name, :date, :event_type, :description, :start_time, :end_time, :search)
+      params.require(:event).permit(:name, :date, :event_type, :description, :start_time, :end_time, :search,:google_event_id)
     end
 
     # Verify User has created thier profile. Redirect to create profile if not
