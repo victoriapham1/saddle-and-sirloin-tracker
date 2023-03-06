@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe UserEvent, type: :model do
+  
   context "validation tests" do
     it 'ensures user_id' do
       user_event = UserEvent.new(event_id: 3, attendance: true).save
