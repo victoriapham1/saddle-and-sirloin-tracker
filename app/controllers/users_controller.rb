@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authorize_user, except: [:new, :create]
+  before_action :unique_user, only: [:new]
   helper_method :sort_column, :sort_direction
   before_action :set_user, only: %i[ show edit update destroy ]
 
@@ -90,4 +91,12 @@ class UsersController < ApplicationController
       redirect_to :controller => 'users', :action => 'new'
     end
   end
+
+  #Only allow unique users to visit the create profile page
+  def unique_user
+    if User.find_by(email: current_admin.email) != nil
+      redirect_to :controller => 'users', :action => 'index'
+    end
+  end
+
 end

@@ -37,6 +37,8 @@ jobs:
             - uses: borales/actions-yarn@v3.0.0
               with:
                   cmd: install
+            - name: Precompile assets
+              run: rake tailwindcss:build
             - name: Run tests
               run: bundler exec rspec .
             - name: Run brakeman
