@@ -32,7 +32,7 @@ gem "devise"
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem "omniauth-rails_csrf_protection", "~> 1.0"
-
+gem 'google-apis-calendar_v3', '~> 0.1'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
