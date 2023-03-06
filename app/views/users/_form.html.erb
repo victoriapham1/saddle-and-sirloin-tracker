@@ -58,3 +58,16 @@
       <%= form.submit %>
     </div>
   <% end %>
+
+  <br>
+  <div class="text-center">
+    <%= form_for(@user) do |f| %>
+      <p>
+        <%= f.label :events%> Attended: <br />
+        <% for event in Event.all %>
+          <%= check_box_tag "user[event_ids][]", event.id, @user.events.include?(event) %>
+          <%=h event.name %><br />
+        <% end %>
+      </p>
+    <% end %>
+  </div>
