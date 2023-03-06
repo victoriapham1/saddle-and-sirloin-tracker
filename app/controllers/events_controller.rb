@@ -24,7 +24,7 @@ class EventsController < ApplicationController
   def edit
     @event = Event.find(params[:id])
   end
-
+  #gets the current client that is logged in right now with all of its tokens and information
   def get_google_calendar_client current_admin
     client = Google::Apis::CalendarV3::CalendarService.new
     return unless (current_admin.present? && current_admin.access_token.present? && current_admin.refresh_token.present?)
@@ -55,6 +55,7 @@ class EventsController < ApplicationController
     client
   end
   # POST /books or /books.json
+  #syncs the events made to the calendar
   def create
     client = get_google_calendar_client current_admin
     task = params[:event]
@@ -107,7 +108,7 @@ class EventsController < ApplicationController
  
 
   private
-
+# creates a google calendar event with all of the required fill ins from the events table. 
   def get_event task
     # puts task[:start_time].inspect
     

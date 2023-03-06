@@ -1,4 +1,5 @@
 class Admin < ApplicationRecord
+  #created a function that gets the access token 
   devise :omniauthable, omniauth_providers: [:google_oauth2]
   has_many :events
   def self.from_omniauth(access_token)

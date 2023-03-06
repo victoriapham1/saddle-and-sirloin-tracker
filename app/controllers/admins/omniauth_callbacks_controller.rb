@@ -1,5 +1,5 @@
 class Admins::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-
+# created a different google_oauth2 to contain all the required columns for the admin like refresh_token, access_token, and expires_at
   def google_oauth2
     @admin = Admin.from_omniauth(request.env["omniauth.auth"])
     if @admin.persisted?
