@@ -24,7 +24,6 @@ class UsersController < ApplicationController
     @user.email = current_admin.email
     @user.password = current_admin.uid
     @user.role = "0"
-    
 
     #Don't allow duplicate user creation (Unique user per email)
     if(User.find_by(email: @user.email))
@@ -77,7 +76,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :uin, :email, :phone, :password, :classify, :isActive, :role)
+    params.require(:user).permit(:first_name, :last_name, :uin, :email, :phone, :password, :classify, :isActive, :role, event_ids: [])
   end
 
   #Select only non-default values from new user creation

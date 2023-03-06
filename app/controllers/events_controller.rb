@@ -3,24 +3,25 @@ require "google/api_client/client_secrets.rb"
 class EventsController < ApplicationController
   CALENDAR_ID = 'primary'
   before_action :authorize_user
-      # GET /books or /books.json
+      # GET /events or /events.json
   def index
     @events = Event.all
     # @events = Event.search(params[:search])
     @events = Event.search(params[:search], params[:category])
   end
 
-  # GET /books/1 or /books/1.json
+  # GET /events/1 or /events/1.json
   def show
     @event = Event.find(params[:id])
+    @user_event = UserEvent.new
   end
 
-  # GET /books/new
+  # GET /events/new
   def new
-    @event = Event.new
+    @event = Event.new()
   end
 
-  # GET /books/1/edit
+  # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
   end
@@ -54,7 +55,8 @@ class EventsController < ApplicationController
     end
     client
   end
-  # POST /books or /books.json
+
+  # POST /events or /events.json
   def create
     client = get_google_calendar_client current_admin
     task = params[:event]
@@ -75,7 +77,7 @@ class EventsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /books/1 or /books/1.json
+  # PATCH/PUT /events/1 or /events/1.json
   def update
     @event = Event.find(params[:id])
     respond_to do |format|
