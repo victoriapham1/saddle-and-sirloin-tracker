@@ -50,7 +50,8 @@
     <div class="text-center">
       <br>
       <%= form.label :email, style: "display: block" %>
-      <%= user.email %>
+      <%# Checks if user email exists to display on user profile OR display current new user's email if new user.%> 
+      <%= user.email || current_admin.email %>
     </div>
 
     <div class="text-center">
@@ -59,6 +60,7 @@
     </div>
   <% end %>
 
+  <%# List out all events and maps which events a user has been to in the user profile.%> 
   <br>
   <div class="text-center">
     <%= form_for(@user) do |f| %>
