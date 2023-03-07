@@ -3,13 +3,16 @@ require 'rails_helper'
 # Specs in this file have access to a helper object that includes
 # the UsersHelper. For example:
 #
-# describe UsersHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
+describe UsersHelper do
+     describe "sunny day" do
+          it "the event created should show on the google calendar page" do
+               event = Event.new(name: "Cookout", date: '12/12/2012', description: "cookout where you can meet fellow members.").save
+
+               gets '/calendar'
+               expect(page).to(have_content("Cookout"))
+          end
+     end
+end
 
 # Currently do not utilize the UsersHelper
 # RSpec.describe UsersHelper, type: :helper do

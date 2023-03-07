@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: %i[ show edit update destroy ]
+  before_action :set_book, only: %i[show edit update destroy]
 
   # GET /books or /books.json
   def index
@@ -27,11 +27,11 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       if @book.save
-        format.html { redirect_to book_url(@book), notice: "Book was successfully created." }
-        format.json { render :show, status: :created, location: @book }
+        format.html { redirect_to(book_url(@book), notice: "Book was successfully created.") }
+        format.json { render(:show, status: :created, location: @book) }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @book.errors, status: :unprocessable_entity }
+        format.html { render(:new, status: :unprocessable_entity) }
+        format.json { render(json: @book.errors, status: :unprocessable_entity) }
       end
     end
   end
@@ -40,11 +40,11 @@ class BooksController < ApplicationController
   def update
     respond_to do |format|
       if @book.update(book_params)
-        format.html { redirect_to book_url(@book), notice: "Book was successfully updated." }
-        format.json { render :show, status: :ok, location: @book }
+        format.html { redirect_to(book_url(@book), notice: "Book was successfully updated.") }
+        format.json { render(:show, status: :ok, location: @book) }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @book.errors, status: :unprocessable_entity }
+        format.html { render(:edit, status: :unprocessable_entity) }
+        format.json { render(json: @book.errors, status: :unprocessable_entity) }
       end
     end
   end
@@ -57,10 +57,10 @@ class BooksController < ApplicationController
   def destroy
     @book = Book.find(params[:id])
     @book.destroy
-    redirect_to books_path, notice: "Book was successfully destroyed."
+    redirect_to(books_path, notice: "Book was successfully destroyed.")
   end
 
-  private
+     private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
       @book = Book.find(params[:id])
