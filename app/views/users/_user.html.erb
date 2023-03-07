@@ -1,7 +1,7 @@
 <div id="users">
     <%# Display all members in table format%> 
-    <table style="width: 75%; margin-left: auto; margin-right: auto;">
-        <thead>
+    <table style="width: 70%; margin-left: auto; margin-right: auto;" class="table-auto">
+        <thead class="text-white uppercase bg-maroon dark:bg-maroon dark:text-white ">
             <tr>
                 <th id="users-uin" > 
                     <%= sortable "uin" %></th>
@@ -24,18 +24,18 @@
                     <%= sortable "role", "Role" %></th>
                 </th>
                 <th id="users-activate">
-                    <%= sortable "isActive", "Active" %></th>
+                    Active</th>
                 </th>
             </tr>
         </thead>
 
         <tbody>
             <% @users.each do |user| %>
-                <tr class="<%= cycle("even", "odd") %>">
-                <td><%= link_to user.uin, edit_user_path(user), class: 'action show' %></td>
+                <tr class="<%= cycle('bg-khaki', 'bg-gray-100') %>">
+                <td class="text-center"><%= link_to user.uin, edit_user_path(user), class: 'action show' %></td>
                 <td><%= user.first_name %></td>
                 <td><%= user.last_name %></td>
-                <td>
+                <td class="text-center">
                     <% if user.classify == 1 -%>
                         U1
                     <% elsif user.classify == 2 -%>
@@ -49,8 +49,8 @@
                     <% end -%>
                 </td>
                 <td><%= user.email %></td>
-                <td><%= number_to_phone(user.phone) %></td>
-                <td>
+                <td class="text-center"><%= number_to_phone(user.phone) %></td>
+                <td class="text-center">
                 <% if user.role == 1 -%>
                         Officer
                     <% elsif user.role == 2 -%>
@@ -59,7 +59,7 @@
                         Member
                     <% end -%>
                 </td>
-                <td><%= check_box_tag 'isActive', 'true', user.isActive, id: 'isActive' %></td>
+                <td class="text-center"><%= check_box_tag 'isActive', 'true', user.isActive, id: 'isActive' %></td>
                 </tr>
             <% end %>
     </tbody>

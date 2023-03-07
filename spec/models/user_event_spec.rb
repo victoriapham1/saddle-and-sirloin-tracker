@@ -40,5 +40,4 @@ RSpec.describe UserEvent, type: :model do
 
     end
   end
-
 end

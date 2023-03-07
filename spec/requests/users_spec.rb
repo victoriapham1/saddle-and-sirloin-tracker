@@ -1,7 +1,14 @@
 require 'rails_helper'
+require_relative '../login_module'
+
+# FIXME: Unable to sign_in @admin
+#    NoMethodError:
+#      undefined method `sign_in' for #<RSpec::ExampleGroups::Users::GETIndex "returns http success" (./spec/requests/users_spec.rb:7)>
+
 
 RSpec.describe "Users", type: :request do
   # describe "GET /index" do
+  #   login
   #   it "returns http success" do
   #     get "/users/index"
   #     expect(response).to have_http_status(:success)

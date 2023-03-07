@@ -14,8 +14,20 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = 'bf40525dde9f2c176fa238eddf6d6ab4cc053557e365d267eb911e756b78fd4710112d34e1e7db6398f0906707f47f9a78793ff64cfab42e0b9171fffe133f10'
+  # config.secret_key = '201518175b7a4e180528d12632f8cc2a5a3dd4e8f09bc73036b0a0a4b47fff865a30ce46f3a6961a63645e9e2757524530797da1ad213b4108320fd23b7c01e5'
+  config.omniauth :google_oauth2, ENV['GOOGLE_OAUTH_CLIENT_ID'], ENV['GOOGLE_OAUTH_CLIENT_SECRET'],
 
+  {
+  
+  access_type: "offline",
+  
+  prompt: "consent",
+  
+  select_account: true,
+  
+  scope: 'userinfo.email, calendar'
+  
+  }
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
@@ -25,9 +37,6 @@ Devise.setup do |config|
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
-
-  #OATH!
-  config.omniauth :google_oauth2, ENV['GOOGLE_OAUTH_CLIENT_ID'], ENV['GOOGLE_OAUTH_CLIENT_SECRET']
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -129,7 +138,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = 'd70cee21fc68e415456d1489c79835d88c51571ed927ce17a930f38c9e79ecf92b6ecf96d2d7ab4caf7b62c812b8fd0123617b6a9d96eefb3ec7c7c7621b7676'
+  # config.pepper = 'd72f81c8caf519914603a56a856936571143f2b73ffeb043c2bbc36c1795c854e8d3183d064916db427b096aa4b6357ec1d43638a69b549465b05b3231aaad5b'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
