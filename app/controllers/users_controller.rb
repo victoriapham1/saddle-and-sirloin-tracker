@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authorize_user, except: [:new, :create]
+  before_action :unique_user, only: [:new]
   helper_method :sort_column, :sort_direction
   before_action :set_user, only: %i[ show edit update destroy ]
 
@@ -24,7 +25,6 @@ class UsersController < ApplicationController
     @user.email = current_admin.email
     @user.password = current_admin.uid
     @user.role = "0"
-    
 
     #Don't allow duplicate user creation (Unique user per email)
     if(User.find_by(email: @user.email))
@@ -77,7 +77,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :uin, :email, :phone, :password, :classify, :isActive, :role)
+    params.require(:user).permit(:first_name, :last_name, :uin, :email, :phone, :password, :classify, :isActive, :role, event_ids: [])
   end
 
   #Select only non-default values from new user creation
@@ -91,4 +91,12 @@ class UsersController < ApplicationController
       redirect_to :controller => 'users', :action => 'new'
     end
   end
+
+  #Only allow unique users to visit the create profile page
+  def unique_user
+    if User.find_by(email: current_admin.email) != nil
+      redirect_to :controller => 'users', :action => 'index'
+    end
+  end
+
 end
