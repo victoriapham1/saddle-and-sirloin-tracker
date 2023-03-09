@@ -11,18 +11,16 @@ class AnnouncementsController < ApplicationController
 
   def create
     @announcement = Announcement.new(announcement_params)
-    if @announcement.title === "" || @announcement.description === ""
-      flash.alert = "Invalid input"
-      redirect_to announcements_path
+    if @announcement.title === '' || @announcement.description === ''
+      flash.alert = 'Invalid input'
+      redirect_to(announcements_path)
+    elsif @announcement.save
+      redirect_to(announcements_path, notice: 'Announcement created.')
     else
-      if @announcement.save
-        redirect_to announcements_path, notice: "Announcement created."
-      else
-        #The new action is not being called
-        #assign any instance vars needed for the template
-        render('new') #just renders the view new
-        flash.alert = "Announcement not found."
-      end
+      # The new action is not being called
+      # assign any instance vars needed for the template
+      render('new') # just renders the view new
+      flash.alert = 'Announcement not found.'
     end
   end
 
@@ -33,10 +31,10 @@ class AnnouncementsController < ApplicationController
   def update
     @announcement = Announcement.find(params[:id])
     if @announcement.update(announcement_params)
-      redirect_to announcement_path(@announcement), notice: "Announcement updated."
+      redirect_to(announcement_path(@announcement), notice: 'Announcement updated.')
     else
       render('edit')
-      flash.alert = "Announcement not found."
+      flash.alert = 'Announcement not found.'
     end
   end
 
@@ -51,21 +49,18 @@ class AnnouncementsController < ApplicationController
   def destroy
     @announcement = Announcement.find(params[:id])
     @announcement.destroy
-    redirect_to announcements_path, notice: "Announcement was successfully destroyed."
+    redirect_to(announcements_path, notice: 'Announcement was successfully destroyed.')
   end
 
-  def calendar
-  end
+  def calendar; end
 
   private
-    def announcement_params
-      params.require(:announcement).permit(:title, :description)
-    end
 
-    def authorize_user
-      if User.find_by(email: current_admin.email) == nil
-        redirect_to :controller => 'users', :action => 'new'
-      end
-    end
+  def announcement_params
+    params.require(:announcement).permit(:title, :description)
+  end
 
+  def authorize_user
+    redirect_to(controller: 'users', action: 'new') if User.find_by(email: current_admin.email).nil?
+  end
 end

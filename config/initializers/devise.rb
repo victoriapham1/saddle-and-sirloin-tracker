@@ -16,18 +16,17 @@ Devise.setup do |config|
   # by default. You can change it below and use your own secret key.
   # config.secret_key = '201518175b7a4e180528d12632f8cc2a5a3dd4e8f09bc73036b0a0a4b47fff865a30ce46f3a6961a63645e9e2757524530797da1ad213b4108320fd23b7c01e5'
   config.omniauth :google_oauth2, ENV['GOOGLE_OAUTH_CLIENT_ID'], ENV['GOOGLE_OAUTH_CLIENT_SECRET'],
+                  {
 
-  {
-  
-  access_type: "offline",
-  
-  prompt: "consent",
-  
-  select_account: true,
-  
-  scope: 'userinfo.email, calendar'
-  
-  }
+                    access_type: 'offline',
+
+                    prompt: 'consent',
+
+                    select_account: true,
+
+                    scope: 'userinfo.email, calendar'
+
+                  }
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
