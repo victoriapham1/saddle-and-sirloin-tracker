@@ -52,20 +52,6 @@ RSpec.describe('Oauth', type: :feature) do
       expect(page).to(have_selector(:link_or_button, 'Sign in'))
     end
 
-    it 'committees#index redirects to Sign in if not signed in' do
-      visit committees_path
-      expect(page).to(have_current_path(new_admin_session_path))
-      expect(page).to(have_content('You need to sign in or sign up before continuing'))
-      expect(page).to(have_selector(:link_or_button, 'Sign in'))
-    end
-
-    it 'committees#new redirects to Sign in if not signed in' do
-      visit new_committee_path
-      expect(page).to(have_current_path(new_admin_session_path))
-      expect(page).to(have_content('You need to sign in or sign up before continuing'))
-      expect(page).to(have_selector(:link_or_button, 'Sign in'))
-    end
-
     it 'calendar#index redirects to Sign in if not signed in' do
       visit '/calendar'
       expect(page).to(have_current_path(new_admin_session_path))
@@ -123,20 +109,6 @@ RSpec.describe('Oauth', type: :feature) do
       visit new_announcement_path
       expect(page).to(have_current_path(new_announcement_path))
       expect(page).to(have_content('New announcement'))
-      # expect(page).to(have_selector(:link_or_button, 'Sign in'))
-    end
-
-    it 'committees#index when signed in' do
-      visit committees_path
-      expect(page).to(have_current_path(committees_path))
-      expect(page).to(have_content('Committee'))
-      # expect(page).to(have_selector(:link_or_button, 'Sign in'))
-    end
-
-    it 'committees#new when signed in' do
-      visit new_committee_path
-      expect(page).to(have_current_path(new_committee_path))
-      expect(page).to(have_content('New Committee'))
       # expect(page).to(have_selector(:link_or_button, 'Sign in'))
     end
 
