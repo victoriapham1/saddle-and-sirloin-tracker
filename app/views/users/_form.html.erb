@@ -59,17 +59,4 @@
       <%= form.submit %>
     </div>
   <% end %>
-
-  <%# List out all events and maps which events a user has been to in the user profile.%> 
-  <br>
-  <div class="text-center">
-    <%= form_for(@user) do |f| %>
-      <p>
-        <%= f.label :events%> Attended: <br />
-        <% for event in Event.all %>
-          <%= check_box_tag "user[event_ids][]", event.id, @user.events.include?(event) %>
-          <%=h event.name %><br />
-        <% end %>
-      </p>
-    <% end %>
   </div>
