@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_230_305_213_924) do
+ActiveRecord::Schema[7.0].define(version: 20_230_321_141_114) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -35,22 +35,6 @@ ActiveRecord::Schema[7.0].define(version: 20_230_305_213_924) do
     t.datetime 'updated_at', null: false
   end
 
-  create_table 'books', force: :cascade do |t|
-    t.string 'title'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.string 'author'
-    t.decimal 'price'
-    t.datetime 'publishedDate'
-  end
-
-  create_table 'committees', force: :cascade do |t|
-    t.string 'committee_name'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.string 'description'
-  end
-
   create_table 'events', force: :cascade do |t|
     t.string 'name'
     t.date 'date'
@@ -61,16 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 20_230_305_213_924) do
     t.time 'start_time'
     t.time 'end_time'
     t.string 'google_event_id'
-  end
-
-  create_table 'polls', force: :cascade do |t|
-    t.string 'question'
-    t.string 'answer_one'
-    t.string 'answer_two'
-    t.string 'answer_three'
-    t.string 'answer_four'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+    t.boolean 'isActive', default: true
   end
 
   create_table 'user_events', force: :cascade do |t|
