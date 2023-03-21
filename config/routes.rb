@@ -1,33 +1,32 @@
 Rails.application.routes.draw do
-  root "dashboards#show"
+  root 'dashboards#show'
 
   # Routes for annoucements
-  resources :announcements do 
+  resources :announcements do
     member do
       get :delete
     end
   end
 
-  # TODO DELETE BOOK COLLECTION
-  # resources :books do 
-  #   member do
-  #     get :delete
-  #   end
-  # end
+  # routes for user-events
+  resources :user_event do
+    member do
+      post :create
+    end
+  end
 
   # Routes for committees
   resources :committees do
-      member do
-      get :delete
-    end
-  end
-
-resources :users do
     member do
       get :delete
     end
   end
 
+  resources :users do
+    member do
+      get :delete
+    end
+  end
 
   # Routes for events
   resources :events do
@@ -35,10 +34,10 @@ resources :users do
       get :delete
     end
   end
-  
+
   match 'calendar', to: 'announcements#calendar', via: :get
 
-  #OATH
+  # OATH
   devise_for :admins, controllers: { omniauth_callbacks: 'admins/omniauth_callbacks' }
   devise_scope :admin do
     get 'admins/sign_in', to: 'admins/sessions#new', as: :new_admin_session

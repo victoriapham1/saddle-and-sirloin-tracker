@@ -1,6 +1,6 @@
 class CommitteesController < ApplicationController
   before_action :authorize_user
-  before_action :set_committee, only: %i[ show edit update destroy ] 
+  before_action :set_committee, only: %i[show edit update destroy]
 
   def index
     @committees = Committee.all
@@ -23,11 +23,11 @@ class CommitteesController < ApplicationController
 
     respond_to do |format|
       if @committee.save
-        format.html { redirect_to committees_path, notice: "Committee was successfully created." }
-        format.json { render :show, status: :created, location: @committee }
+        format.html { redirect_to(committees_path, notice: 'Committee was successfully created.') }
+        format.json { render(:show, status: :created, location: @committee) }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @committee.errors, status: :unprocessable_entity }
+        format.html { render(:new, status: :unprocessable_entity) }
+        format.json { render(json: @committee.errors, status: :unprocessable_entity) }
       end
     end
   end
@@ -35,11 +35,11 @@ class CommitteesController < ApplicationController
   def update
     respond_to do |format|
       if @committee.update(committee_params)
-        format.html { redirect_to committees_path, notice: "Committee was successfully updated." }
-        format.json { render :show, status: :ok, location: @committee }
+        format.html { redirect_to(committees_path, notice: 'Committee was successfully updated.') }
+        format.json { render(:show, status: :ok, location: @committee) }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @committee.errors, status: :unprocessable_entity }
+        format.html { render(:edit, status: :unprocessable_entity) }
+        format.json { render(json: @committee.errors, status: :unprocessable_entity) }
       end
     end
   end
@@ -51,10 +51,11 @@ class CommitteesController < ApplicationController
   def destroy
     @committee = Committee.find(params[:id])
     @committee.destroy
-    redirect_to committees_path, notice: "Committee was successfully deleted."
+    redirect_to(committees_path, notice: 'Committee was successfully deleted.')
   end
 
   private
+
   def set_committee
     @committee = Committee.find(params[:id])
   end
@@ -65,8 +66,6 @@ class CommitteesController < ApplicationController
 
   # Verify User has created thier profile. Redirect to create profile if not
   def authorize_user
-    if User.find_by(email: current_admin.email) == nil
-      redirect_to :controller => 'users', :action => 'new'
-    end
+    redirect_to(controller: 'users', action: 'new') if User.find_by(email: current_admin.email).nil?
   end
 end
