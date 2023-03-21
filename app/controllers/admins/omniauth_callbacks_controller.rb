@@ -3,14 +3,13 @@ class Admins::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   #from Google as well as tokens to authenticate Calendar API access.
   def google_oauth2
     @admin = Admin.from_google(**from_google_params)
-    omni = request.env["omniauth.auth"]
 
     if @admin.present?
       sign_out_all_scopes
       flash[:success] = t 'devise.omniauth_callbacks.success', kind: 'Google'
-      @admin.access_token = omni.credentials.token
-      @admin.expires_at = omni.credentials.expires_at
-      @admin.refresh_token = omni.credentials.refresh_token
+      @admin.access_token = auth.credentials.token
+      @admin.expires_at = auth.credentials.expires_at
+      @admin.refresh_token = auth.credentials.refresh_token
       @admin.save!
       sign_in_and_redirect @admin, event: :authentication
     else
