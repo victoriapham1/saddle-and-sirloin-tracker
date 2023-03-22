@@ -148,6 +148,14 @@ class EventsController < ApplicationController
 
   # Verify User has created thier profile. Redirect to create profile if not
   def authorize_user
-    redirect_to(controller: 'users', action: 'new') if User.find_by(email: current_admin.email).nil?
+    user = User.find_by(email: current_admin.email)
+    if user.nil?
+      redirect_to(controller: 'users', action: 'new') 
+    elsif user.isActive == false
+      redirect_to(controller: 'users', action: 'waiting')
+      user.isRequesting = true
+      user.save  
+    end
   end
+
 end

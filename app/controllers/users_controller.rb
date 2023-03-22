@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authorize_user, except: %i[new create]
+  before_action :authorize_user, except: %i[new create show waiting]
   before_action :unique_user, only: [:new]
   helper_method :sort_column, :sort_direction
   before_action :set_user, only: %i[show edit update destroy]
@@ -50,6 +50,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = User.find(params[:id])
+  end
+
   def edit
     @user = User.find(params[:id])
   end
@@ -64,6 +68,10 @@ class UsersController < ApplicationController
         format.json { render(json: @user.errors, status: :unprocessable_entity) }
       end
     end
+  end
+  
+    
+  def waiting
   end
 
   private
@@ -92,7 +100,14 @@ class UsersController < ApplicationController
 
   # Verify User has created thier profile. Redirect to create profile if not
   def authorize_user
-    redirect_to(controller: 'users', action: 'new') if User.find_by(email: current_admin.email).nil?
+    user = User.find_by(email: current_admin.email)
+    if user.nil?
+      redirect_to(controller: 'users', action: 'new') 
+    elsif user.isActive == false
+      redirect_to(controller: 'users', action: 'waiting')
+      user.isRequesting = true
+      user.save 
+    end
   end
 
   # Only allow unique users to visit the create profile page
