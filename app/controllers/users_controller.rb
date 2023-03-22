@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authorize_user, except: %i[new create show waiting]
+  before_action :authorize_user, except: %i[new create show waiting approve]
   before_action :unique_user, only: [:new]
   helper_method :sort_column, :sort_direction
   before_action :set_user, only: %i[show edit update destroy]
@@ -72,6 +72,14 @@ class UsersController < ApplicationController
   
     
   def waiting
+  end
+
+  def approve
+    @user = User.find_by(email: current_admin.email)
+    @user.isActive = true
+    @user.isRequesting = false
+    @user.save
+    redirect_to "/"
   end
 
   private
