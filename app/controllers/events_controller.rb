@@ -3,6 +3,7 @@ require 'google/api_client/client_secrets'
 class EventsController < ApplicationController
   CALENDAR_ID = 'primary'.freeze
   before_action :authorize_user
+  before_action :block_member, except: %i[index show] 
   # GET /events or /events.json
   def index
     @events = Event.all
@@ -150,4 +151,11 @@ class EventsController < ApplicationController
   def authorize_user
     redirect_to(controller: 'users', action: 'new') if User.find_by(email: current_admin.email).nil?
   end
+ # URL protection: don't allow members to view officer pages/actions
+  def block_member
+    if User.find_by(email: current_admin.email).role == 0
+      redirect_to '/'
+    end
+  end
+
 end

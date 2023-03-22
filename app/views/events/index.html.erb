@@ -2,7 +2,10 @@
 <div>
   <div class="container mx-auto">
     <br>
-    <%= link_to("Create new event", new_event_path, class: "action new")%>
+    <%# Conditionally render create new event to only officers %>
+    <% if User.find_by(email: current_admin.email).role == 1 %>
+      <%= link_to("Create new event", new_event_path, class: "action new")%>
+    <%end%>
     <h1 class="text-3xl font-bold text-center">Events</h1>
     <br>
   </div>
@@ -30,9 +33,11 @@
       <%end%>
       <h2>Type: <%= event.formatted_type %></h2>
       <p> <%= event.description %> <p>
-      <%# In the future make it so the edit/delete links only appear for officers or only the officer who made it %>
-      <%= link_to("Edit", edit_event_path(event), class: 'action edit')%>
-      <%= link_to("Delete", delete_event_path(event), class: 'action delete')%>
+      <%# edit/delete links only appear for officers %>
+      <% if User.find_by(email: current_admin.email).role == 1 %>
+        <%= link_to("Edit", edit_event_path(event), class: 'action edit')%>
+        <%= link_to("Delete", delete_event_path(event), class: 'action delete')%>
+      <%end%>
       <br>
     </div>
 </div>

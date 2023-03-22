@@ -37,6 +37,8 @@ Rails.application.routes.draw do
 
   match 'calendar', to: 'announcements#calendar', via: :get
 
+  match 'swapRole', to: 'dashboards#swapRole', via: :put
+
   # OATH
   devise_for :admins, controllers: { omniauth_callbacks: 'admins/omniauth_callbacks' }
   devise_scope :admin do

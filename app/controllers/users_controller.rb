@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :authorize_user, except: %i[new create]
   before_action :unique_user, only: [:new]
+  before_action :block_member
   helper_method :sort_column, :sort_direction
   before_action :set_user, only: %i[show edit update destroy]
 
@@ -99,4 +100,11 @@ class UsersController < ApplicationController
   def unique_user
     redirect_to(controller: 'users', action: 'index') if User.find_by(email: current_admin.email) != nil
   end
+ # URL protection: don't allow members to view officer pages/actions
+  def block_member
+    if User.find_by(email: current_admin.email).role == 0
+      redirect_to '/'
+    end
+  end
+
 end
