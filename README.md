@@ -3,7 +3,7 @@ saddle-and-sirloin-tracker
 
 ## Introduction
 
-This application that assists in managing user attendance of organization events as well as all users within the organization. It offers features to view events through Google Calendar API and user authentication with Google Oauth.
+This ia an application that assists in managing user attendance of organization events as well as all users within the organization. It offers features to view events through Google Calendar API and user authentication with Google Oauth.
 
 ## Requirements
 
