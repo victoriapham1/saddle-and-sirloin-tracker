@@ -42,7 +42,7 @@ You can run all the test cases by running. This will run both the unit and integ
 
 Run the following code in Powershell if using windows or the terminal using Linux/Mac
 
-`cd saddle-sirloin-tracker`
+`cd saddle-and-sirloin-tracker`
 
 `docker run --rm -it --volume "${PWD}:/csce431" -e DATABASE_USER=test_app -e DATABASE_PASSWORD=test_password -p 3000:3000 paulinewade/csce431:latest`
 
