@@ -52,6 +52,11 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    # This will allow categorization of events by event_type
+    @categorize_events = Event.all.group_by { |t| t.event_type }
+
+    # To calculate participation score
+    @total_attended = 0
   end
 
   def update

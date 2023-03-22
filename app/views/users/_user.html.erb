@@ -53,13 +53,11 @@
                 <td class="text-center">
                 <% if user.role == 1 -%>
                         Officer
-                    <% elsif user.role == 2 -%>
-                        Committee
                     <% else -%>
                         Member
                     <% end -%>
                 </td>
-                <td class="text-center"><%= check_box_tag 'isActive', 'true', user.isActive, id: 'isActive' %></td>
+                <td class="text-center"><%= check_box_tag 'isActive', 'true', user.isActive, id: 'isActive', :disabled => true %></td>
                 </tr>
             <% end %>
     </tbody>
