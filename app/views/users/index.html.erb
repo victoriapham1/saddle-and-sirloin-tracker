@@ -9,11 +9,13 @@
 <div class="search">
     <%= form_tag(users_path, method: :get) do %>
         <%= text_field_tag :search, params[:search], placeholder: "Enter name or surname..." %>
+        <%# Filter between isActive (activated/deactivated) & isRequesting (in queue). %>
+        <%= select_tag :category, options_for_select(["Active", "Deactive", "Approval"], params[:category]), onchange: "this.form.submit();", include_blank: "" %>
     <%= submit_tag 'Search', name: nil %>
     <% end %>
 </div>
 
-<br><br>
+<br>
 <div>
 <%# Allow for altering size of table %>
 Show <%= select_tag :per_page, options_for_select([10, 20, 50, 100], params[:per_page].to_i),

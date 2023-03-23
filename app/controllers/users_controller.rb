@@ -13,9 +13,19 @@ class UsersController < ApplicationController
       @users = User.order(sort_column + ' ' + sort_direction).where("CONCAT_WS(' ', first_name, last_name) ILIKE ?", "%#{params[:search].strip.downcase}%").paginate(
         per_page: @per_page, page: params[:page]
       )
+
+      # Display directory based on current status of users
+      if params[:category] == "Active"
+        @users = @users.where(isActive: true)
+      elsif params[:category] == "Deactive"
+        @users = @users.where(isActive: false)
+      elsif params[:category] == "Approval"
+        @users = @users.where(isRequesting: true)
+      end
+
     else
       @users = User.order(sort_column + ' ' + sort_direction).paginate(per_page: @per_page,
-                                                                       page: params[:page])
+        page: params[:page])
     end
   end
 
