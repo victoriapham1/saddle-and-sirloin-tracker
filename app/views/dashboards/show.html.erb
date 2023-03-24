@@ -10,15 +10,21 @@
 <div class="w-[404px] h-96 overflow-auto border-2 border-gray-200 rounded-lg ml-4" style="direction:rtl">
     <% @announcements.each do |ann|%>
     <br>
-    <div class="container w-96 rounded-lg px-10" style="direction:ltr">
-    <%= link_to announcement_path(ann), class: 'action show' do%>
-    <div class="border-gray-200 border-2 rounded-sm p-4 transition duration-700 ease-in-out 
+    <div class="container w-96 h-16 rounded-lg px-10" style="direction:ltr">
+        <%= link_to announcement_path(ann), class: 'action show' do%>
+        <div class="h-16 border-gray-200 border-2 rounded-sm p-5 transition duration-700 ease-in-out 
                      hover:bg-gray-100 transform 
                        hover:-translate-y-1 hover:scale-110">
-        <h1 class = "grid place-items-center"><%= ann.title %></h3>
-        <br>
+            <h1 class = "grid place-items-center"><%= ann.title %></h3>
         </div>
     </div>
     <%end%>
+        <div class="relative mb-4 mt-1"> 
+            <div class="absolute left-14">
+                <div class="absolute w-6 h-6 rounded-full hover:bg-rose-400 hover:opacity-50 duration-300 cursor-pointer"></div> 
+                <span class="pt-[3px] pr-[3px] material-icons" style="font-size:18px">favorite_border</span> 
+            </div>
+        </div>
     <%end%>
+
 </div>
