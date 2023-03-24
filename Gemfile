@@ -86,3 +86,6 @@ gem 'tailwindcss-rails', '~> 2.0'
 
 # Allow for paginate data
 gem 'will_paginate', '~> 3.3'
+
+# For generating QR codes
+gem 'rqrcode'

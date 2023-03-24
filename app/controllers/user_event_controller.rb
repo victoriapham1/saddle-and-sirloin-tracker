@@ -1,9 +1,12 @@
 class UserEventController < ApplicationController
   # before_action :authorize_user
-  def new; end
+  def new
+    @user_event = UserEvent.new
+  end
 
   def create
     @user_event = UserEvent.new(user_event_params)
+
     # get user id from uin
     @user = User.where(uin: @user_event.user_id).first
     if @user.nil?
