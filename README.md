@@ -1,9 +1,8 @@
 # README  
-saddle-and-sirloin-tracker
 
 ## Introduction
 
-This ia an application that assists in managing user attendance of organization events as well as all users within the organization. It offers features to view events through Google Calendar API and user authentication with Google Oauth.
+This ia an application that assists in managing user attendance of organization events as well as all users within the organization. It offers features to view and interact with announcements and events through Google Calendar API and user authentication with Google Oauth. Users are able to sign-in to events via automitcally generated QR codes and have their attendance tallied and compared to the points baseline. For additional security, a queue system is implemented, allowing officers to approve new users after creation of an account or the start of a new year.
 
 ## Requirements
 
@@ -31,12 +30,9 @@ Download this code repository by using git:
 
 ## Tests
 
-An RSpec test suite is available and can be ran using:
+An RSpec test suite is available and can be ran using: `rspec spec/`
 
-`rspec spec/`
-
-You can run all the test cases by running. This will run both the unit and integration tests.
-`rspec .`
+You can run all the test cases by running `rspec .` This will run both the unit and integration tests.
 
 ## Execute Code
 
@@ -51,9 +47,7 @@ Install the app
 
 `bundle install && rails webpacker:install && rails db:create && db:migrate`
 
-
 Run the app
 `rails server --binding:0.0.0.0`
-
 
 The application can be seen using a browser and navigating to http://localhost:3000/
