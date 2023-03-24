@@ -56,7 +56,8 @@
       
       <!-- profile picture/sign-out -->
       <div class="w-3/12 flex justify-end mr-4 relative">
-      <img class="absolute z-10 -mt-3" style="width:37.83px; height:19.58px;" src="assets/CBHresize.png"/>
+      <%# UPDATED hat line to use rails asset pipeline (Fixes not showing on ID'd pages) %>
+      <div class="absolute z-10 -mt-3" style="width:37.83px; height:19.58px;"> <%= image_tag "CBHresize.png" %> </div>
         <div class="group dropdown relative font-semibold">
           <label tabindex="0">
             <img class="rounded-full w-11 h-11 z-0 cursor-pointer" src=<%= current_admin.avatar_url %> referrerpolicy="no-referrer"/>
