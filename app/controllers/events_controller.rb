@@ -3,6 +3,8 @@ require 'google/api_client/client_secrets'
 class EventsController < ApplicationController
   CALENDAR_ID = 'primary'.freeze
   before_action :authorize_user
+  helper_method :sort_column, :sort_direction
+
   # GET /events or /events.json
   def index
     @events = Event.all
@@ -14,6 +16,8 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @user_event = UserEvent.new
+    @users = User.all
+    @count_users = 0
   end
 
   # GET /events/new
@@ -143,11 +147,19 @@ class EventsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def event_params
     params.require(:event).permit(:name, :date, :event_type, :description, :start_time, :end_time, :search,
-                                  :google_event_id)
+                                  :google_event_id, user_ids: [])
   end
 
   # Verify User has created thier profile. Redirect to create profile if not
   def authorize_user
     redirect_to(controller: 'users', action: 'new') if User.find_by(email: current_admin.email).nil?
+  end
+
+  def sort_column
+    User.column_names.include?(params[:sort]) ? params[:sort] : 'first_name'
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
 end
