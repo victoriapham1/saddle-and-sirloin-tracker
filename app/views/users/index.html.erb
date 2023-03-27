@@ -22,12 +22,6 @@
   </div>
   <br>
 </div>
-
-<br>
-<div>
-<%# Allow for altering size of table %>
-Show <%= select_tag :per_page, options_for_select([10, 20, 50, 100], params[:per_page].to_i),
-       :onchange => "if(this.value){window.location='?per_page='+this.value;}" %> entries
        
 <%= render "user", users: @users %>
 
