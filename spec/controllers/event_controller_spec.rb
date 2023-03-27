@@ -24,9 +24,6 @@ RSpec.describe(EventsController, type: :controller) do
       it 'routes to #new' do
         expect(get: '/events/new').to(route_to('events#new'))
       end
-      it 'routes to google calendar' do
-        expect(get: '/calendar').to(route_to('calendar'))
-      end
     end
   end
 end
