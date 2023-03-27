@@ -16,7 +16,7 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @user_event = UserEvent.new
-    @users = User.all
+    @users = User.order(sort_column + ' ' + sort_direction)
     @count_users = 0
   end
 
