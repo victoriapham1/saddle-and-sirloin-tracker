@@ -1,6 +1,6 @@
 class Admins::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  #Initializer for Oauth Admin instance for a new user. Includes the credentials
-  #from Google as well as tokens to authenticate Calendar API access.
+  # Initializer for Oauth Admin instance for a new user. Includes the credentials
+  # from Google as well as tokens to authenticate Calendar API access.
   def google_oauth2
     @admin = Admin.from_google(**from_google_params)
 
@@ -13,10 +13,12 @@ class Admins::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       @admin.save!
       sign_in_and_redirect @admin, event: :authentication
     else
-      flash[:alert] = t 'devise.omniauth_callbacks.failure', kind: 'Google', reason: "#{auth.info.email} is not authorized."
+      flash[:alert] =
+t 'devise.omniauth_callbacks.failure', kind: 'Google', reason: "#{auth.info.email} is not authorized."
       redirect_to new_admin_session_path
     end
   end
+
   protected
 
   def after_omniauth_failure_path_for(_scope)
@@ -29,7 +31,7 @@ class Admins::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   private
 
-  #Collect parameters for the user from Google
+  # Collect parameters for the user from Google
   def from_google_params
     @from_google_params ||= {
       uid: auth.uid,

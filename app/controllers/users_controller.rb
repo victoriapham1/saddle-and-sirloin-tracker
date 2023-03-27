@@ -15,17 +15,17 @@ class UsersController < ApplicationController
       )
 
       # Display directory based on current status of users
-      if params[:category] == "Active"
+      if params[:category] == 'Active'
         @users = @users.where(isActive: true)
-      elsif params[:category] == "Deactive"
+      elsif params[:category] == 'Deactive'
         @users = @users.where(isActive: false)
-      elsif params[:category] == "Approval"
+      elsif params[:category] == 'Approval'
         @users = @users.where(isRequesting: true)
       end
 
     else
       @users = User.order(sort_column + ' ' + sort_direction).paginate(per_page: @per_page,
-        page: params[:page])
+                                                                       page: params[:page])
     end
   end
 
@@ -79,17 +79,15 @@ class UsersController < ApplicationController
       end
     end
   end
-  
-    
-  def waiting
-  end
+
+  def waiting; end
 
   def approve
     @user = User.find_by(email: current_admin.email)
     @user.isActive = true
     @user.isRequesting = false
     @user.save
-    redirect_to "/"
+    redirect_to '/'
   end
 
   private
@@ -120,11 +118,11 @@ class UsersController < ApplicationController
   def authorize_user
     user = User.find_by(email: current_admin.email)
     if user.nil?
-      redirect_to(controller: 'users', action: 'new') 
+      redirect_to(controller: 'users', action: 'new')
     elsif user.isActive == false
       redirect_to(controller: 'users', action: 'waiting')
       user.isRequesting = true
-      user.save 
+      user.save
     end
   end
 
