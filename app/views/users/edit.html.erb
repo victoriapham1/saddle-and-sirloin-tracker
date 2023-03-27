@@ -1,22 +1,46 @@
 <div>
+    <%= link_to "Back to member directory", users_path %>
     <br>
     <h1 class="text-3xl font-bold text-center">Editing User</h1>
 
     <%= render "form", user: @user %>
     <br>
 
-    <%# List out all events and maps which events a user has been to in the user profile.%> 
+    <%# List out all events by event_type and maps which events a user has been to in the user profile.%> 
     <br>
     <div class="text-center">
       <%= form_for(@user) do |f| %>
         <p>
-          <%= f.label :events%> Attended: <br />
-          <% for event in Event.all %>
-            <%= check_box_tag "user[event_ids][]", event.id, @user.events.include?(event) %>
-            <%=h event.name %><br />
-          <% end %>
+          <%= f.label :events%> Attendance: <br />
+          
+              <% @categorize_events.each do | cateogory, events | %>
+                <b>
+                <% if cateogory == 1 -%> 
+                  Service
+                <% elsif cateogory == 2 -%> 
+                  Meeting
+                <% elsif cateogory == 3 -%> 
+                  Social
+                <% end -%>
+                </b>
+                <ul>
+                  <% events.each do |event| %>
+                    <%= check_box_tag "user[event_ids][]", event.id, @user.events.include?(event), :disabled => true %>
+                    <%=h event.name %><br />
+                    <%# Calculation of attendance score based off event type. Service/Meeting - 2, Service - 1%> 
+                    <% if @user.events.include?(event) -%>
+                      <% if event.event_type == 1 or event.event_type == 2 -%>
+                        <% @total_attended  = @total_attended + 2 %>
+                      <% else -%>
+                        <% @total_attended  = @total_attended + 1 %>
+                      <% end -%>
+                    <% end -%>
+                  <% end %>
+                </ul>
+              <% end %>
         </p>
       <% end %>
-
-  <%= link_to "Back to member directory", users_path %>
+      -------------------<br>
+      Total score: <%=h @total_attended %><br>
+      <br>
 </div>
