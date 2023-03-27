@@ -1,6 +1,6 @@
 <div id="users">
     <%# Display all members in table format%> 
-    <table style="width: 70%; margin-left: auto; margin-right: auto;" class="table-auto">
+    <table style="width: 70%; margin-left: auto; margin-right: auto;" class="table-auto pretty">
         <thead class="text-white uppercase bg-maroon dark:bg-maroon dark:text-white ">
             <tr>
                 <th id="users-uin" > 
@@ -53,13 +53,11 @@
                 <td class="text-center">
                 <% if user.role == 1 -%>
                         Officer
-                    <% elsif user.role == 2 -%>
-                        Committee
                     <% else -%>
                         Member
                     <% end -%>
                 </td>
-                <td class="text-center"><%= check_box_tag 'isActive', 'true', user.isActive, id: 'isActive' %></td>
+                <td class="text-center"><%= check_box_tag 'isActive', 'true', user.isActive, id: 'isActive', :disabled => true %></td>
                 </tr>
             <% end %>
     </tbody>

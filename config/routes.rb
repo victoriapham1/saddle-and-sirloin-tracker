@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :user_event do
     member do
       post :create
+      get :delete
     end
   end
 
