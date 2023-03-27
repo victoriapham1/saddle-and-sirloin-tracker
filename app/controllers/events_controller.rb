@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'google/apis/calendar_v3'
 require 'google/api_client/client_secrets'
 class EventsController < ApplicationController
-  CALENDAR_ID = 'primary'.freeze
+  CALENDAR_ID = 'primary'
   before_action :authorize_user
   # GET /events or /events.json
   def index
@@ -121,16 +123,13 @@ class EventsController < ApplicationController
 
       description: task[:description],
       start: {
-        date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], task['start_time(4i)'], task['start_time(5i)'],
-                                   0o0).to_datetime,
-        time_zone: '+6:00'
+        date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], (task['start_time(4i)'].to_i + 5).to_s, task['start_time(5i)']).to_datetime
+
         # date_time: '2019-09-07T09:00:00-07:00',
         # time_zone: 'Asia/Kolkata',
       },
       end: {
-        date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], task['end_time(4i)'], task['end_time(5i)'],
-                                   0o0).to_datetime,
-        time_zone: '+6:00'
+        date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], (task['end_time(4i)'].to_i + 5).to_s, task['end_time(5i)']).to_datetime
       }, primary: true
     )
   end

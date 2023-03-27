@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class JoinUserEvents < ActiveRecord::Migration[7.0]
   def change
     remove_columns(:user_events, :user_id, :event_id)

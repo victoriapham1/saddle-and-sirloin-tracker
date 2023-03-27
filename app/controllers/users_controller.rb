@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   before_action :authorize_user, except: %i[new create]
   before_action :unique_user, only: [:new]
@@ -10,11 +12,11 @@ class UsersController < ApplicationController
     if params[:search]
       # Able to search for first, last or both (where)
       # Paginate splits table (paginate)
-      @users = User.order(sort_column + ' ' + sort_direction).where("CONCAT_WS(' ', first_name, last_name) ILIKE ?", "%#{params[:search].strip.downcase}%").paginate(
+      @users = User.order("#{sort_column} #{sort_direction}").where("CONCAT_WS(' ', first_name, last_name) ILIKE ?", "%#{params[:search].strip.downcase}%").paginate(
         per_page: @per_page, page: params[:page]
       )
     else
-      @users = User.order(sort_column + ' ' + sort_direction).paginate(per_page: @per_page,
+      @users = User.order("#{sort_column} #{sort_direction}").paginate(per_page: @per_page,
                                                                        page: params[:page])
     end
   end

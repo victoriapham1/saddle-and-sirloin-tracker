@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # OATH
 class DashboardsController < ApplicationController
   def show

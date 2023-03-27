@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserEventController < ApplicationController
   # before_action :authorize_user
   def new; end

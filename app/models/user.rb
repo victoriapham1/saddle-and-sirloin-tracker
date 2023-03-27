@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   validates :uin, presence: true
   validates :first_name, presence: true

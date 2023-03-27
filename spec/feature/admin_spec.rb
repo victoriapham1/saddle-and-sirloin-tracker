@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 require_relative '../login_module'
 
@@ -116,6 +118,12 @@ RSpec.describe('Oauth', type: :feature) do
       visit '/calendar'
       expect(page).to(have_current_path('/calendar'))
       # expect(page).to(have_content('Embed Example')) #NEEDS TO BE THE CALENDAR NAME
+      # expect(page).to(have_selector(:link_or_button, 'Sign in'))
+    end
+    it 'calendar in the right time zone' do
+      visit '/calendar'
+      expect(page).to(have_current_path('/calendar'))
+      expect(page).to(have_content('Justin Chai')) # NEEDS TO BE THE CALENDAR NAME
       # expect(page).to(have_selector(:link_or_button, 'Sign in'))
     end
   end
