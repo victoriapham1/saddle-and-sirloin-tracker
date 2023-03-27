@@ -8,7 +8,7 @@ class User < ApplicationRecord
   validates :role, presence: true
   validates :classify, presence: true
 
-  has_many :user_events
+  has_many :user_events, dependent: :destroy
   has_many :events, through: :user_events
 
   has_many :user_announcements, dependent: :destroy
