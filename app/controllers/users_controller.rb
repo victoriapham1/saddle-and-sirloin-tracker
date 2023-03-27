@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authorize_user, except: %i[new create]
+  before_action :authorize_user, except: %i[new create show waiting approve]
   before_action :unique_user, only: [:new]
   helper_method :sort_column, :sort_direction
   before_action :set_user, only: %i[show edit update destroy]
@@ -13,9 +13,19 @@ class UsersController < ApplicationController
       @users = User.order(sort_column + ' ' + sort_direction).where("CONCAT_WS(' ', first_name, last_name) ILIKE ?", "%#{params[:search].strip.downcase}%").paginate(
         per_page: @per_page, page: params[:page]
       )
+
+      # Display directory based on current status of users
+      if params[:category] == "Active"
+        @users = @users.where(isActive: true)
+      elsif params[:category] == "Deactive"
+        @users = @users.where(isActive: false)
+      elsif params[:category] == "Approval"
+        @users = @users.where(isRequesting: true)
+      end
+
     else
       @users = User.order(sort_column + ' ' + sort_direction).paginate(per_page: @per_page,
-                                                                       page: params[:page])
+        page: params[:page])
     end
   end
 
@@ -50,6 +60,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = User.find(params[:id])
+  end
+
   def edit
     @user = User.find(params[:id])
     # This will allow categorization of events by event_type
@@ -69,6 +83,18 @@ class UsersController < ApplicationController
         format.json { render(json: @user.errors, status: :unprocessable_entity) }
       end
     end
+  end
+  
+    
+  def waiting
+  end
+
+  def approve
+    @user = User.find_by(email: current_admin.email)
+    @user.isActive = true
+    @user.isRequesting = false
+    @user.save
+    redirect_to "/"
   end
 
   private
@@ -97,7 +123,14 @@ class UsersController < ApplicationController
 
   # Verify User has created thier profile. Redirect to create profile if not
   def authorize_user
-    redirect_to(controller: 'users', action: 'new') if User.find_by(email: current_admin.email).nil?
+    user = User.find_by(email: current_admin.email)
+    if user.nil?
+      redirect_to(controller: 'users', action: 'new') 
+    elsif user.isActive == false
+      redirect_to(controller: 'users', action: 'waiting')
+      user.isRequesting = true
+      user.save 
+    end
   end
 
   # Only allow unique users to visit the create profile page

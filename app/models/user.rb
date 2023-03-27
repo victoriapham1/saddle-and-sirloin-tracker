@@ -7,6 +7,7 @@ class User < ApplicationRecord
   validates :isActive, presence: true, allow_blank: true
   validates :role, presence: true
   validates :classify, presence: true
+  validates :isRequesting, presence: true
 
   has_many :user_events, dependent: :destroy
   has_many :events, through: :user_events

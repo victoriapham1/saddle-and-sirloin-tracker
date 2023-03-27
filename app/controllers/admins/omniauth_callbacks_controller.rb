@@ -29,6 +29,7 @@ class Admins::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   private
 
+  #Collect parameters for the user from Google
   def from_google_params
     @from_google_params ||= {
       uid: auth.uid,
