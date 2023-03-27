@@ -9,20 +9,20 @@ module Admins
 
       if @admin.present?
         sign_out_all_scopes
-        flash[:success] = t 'devise.omniauth_callbacks.success', kind: 'Google'
+        flash[:success] = t('devise.omniauth_callbacks.success', kind: 'Google')
         @admin.access_token = auth.credentials.token
         @admin.expires_at = auth.credentials.expires_at
         @admin.refresh_token = auth.credentials.refresh_token
         @admin.save!
-        sign_in_and_redirect @admin, event: :authentication
+        sign_in_and_redirect(@admin, event: :authentication)
       else
         flash[:alert] =
-          t 'devise.omniauth_callbacks.failure', kind: 'Google', reason: "#{auth.info.email} is not authorized."
-        redirect_to new_admin_session_path
+             t('devise.omniauth_callbacks.failure', kind: 'Google', reason: "#{auth.info.email} is not authorized.")
+        redirect_to(new_admin_session_path)
       end
     end
 
-    protected
+       protected
 
     def after_omniauth_failure_path_for(_scope)
       new_admin_session_path
@@ -32,14 +32,14 @@ module Admins
       stored_location_for(resource_or_scope) || root_path
     end
 
-    private
+       private
 
     def from_google_params
       @from_google_params ||= {
-        uid: auth.uid,
-        email: auth.info.email,
-        full_name: auth.info.name,
-        avatar_url: auth.info.image
+           uid: auth.uid,
+           email: auth.info.email,
+           full_name: auth.info.name,
+           avatar_url: auth.info.image
       }
     end
 

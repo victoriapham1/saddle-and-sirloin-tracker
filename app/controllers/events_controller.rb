@@ -34,13 +34,14 @@ class EventsController < ApplicationController
     return unless current_admin.present? && current_admin.access_token.present? && current_admin.refresh_token.present?
 
     secrets = Google::APIClient::ClientSecrets.new({
-                                                     'web' => {
-                                                       'access_token' => current_admin.access_token,
-                                                       'refresh_token' => current_admin.refresh_token,
-                                                       'client_id' => ENV['GOOGLE_OAUTH_CLIENT_ID'],
-                                                       'client_secret' => ENV['GOOGLE_OAUTH_CLIENT_SECRET']
-                                                     }
-                                                   })
+         'web' => {
+              'access_token' => current_admin.access_token,
+              'refresh_token' => current_admin.refresh_token,
+              'client_id' => ENV['GOOGLE_OAUTH_CLIENT_ID'],
+              'client_secret' => ENV['GOOGLE_OAUTH_CLIENT_SECRET']
+         }
+    }
+                                                  )
     begin
       client.authorization = secrets.to_authorization
       client.authorization.grant_type = 'refresh_token'
@@ -48,9 +49,9 @@ class EventsController < ApplicationController
       if current_admin.blank?
         client.authorization.refresh!
         current_admin.update(
-          access_token: client.authorization.access_token,
-          refresh_token: client.authorization.refresh_token,
-          expires_at: Integer(client.authorization.expires_at, 10)
+             access_token: client.authorization.access_token,
+             refresh_token: client.authorization.refresh_token,
+             expires_at: Integer(client.authorization.expires_at, 10)
         )
       end
     rescue StandardError => e
@@ -111,26 +112,26 @@ class EventsController < ApplicationController
     redirect_to(events_path, notice: 'Event was successfully destroyed.')
   end
 
-  private
+     private
 
   # creates a google calendar event with all of the required fill ins from the events table.
   def get_event(task)
     # puts task[:start_time].inspect
 
     event = Google::Apis::CalendarV3::Event.new(
-      summary: task[:name],
-      location: '275 Joe Routt Blvd, College Station, TX 77840',
+         summary: task[:name],
+         location: '275 Joe Routt Blvd, College Station, TX 77840',
 
-      description: task[:description],
-      start: {
-        date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], (task['start_time(4i)'].to_i + 5).to_s, task['start_time(5i)']).to_datetime
+         description: task[:description],
+         start: {
+              date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], (Integer(task['start_time(4i)'], 10) + 5).to_s, task['start_time(5i)']).to_datetime
 
-        # date_time: '2019-09-07T09:00:00-07:00',
-        # time_zone: 'Asia/Kolkata',
-      },
-      end: {
-        date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], (task['end_time(4i)'].to_i + 5).to_s, task['end_time(5i)']).to_datetime
-      }, primary: true
+           # date_time: '2019-09-07T09:00:00-07:00',
+           # time_zone: 'Asia/Kolkata',
+         },
+         end: {
+              date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], (Integer(task['end_time(4i)'], 10) + 5).to_s, task['end_time(5i)']).to_datetime
+         }, primary: true
     )
   end
 
@@ -142,7 +143,8 @@ class EventsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def event_params
     params.require(:event).permit(:name, :date, :event_type, :description, :start_time, :end_time, :search,
-                                  :google_event_id)
+                                  :google_event_id
+    )
   end
 
   # Verify User has created thier profile. Redirect to create profile if not

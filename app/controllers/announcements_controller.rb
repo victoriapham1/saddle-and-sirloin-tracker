@@ -56,7 +56,7 @@ class AnnouncementsController < ApplicationController
 
   def calendar; end
 
-  private
+     private
 
   def announcement_params
     params.require(:announcement).permit(:title, :description)

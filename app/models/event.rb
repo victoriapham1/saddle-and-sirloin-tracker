@@ -12,9 +12,9 @@ class Event < ApplicationRecord
   has_many :users, through: :user_events
 
   TYPE = {
-    'Service' => 1,
-    'Meeting' => 2,
-    'Social' => 3
+       'Service' => 1,
+       'Meeting' => 2,
+       'Social' => 3
   }.freeze
 
   def formatted_type
