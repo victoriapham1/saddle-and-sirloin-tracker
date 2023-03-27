@@ -116,22 +116,19 @@ class EventsController < ApplicationController
     # puts task[:start_time].inspect
 
     event = Google::Apis::CalendarV3::Event.new(
-      summary: task[:name],
-      location: '275 Joe Routt Blvd, College Station, TX 77840',
+         summary: task[:name],
+         location: '275 Joe Routt Blvd, College Station, TX 77840',
 
-      description: task[:description],
-      start: {
-        date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], task['start_time(4i)'], task['start_time(5i)'],
-                                   0o0).to_datetime,
-        time_zone: '+6:00'
-        # date_time: '2019-09-07T09:00:00-07:00',
-        # time_zone: 'Asia/Kolkata',
-      },
-      end: {
-        date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], task['end_time(4i)'], task['end_time(5i)'],
-                                   0o0).to_datetime,
-        time_zone: '+6:00'
-      }, primary: true
+         description: task[:description],
+         start: {
+              date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], (Integer(task['start_time(4i)'], 10) + 5).to_s, task['start_time(5i)']).to_datetime
+
+           # date_time: '2019-09-07T09:00:00-07:00',
+           # time_zone: 'Asia/Kolkata',
+         },
+         end: {
+              date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], (Integer(task['end_time(4i)'], 10) + 5).to_s, task['end_time(5i)']).to_datetime
+         }, primary: true
     )
   end
 
