@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+
 
 class AnnouncementsController < ApplicationController
   before_action :authorize_user

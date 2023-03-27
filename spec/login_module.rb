@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+
 
 # creates or finds a User/Admin to test with and sign_in with Devise
 def login

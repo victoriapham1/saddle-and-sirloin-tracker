@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+
 
 require 'rails_helper'
 require_relative '../login_module' # include to use the login function

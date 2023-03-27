@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+
 
 class Admin < ApplicationRecord
   # created a function that gets the access token
