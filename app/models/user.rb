@@ -11,6 +11,9 @@ class User < ApplicationRecord
   has_many :user_events
   has_many :events, through: :user_events
 
+  has_many :user_announcements, dependent: :destroy
+  has_many :announcements, through: :user_announcements
+
   # Set page to default of size 10 - will change.
   def self.per_page
     10

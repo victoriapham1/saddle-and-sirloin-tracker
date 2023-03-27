@@ -7,10 +7,13 @@
 <%# style directions make scrollbar on left! %>
 <%# w-[404px] prevents horizontal scrollbar %>
 
-<div class="w-[404px] h-96 overflow-auto border-2 border-gray-200 rounded-lg ml-4" style="direction:rtl">
+<div class="w-[404px] h-[430px] overflow-auto border-2 border-gray-200 rounded-lg ml-4" style="direction:rtl">
     <% @announcements.each do |ann|%>
-    <br>
-    <div class="container w-96 h-16 rounded-lg px-10" style="direction:ltr">
+        <% like = UserAnnouncement.where(announcement_id: ann.id).length %>
+        <% user_id = User.find_by(email: current_admin.email).id %>
+        <% not_liked = UserAnnouncement.where(announcement_id: ann.id, user_id: user_id).empty?%>
+        <br>
+    <div class="container w-96 h-16 rounded-lg px-10" style="direction:ltr" id="annBox">
         <%= link_to announcement_path(ann), class: 'action show' do%>
         <div class="h-16 border-gray-200 border-2 rounded-sm p-5 transition duration-700 ease-in-out 
                      hover:bg-gray-100 transform 
@@ -19,9 +22,29 @@
         </div>
     </div>
     <%end%>
-        <div class="relative mb-4 mt-1"> 
+        <div class="relative mb-4 mt-1">
+            <%# Like count %>
+            <% if not_liked %>
+                <% if like / 100 < 1%>
+                    <div class="absolute left-10 text-right"><%= like %></div>
+                <%else%>
+                    <div class="absolute left-5 text-right"><%= like%></div>
+                <%end%>
+            <%else%>
+                <% if like / 100 < 1%>
+                    <div class="absolute left-10 text-right text-rose-400"><%= like %></div>
+                <%else%>
+                    <div class="absolute left-5 text-right text-rose-400"><%= like %></div>
+                <%end%>
+            <%end%>
+
             <div class="absolute left-14">
-                <div class="absolute w-6 h-6 rounded-full hover:bg-rose-400 hover:opacity-50 duration-300 cursor-pointer"></div> 
+                <%# Like Button %>
+                <% if not_liked %>
+                    <a href= "<%= like_path(:user_id => user_id, :announcement_id => ann.id) %>" class="absolute w-6 h-6 rounded-full hover:bg-rose-400 hover:opacity-50 duration-300 cursor-pointer"></a>
+                <%else%>
+                    <a href= "<%= like_path(:user_id => user_id, :announcement_id => ann.id) %>" class="absolute w-6 h-6 rounded-full bg-rose-400 opacity-50 cursor-pointer"></a>
+                <%end%>
                 <span class="pt-[3px] pr-[3px] material-icons" style="font-size:18px">favorite_border</span> 
             </div>
         </div>
