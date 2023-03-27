@@ -22,7 +22,7 @@
   </head>
 
  <%# Displays the nav bar on all pages EXCEPT sign in and new user creation  %>
-  <% if !current_page?("/admins/sign_in") && !current_page?("/users/new") && !@error%>
+  <% if !current_page?("/admins/sign_in") && !current_page?("/users/new") && !current_page?("/waiting") && !@error%>
     <header class="header sticky top-0 bg-white shadow-md flex items-center justify-between px-8 py-02">
       <!-- navigation -->
       <nav class="nav font-semibold text-lg">

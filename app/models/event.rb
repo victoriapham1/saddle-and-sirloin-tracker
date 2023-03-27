@@ -6,7 +6,7 @@ class Event < ApplicationRecord
   validates :start_time, presence: false
   validates :end_time, presence: false
 
-  has_many :user_events
+  has_many :user_events, dependent: :destroy
   has_many :users, through: :user_events
 
   TYPE = {

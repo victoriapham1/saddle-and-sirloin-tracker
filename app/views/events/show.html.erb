@@ -46,4 +46,52 @@
     <% end %>
 <%end%>
 
+    <div>
+        <br>
+        <%= form.submit %>
+    </div>
+<% end %>
+</div>
+
+<br>
+<%# Display all user attendance for event. -%>
+<div>
+      <%= form_for(@event) do |f| %>
+        <%# Only display table if user attendance to be viewed. -%>
+        <% @users.each do | user | %>
+                <% if @event.users.include?(user) -%>
+                    <% @count_users = @count_users + 1 %>
+                <% end %>
+        <% end %>
+
+        <% if @count_users > 0 -%>
+            <p style="text-indent: 15%;">Total attendees: <%=h @count_users %> </p>
+            <table style="width: 70%; margin-left: auto; margin-right: auto;" class="table-auto pretty">
+                <thead class="text-white uppercase bg-maroon dark:bg-maroon dark:text-white ">
+                    <tr>
+                        <th><%= sortable "uin" %></th>
+                        <th><%= sortable "first_name", "First Name" %></th>
+                        <th><%= sortable "last_name", "Last Name"%></th>
+                        <th><%= sortable "email", "Email" %></th>
+                        <th><%= sortable "phone", "Phone" %></th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <% @users.each do | user | %>
+                    <% if @event.users.include?(user) -%>
+                        <tr class="<%= cycle('bg-khaki', 'bg-gray-100') %>">
+                            <td class="text-center"><%= link_to user.uin, edit_user_path(user), class: 'action show' %></td>
+                            <td><%=h user.first_name %></td>
+                            <td><%=h user.last_name %></td>
+                            <td><%=h user.email %></td>
+                            <td class="text-center"><%=h number_to_phone(user.phone) %></td>
+                            <td class="text-center"><%= link_to "X", delete_user_event_path(UserEvent.where("user_id = ? AND event_id = ?", user.id, @event.id).ids.first) %></td>
+                        </tr>
+                    <% end %>
+                <% end %>
+                </tbody>
+            </table>
+        <% end %>
+      <% end %>
 </div>
