@@ -65,6 +65,7 @@
                         <th><%= sortable "last_name", "Last Name"%></th>
                         <th><%= sortable "email", "Email" %></th>
                         <th><%= sortable "phone", "Phone" %></th>
+                        <th>Remove</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,6 +77,7 @@
                             <td><%=h user.last_name %></td>
                             <td><%=h user.email %></td>
                             <td class="text-center"><%=h number_to_phone(user.phone) %></td>
+                            <td class="text-center"><%= link_to "X", delete_user_event_path(UserEvent.where("user_id = ? AND event_id = ?", user.id, @event.id).ids.first) %></td>
                         </tr>
                     <% end %>
                 <% end %>
