@@ -3,7 +3,7 @@
   <p>Sign in for event <%= params[:event_id]%></p>
   <p>Current user id: <%= User.find_by(email: current_admin.email).id %></p>
 
-  <%form_with url: user_event_path, local: true, method: post do%>
-  <%end%>
+  <%# <%form_with url: user_event_path, local: true, method: post do%>
+  <%# <%end%>
 
 </div>

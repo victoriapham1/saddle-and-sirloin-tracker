@@ -3,11 +3,17 @@ require 'google/api_client/client_secrets'
 class EventsController < ApplicationController
   CALENDAR_ID = 'primary'.freeze
   before_action :authorize_user
+
+  $upcoming = true
   # GET /events or /events.json
   def index
     @events = Event.all
-    # @events = Event.search(params[:search])
-    @events = Event.search(params[:search], params[:category])
+    @events = Event.search(params[:search], params[:category]).sort_by(&:date)
+  end
+
+  def previous
+    @events = Event.all
+    @events = Event.search(params[:search], params[:category]).sort_by(&:date)
   end
 
   # GET /events/1 or /events/1.json
@@ -149,5 +155,10 @@ class EventsController < ApplicationController
   # Verify User has created thier profile. Redirect to create profile if not
   def authorize_user
     redirect_to(controller: 'users', action: 'new') if User.find_by(email: current_admin.email).nil?
+  end
+
+  def self.bool_false(upcoming)
+    $upcoming = false
+    redirect_to event_path
   end
 end
