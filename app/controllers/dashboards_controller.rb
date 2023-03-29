@@ -12,4 +12,12 @@ class DashboardsController < ApplicationController
       user.save
     end
   end
+
+  # FOR TESTING! REMOVE
+  def swapRole
+    @user = User.find_by(email: current_admin.email)
+    @user.role = @user.role == 1 ? 0 : 1
+    @user.save
+    redirect_to '/'
+  end
 end

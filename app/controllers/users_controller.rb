@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_action :authorize_user, except: %i[new create show waiting approve]
+  before_action :authorize_user, except: %i[new create waiting approve]
   before_action :unique_user, only: [:new]
+  before_action :block_member, except: %i[new create waiting approve]
   helper_method :sort_column, :sort_direction
   before_action :set_user, only: %i[show edit update destroy]
 
@@ -87,11 +88,12 @@ class UsersController < ApplicationController
 
   def waiting; end
 
+  # FOR TESTING, allows member to approve themselves through the queue. WILL BE REMOVED
   def approve
     @user = User.find_by(email: current_admin.email)
     @user.isActive = true
     @user.isRequesting = false
-    @user.save
+    @user.save!
     redirect_to '/'
   end
 
@@ -139,5 +141,12 @@ class UsersController < ApplicationController
   # Only allow unique users to visit the create profile page
   def unique_user
     redirect_to(controller: 'users', action: 'index') if User.find_by(email: current_admin.email) != nil
+  end
+
+  # URL protection: don't allow members to view officer pages/actions
+  def block_member
+    return unless User.find_by(email: current_admin.email).role == 0
+
+    redirect_to '/'
   end
 end
