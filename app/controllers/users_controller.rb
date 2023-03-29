@@ -95,6 +95,11 @@ class UsersController < ApplicationController
     redirect_to '/'
   end
 
+  def update_multiple
+    User.where(:id => params[:user_ids]).update_all(:isActive => true, :isRequesting => false) if params[:user_ids].present?
+    redirect_to users_path
+  end
+
   private
 
   def sort_column

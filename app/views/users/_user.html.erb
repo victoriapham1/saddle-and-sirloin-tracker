@@ -1,31 +1,16 @@
-<div id="users">
-    <%# Display all members in table format%> 
+<%= form_tag update_multiple_users_path, method: :put do %>
+    <%# Display all members in table format %> 
     <table style="width: 75%; margin-left: auto; margin-right: auto;" class="table-auto pretty">
         <thead class="text-white uppercase bg-maroon dark:bg-maroon dark:text-white ">
             <tr>
-                <th id="users-uin" > 
-                    <%= sortable "uin" %></th>
-                <th id="users-first_name">
-                    <%= sortable "first_name", "First Name" %></th>
-                </th>
-                <th id="users-last_name">
-                    <%= sortable "last_name", "Last Name" %></th>
-                </th>
-                <th id="users-classify">
-                    <%= sortable "classify", "Year" %></th>
-                </th>
-                <th id="users-email">
-                    <%= sortable "email", "Email" %></th>
-                </th>
-                <th id="users-phone">
-                    <%= sortable "phone", "Phone" %></th>
-                </th>
-                <th id="users-role">
-                    <%= sortable "role", "Role" %></th>
-                </th>
-                <th id="users-activate">
-                    Active</th>
-                </th>
+                <th> <%= sortable "uin" %> </th>
+                <th> <%= sortable "first_name", "First Name" %> </th>
+                <th> <%= sortable "last_name", "Last Name" %> </th>
+                <th> <%= sortable "classify", "Year" %> </th>
+                <th> <%= sortable "email", "Email" %> </th>
+                <th> <%= sortable "phone", "Phone" %> </th>
+                <th> <%= sortable "role", "Role" %> </th>
+                <th>Active</th>
             </tr>
         </thead>
 
@@ -36,31 +21,32 @@
                 <td><%= user.first_name %></td>
                 <td><%= user.last_name %></td>
                 <td class="text-center">
-                    <% if user.classify == 1 -%>
-                        U1
-                    <% elsif user.classify == 2 -%>
-                        U2
-                    <% elsif user.classify == 3 -%>
-                        U3
-                    <% elsif user.classify == 4 -%>
-                        U4
-                    <% else -%>
-                        G
+                    <% if user.classify == 1 -%> U1
+                    <% elsif user.classify == 2 -%> U2
+                    <% elsif user.classify == 3 -%> U3
+                    <% elsif user.classify == 4 -%> U4
+                    <% else -%> G
                     <% end -%>
                 </td>
                 <td><%= user.email %></td>
                 <td class="text-center"><%= number_to_phone(user.phone) %></td>
                 <td class="text-center">
-                <% if user.role == 1 -%>
-                        Officer
-                    <% else -%>
-                        Member
+                    <% if user.role == 1 -%> Officer
+                    <% else -%> Member
                     <% end -%>
                 </td>
-                <td class="text-center"><%= check_box_tag 'isActive', 'true', user.isActive, id: 'isActive', :disabled => true %></td>
+                <td class="text-center">
+                    <% if params[:category] == 'Approval' %>
+                        <%= check_box_tag "user_ids[]", user.id %>
+                    <% else %>
+                        <%= check_box_tag 'isActive', 'true', user.isActive, id: 'isActive', :disabled => true %>
+                    <% end %>
+                </td>
                 </tr>
             <% end %>
     </tbody>
-
     </table>
-</div>
+    <% if params[:category] == 'Approval' %>
+        <%= submit_tag "Activate User" %>
+    <% end %>
+<% end %>

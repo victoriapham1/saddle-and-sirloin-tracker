@@ -23,9 +23,13 @@ Rails.application.routes.draw do
     end
   end
 
+  # Routes for users
   resources :users do
     member do
       get :delete
+    end
+    collection do
+      put :update_multiple
     end
   end
 
