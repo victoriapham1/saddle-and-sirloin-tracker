@@ -16,11 +16,17 @@
 <% end %>
 
 <div class="container mx-auto px-10">
-  <%= render "events_search" %>
+  <div>
+    <%= render "events_search" %>
+  </div>
+  <div>
+    <%= button_to "Previous Events", previous_event_path(0), method: :get, class:"myClass" %>
+  </div>
 </div>
 
 
 <% @events.each do |event|%>
+
 <br>
 <%= link_to event_path(event), class: 'action show' do%>
 <div class="container mx-auto rounded-lg px-10">
@@ -42,4 +48,8 @@
     </div>
 </div>
 <%end%>
+
+  <%# checks event date and compares it to current date. Only renderes the events that are either today or later %>
+  <%= render(:partial => "events_card", :locals => {:event => event}) if event.date >= Time.now.to_date%>
+  <br>
 <%end%>

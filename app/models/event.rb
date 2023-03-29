@@ -1,3 +1,4 @@
+require "rqrcode"
 class Event < ApplicationRecord
   validates :name, presence: true
   validates :date, presence: true
@@ -47,5 +48,17 @@ class Event < ApplicationRecord
     else
       @events = Event.all
     end
+  end
+
+  def qrcode(event_id)
+    qr = RQRCode::QRCode.new("https://testurl.com/" +"user_event/" + "#{event_id}" + "/new")
+    svg = qr.as_svg(
+      color: "000",
+      shape_rendering: "crispEdges",
+      module_size: 11,
+      standalone: true,
+      use_path: true
+    )
+    return svg
   end
 end
