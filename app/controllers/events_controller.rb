@@ -3,17 +3,27 @@ require 'google/api_client/client_secrets'
 class EventsController < ApplicationController
   CALENDAR_ID = 'primary'.freeze
   before_action :authorize_user
+  before_action :block_member, except: %i[index show]
+  helper_method :sort_column, :sort_direction
+
+  $upcoming = true
   # GET /events or /events.json
   def index
     @events = Event.all
-    # @events = Event.search(params[:search])
-    @events = Event.search(params[:search], params[:category])
+    @events = Event.search(params[:search], params[:category]).sort_by(&:date)
+  end
+
+  def previous
+    @events = Event.all
+    @events = Event.search(params[:search], params[:category]).sort_by(&:date)
   end
 
   # GET /events/1 or /events/1.json
   def show
     @event = Event.find(params[:id])
     @user_event = UserEvent.new
+    @users = User.order(sort_column + ' ' + sort_direction)
+    @count_users = 0
   end
 
   # GET /events/new
@@ -121,16 +131,13 @@ class EventsController < ApplicationController
 
       description: task[:description],
       start: {
-        date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], task['start_time(4i)'], task['start_time(5i)'],
-                                   0o0).to_datetime,
-        time_zone: '+6:00'
+        date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], (Integer(task['start_time(4i)'], 10) + 5).to_s, task['start_time(5i)']).to_datetime
+
         # date_time: '2019-09-07T09:00:00-07:00',
         # time_zone: 'Asia/Kolkata',
       },
       end: {
-        date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], task['end_time(4i)'], task['end_time(5i)'],
-                                   0o0).to_datetime,
-        time_zone: '+6:00'
+        date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], (Integer(task['end_time(4i)'], 10) + 5).to_s, task['end_time(5i)']).to_datetime
       }, primary: true
     )
   end
@@ -143,11 +150,38 @@ class EventsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def event_params
     params.require(:event).permit(:name, :date, :event_type, :description, :start_time, :end_time, :search,
-                                  :google_event_id)
+                                  :google_event_id, user_ids: [])
   end
 
   # Verify User has created thier profile. Redirect to create profile if not
   def authorize_user
-    redirect_to(controller: 'users', action: 'new') if User.find_by(email: current_admin.email).nil?
+    user = User.find_by(email: current_admin.email)
+    if user.nil?
+      redirect_to(controller: 'users', action: 'new')
+    elsif user.isActive == false
+      redirect_to(controller: 'users', action: 'waiting')
+      user.isRequesting = true
+      user.save
+    end
+  end
+
+  def sort_column
+    User.column_names.include?(params[:sort]) ? params[:sort] : 'first_name'
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
+  end
+
+  # URL protection: don't allow members to view officer pages/actions
+  def block_member
+    return unless User.find_by(email: current_admin.email).role == 0
+
+    redirect_to '/'
+  end
+
+  def self.bool_false(_upcoming)
+    $upcoming = false
+    redirect_to event_path
   end
 end

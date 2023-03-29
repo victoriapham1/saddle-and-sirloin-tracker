@@ -1,6 +1,40 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "113eb79976df86ac59d73fd2b5ccf5dd868f53c583e79b8781bb073c6ee3369a",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/events/show.html.erb",
+      "line": 17,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Event.new(event_params).qrcode(Event.new(event_params).id)",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "EventsController",
+          "method": "create",
+          "line": 81,
+          "file": "app/controllers/events_controller.rb",
+          "rendered": {
+            "name": "events/show",
+            "file": "app/views/events/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "events/show"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Mass Assignment",
       "warning_code": 105,
       "fingerprint": "6f3d0ab5ce2b91a4688ca12dadf360639d218977863af159d01bf788c67b3ad7",
@@ -30,7 +64,7 @@
       "check_name": "PermitAttributes",
       "message": "Potentially dangerous key allowed for mass assignment",
       "file": "app/controllers/users_controller.rb",
-      "line": 79,
+      "line": 85,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "params.require(:user).permit(:first_name, :last_name, :uin, :email, :phone, :password, :classify, :isActive, :role, :event_ids => ([]))",
       "render_path": null,
@@ -47,6 +81,6 @@
       "note": ""
     }
   ],
-  "updated": "2023-03-06 05:48:52 +0000",
+  "updated": "2023-03-29 01:07:22 +0000",
   "brakeman_version": "5.4.0"
 }
