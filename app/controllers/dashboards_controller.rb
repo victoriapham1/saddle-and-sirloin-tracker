@@ -11,26 +11,26 @@ class DashboardsController < ApplicationController
       user.isRequesting = true
       user.save
     end
-  
-    @announcements = Announcement.all
 
+    @announcements = Announcement.all
   end
 
   # Creates the 'like' in the UserAnnouncemnent table if it doesn't exist.
   # Otherwise, will perform a 'un-like' to remove the like from the announcment and UA table.
   def like
     user_announcement = UserAnnouncement.find_by(like_params)
-    if user_announcement == nil
-        UserAnnouncement.create(like_params)
-        redirect_to :action => 'show'
+    if user_announcement.nil?
+      UserAnnouncement.create(like_params)
+      redirect_to action: 'show'
     else
-        user_announcement.destroy
-        redirect_to :action => 'show'
+      user_announcement.destroy
+      redirect_to action: 'show'
     end
   end
 
   def like_params
     params.permit(:user_id, :announcement_id)
+  end
 
   # FOR TESTING! REMOVE
   def swapRole
@@ -39,5 +39,4 @@ class DashboardsController < ApplicationController
     @user.save
     redirect_to '/'
   end
-  
 end
