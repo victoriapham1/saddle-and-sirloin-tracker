@@ -43,6 +43,8 @@ Rails.application.routes.draw do
 
   match 'calendar', to: 'announcements#calendar', via: :get
 
+  match 'like', to: 'dashboards#like', via: :get
+
   match 'swapRole', to: 'dashboards#swapRole', via: :put
   match 'waiting', to: 'users#waiting', via: :get
   match 'approve', to: 'users#approve', via: :put

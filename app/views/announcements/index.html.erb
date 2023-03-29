@@ -1,4 +1,6 @@
-<h1 class="text-3xl font-bold">Announcements</h1>
+<div>
+  <h1 class="text-3xl font-bold">Announcements</h1>
+
 
 <table class="listing" summary="Announcement list" style="width: 75%; margin-left: auto; margin-right: auto;">
   <tr class="header">
@@ -22,8 +24,9 @@
     </tr>
   <% end %>
 
-</table>
+  </table>
 
 <% if User.find_by(email: current_admin.email).role == 1 %>
   <%= link_to "Add New Announcement", new_announcement_path %>
 <%end%>
+

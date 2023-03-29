@@ -3,7 +3,7 @@ require 'google/api_client/client_secrets'
 class EventsController < ApplicationController
   CALENDAR_ID = 'primary'.freeze
   before_action :authorize_user
-  before_action :block_member, except: %i[index show]
+  before_action :block_member, except: %i[index show previous]
   helper_method :sort_column, :sort_direction
 
   $upcoming = true

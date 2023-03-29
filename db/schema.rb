@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_230_321_141_114) do
+ActiveRecord::Schema[7.0].define(version: 20_230_326_003_123) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -48,6 +48,15 @@ ActiveRecord::Schema[7.0].define(version: 20_230_321_141_114) do
     t.boolean 'isActive', default: true
   end
 
+  create_table 'user_announcements', force: :cascade do |t|
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.bigint 'user_id'
+    t.bigint 'announcement_id'
+    t.index ['announcement_id'], name: 'index_user_announcements_on_announcement_id'
+    t.index ['user_id'], name: 'index_user_announcements_on_user_id'
+  end
+
   create_table 'user_events', force: :cascade do |t|
     t.boolean 'attendance'
     t.datetime 'created_at', null: false
@@ -73,6 +82,8 @@ ActiveRecord::Schema[7.0].define(version: 20_230_321_141_114) do
     t.boolean 'isRequesting', default: true
   end
 
+  add_foreign_key 'user_announcements', 'announcements'
+  add_foreign_key 'user_announcements', 'users'
   add_foreign_key 'user_events', 'events'
   add_foreign_key 'user_events', 'users'
 end
