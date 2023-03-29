@@ -98,7 +98,10 @@ class UsersController < ApplicationController
   end
 
   def update_multiple
-    User.where(:id => params[:user_ids]).update_all(:isActive => true, :isRequesting => false) if params[:user_ids].present?
+    if params[:user_ids].present?
+      User.where(id: params[:user_ids]).update_all(isActive: true,
+                                                   isRequesting: false)
+    end
     redirect_to users_path
   end
 
