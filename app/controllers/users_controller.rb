@@ -9,8 +9,7 @@ class UsersController < ApplicationController
     # Search bar
     @per_page = params[:per_page] || User.per_page || 10
     if params[:search]
-      # Able to search for first, last or both (where)
-      # Paginate splits table (paginate)
+      # Able to search for first, last or both (where), Paginate splits table (paginate)
       @users = User.order(sort_column + ' ' + sort_direction).where("CONCAT_WS(' ', first_name, last_name) ILIKE ?", "%#{params[:search].strip.downcase}%").paginate(
         per_page: @per_page, page: params[:page]
       )
@@ -19,14 +18,14 @@ class UsersController < ApplicationController
       if params[:category] == 'Active'
         @users = @users.where(isActive: true)
       elsif params[:category] == 'Deactive'
-        @users = @users.where(isActive: false)
+        @users = @users.where(isActive: false, isRequesting: false)
       elsif params[:category] == 'Approval'
         @users = @users.where(isRequesting: true)
       end
 
     else
       @users = User.order(sort_column + ' ' + sort_direction).paginate(per_page: @per_page,
-                                                                       page: params[:page])
+                                                                       page: params[:page]).where(isActive: true)
     end
   end
 

@@ -12,7 +12,7 @@
       <%= form_tag(users_path, method: :get) do %>
           <%= text_field_tag :search, params[:search], placeholder: "Enter name or surname..." %>
           <%# Filter between isActive (activated/deactivated) & isRequesting (in queue). %>
-          <%= select_tag :category, options_for_select(["Active", "Deactive", "Approval"], params[:category]), onchange: "this.form.submit();", include_blank: "" %>
+          <%= select_tag :category, options_for_select(["Active", "Deactive", "Approval"], params[:category]), onchange: "this.form.submit();" %>
       <%= submit_tag 'Search', name: nil %>
     </div>
     <div style="float: right">
