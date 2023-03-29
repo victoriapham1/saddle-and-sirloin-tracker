@@ -8,6 +8,8 @@ class DashboardsController < ApplicationController
 
   end
 
+  # Creates the 'like' in the UserAnnouncemnent table if it doesn't exist.
+  # Otherwise, will perform a 'un-like' to remove the like from the announcment and UA table.
   def like
     user_announcement = UserAnnouncement.find_by(like_params)
     if user_announcement == nil
@@ -20,7 +22,6 @@ class DashboardsController < ApplicationController
   end
 
   def like_params
-    # SEND THE FORM FOR THIS TO WORK. Key like{ params}
     params.permit(:user_id, :announcement_id)
   end
 end
