@@ -71,12 +71,11 @@ class AnnouncementsController < ApplicationController
       user.save
     end
   end
-  
+
   # URL protection: don't allow members to view officer pages/actions
   def block_member
-    if User.find_by(email: current_admin.email).role == 0
-      redirect_to '/'
-    end
-  end
+    return unless User.find_by(email: current_admin.email).role == 0
 
+    redirect_to '/'
+  end
 end

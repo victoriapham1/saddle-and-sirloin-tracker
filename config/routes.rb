@@ -37,11 +37,10 @@ Rails.application.routes.draw do
   end
 
   match 'calendar', to: 'announcements#calendar', via: :get
-  
+
   match 'swapRole', to: 'dashboards#swapRole', via: :put
   match 'waiting', to: 'users#waiting', via: :get
   match 'approve', to: 'users#approve', via: :put
-
 
   # OATH
   devise_for :admins, controllers: { omniauth_callbacks: 'admins/omniauth_callbacks' }

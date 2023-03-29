@@ -3,7 +3,7 @@ require 'google/api_client/client_secrets'
 class EventsController < ApplicationController
   CALENDAR_ID = 'primary'.freeze
   before_action :authorize_user
-  before_action :block_member, except: %i[index show] 
+  before_action :block_member, except: %i[index show]
   helper_method :sort_column, :sort_direction
 
   # GET /events or /events.json
@@ -170,11 +170,11 @@ class EventsController < ApplicationController
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
- # URL protection: don't allow members to view officer pages/actions
-  def block_member
-    if User.find_by(email: current_admin.email).role == 0
-      redirect_to '/'
-    end
-  end
 
+  # URL protection: don't allow members to view officer pages/actions
+  def block_member
+    return unless User.find_by(email: current_admin.email).role == 0
+
+    redirect_to '/'
+  end
 end

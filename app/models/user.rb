@@ -4,10 +4,10 @@ class User < ApplicationRecord
   validates :last_name, presence: true
   validates :email, presence: true
   validates :phone, presence: true
-  validates :isActive, presence: true, allow_blank: true #Needed to set to false
+  validates :isActive, presence: true, allow_blank: true # Needed to set to false
   validates :role, presence: true
   validates :classify, presence: true
-  validates :isRequesting, presence: true, allow_blank: true #Needed to set to false
+  validates :isRequesting, presence: true, allow_blank: true # Needed to set to false
 
   has_many :user_events, dependent: :destroy
   has_many :events, through: :user_events

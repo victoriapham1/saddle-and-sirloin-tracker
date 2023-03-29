@@ -13,7 +13,7 @@ class DashboardsController < ApplicationController
     end
   end
 
-  #FOR TESTING! REMOVE
+  # FOR TESTING! REMOVE
   def swapRole
     @user = User.find_by(email: current_admin.email)
     @user.role = @user.role == 1 ? 0 : 1

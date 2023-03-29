@@ -137,11 +137,11 @@ class UsersController < ApplicationController
   def unique_user
     redirect_to(controller: 'users', action: 'index') if User.find_by(email: current_admin.email) != nil
   end
- # URL protection: don't allow members to view officer pages/actions
-  def block_member
-    if User.find_by(email: current_admin.email).role == 0
-      redirect_to '/'
-    end
-  end
 
+  # URL protection: don't allow members to view officer pages/actions
+  def block_member
+    return unless User.find_by(email: current_admin.email).role == 0
+
+    redirect_to '/'
+  end
 end
