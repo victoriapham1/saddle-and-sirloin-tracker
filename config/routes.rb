@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :user_event do
     member do
       post :create
+      get :delete
     end
   end
 
@@ -22,9 +23,13 @@ Rails.application.routes.draw do
     end
   end
 
+  # Routes for users
   resources :users do
     member do
       get :delete
+    end
+    collection do
+      put :update_multiple
     end
   end
 
@@ -37,6 +42,10 @@ Rails.application.routes.draw do
   end
 
   match 'calendar', to: 'announcements#calendar', via: :get
+
+  match 'swapRole', to: 'dashboards#swapRole', via: :put
+  match 'waiting', to: 'users#waiting', via: :get
+  match 'approve', to: 'users#approve', via: :put
 
   # OATH
   devise_for :admins, controllers: { omniauth_callbacks: 'admins/omniauth_callbacks' }

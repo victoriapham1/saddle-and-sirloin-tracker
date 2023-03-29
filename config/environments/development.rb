@@ -74,6 +74,6 @@ Rails.application.configure do
   # TAILWIND
   config.assets.debug = true
 
-  #baseurl for generating QR codes
-  ENV['URL'] = "localhost:3000"
+  # baseurl for generating QR codes
+  ENV['URL'] = 'localhost:3000'
 end

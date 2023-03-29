@@ -13,12 +13,17 @@
       <td><%= a.description %></td>
       <td class="actions"> 
         <%= link_to "Show", announcement_path(a), class: 'action show' %>
-        <%= link_to "Edit", edit_announcement_path(a), class: 'action show' %>
-        <%= link_to "Delete", delete_announcement_path(a), class: 'action show' %>
+        <%# Conditional render %>
+        <% if User.find_by(email: current_admin.email).role == 1 %>
+          <%= link_to "Edit", edit_announcement_path(a), class: 'action show' %>
+          <%= link_to "Delete", delete_announcement_path(a), class: 'action show' %>
+        <%end%>
       <td>
     </tr>
   <% end %>
 
 </table>
 
-<%= link_to "Add New Announcement", new_announcement_path %>
+<% if User.find_by(email: current_admin.email).role == 1 %>
+  <%= link_to "Add New Announcement", new_announcement_path %>
+<%end%>

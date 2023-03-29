@@ -1,5 +1,6 @@
 class AnnouncementsController < ApplicationController
   before_action :authorize_user
+  before_action :block_member, except: %i[index show calendar]
 
   def index
     @announcements = Announcement.all
@@ -61,6 +62,20 @@ class AnnouncementsController < ApplicationController
   end
 
   def authorize_user
-    redirect_to(controller: 'users', action: 'new') if User.find_by(email: current_admin.email).nil?
+    user = User.find_by(email: current_admin.email)
+    if user.nil?
+      redirect_to(controller: 'users', action: 'new')
+    elsif user.isActive == false
+      redirect_to(controller: 'users', action: 'waiting')
+      user.isRequesting = true
+      user.save
+    end
+  end
+
+  # URL protection: don't allow members to view officer pages/actions
+  def block_member
+    return unless User.find_by(email: current_admin.email).role == 0
+
+    redirect_to '/'
   end
 end

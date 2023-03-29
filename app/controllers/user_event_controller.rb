@@ -29,6 +29,13 @@ class UserEventController < ApplicationController
 
   def show; end
 
+  def delete
+    @user_event = UserEvent.find(params[:id])
+    @event = @user_event.event_id
+    @user_event.destroy
+    redirect_to(event_path(@event), notice: 'Attendee removed.')
+  end
+
   def user_event_params
     params.require(:user_event).permit(:user_id, :event_id, :attendance)
   end

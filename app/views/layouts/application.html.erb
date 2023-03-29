@@ -21,8 +21,8 @@
 
   </head>
 
- <%# Displays the nav bar on all pages EXCEPT sign in and new user creation  %>
-  <% if !current_page?("/admins/sign_in") && !current_page?("/users/new") && !@error%>
+ <%# Displays the nav bar on all pages EXCEPT sign in, new user creation and waiting queue  %>
+  <% if !current_page?("/admins/sign_in") && !current_page?("/users/new") && !current_page?("/waiting") && !@error%>
     <header class="header sticky top-0 bg-white shadow-md flex items-center justify-between px-8 py-02">
       <!-- navigation -->
       <nav class="nav font-semibold text-lg">
@@ -35,22 +35,20 @@
             <li class="p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100
             hover:text-maroon duration-200 cursor-pointer active">Announcements</li>
           </a>
-          <a href="/events">
-            <li class="p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100
-            hover:text-maroon duration-200 cursor-pointer active">Events</li>
-          </a>
           <a href="/calendar">
             <li class="p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100
             hover:text-maroon duration-200 cursor-pointer active">Calendar</li>
           </a>
-          <%# <a href="/committees">
+          <a href="/events">
             <li class="p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100
-            hover:text-maroon duration-200 cursor-pointer active">Committees</li>
-          </a> %>
-          <a href="/users">
-            <li class="p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100
-            hover:text-maroon duration-200 cursor-pointer active">Members</li>
+            hover:text-maroon duration-200 cursor-pointer active">Events</li>
           </a>
+          <% if User.find_by(email: current_admin.email).role == 1 %>
+            <a href="/users">
+              <li class="p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100
+              hover:text-maroon duration-200 cursor-pointer active">Members</li>
+            </a>
+          <%end%>
         </ul>
       </nav>
       
