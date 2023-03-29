@@ -33,7 +33,7 @@
       <%end%>
       <h2>Type: <%= event.formatted_type %></h2>
       <p> <%= event.description %> <p>
-      <%# edit/delete links only appear for officers %>
+      <%# Conditionally render edit/delete links to only appear for officers %>
       <% if User.find_by(email: current_admin.email).role == 1 %>
         <%= link_to("Edit", edit_event_path(event), class: 'action edit')%>
         <%= link_to("Delete", delete_event_path(event), class: 'action delete')%>

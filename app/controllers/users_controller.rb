@@ -88,14 +88,11 @@ class UsersController < ApplicationController
 
   def waiting; end
 
+  # FOR TESTING, allows member to approve themselves through the queue. WILL BE REMOVED
   def approve
     @user = User.find_by(email: current_admin.email)
-    puts @user.isActive
-    puts @user.isRequesting
     @user.isActive = true
     @user.isRequesting = false
-    puts @user.isActive
-    puts @user.isRequesting
     @user.save!
     redirect_to '/'
   end
