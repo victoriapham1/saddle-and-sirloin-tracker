@@ -51,7 +51,7 @@ class Event < ApplicationRecord
   end
 
   def qrcode(event_id)
-    qr = RQRCode::QRCode.new('https://testurl.com/' + 'user_event/' + "#{event_id}" + '/new')
+    qr = RQRCode::QRCode.new('https://testurl.com/' + 'user_event/' + "#{event_id}" + '/new', size=1)
     qr.as_svg(
       color: '000',
       shape_rendering: 'crispEdges',

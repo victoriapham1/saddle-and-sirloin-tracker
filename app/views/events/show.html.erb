@@ -17,10 +17,9 @@
 
 <%# Conditionally render UIN submission for user event creation as well as the event attendance. Only allow officers to see this! %>
 <% if User.find_by(email: current_admin.email).role == 1 %>
-    <%= @event.qrcode(@event.id).html_safe%>
 
     <div class = "container mx-auto">
-        <%= form_for( @user_event, :url => user_event_path( user_event_path ), :html => { :method => :post } ) do |form| %>
+        <%= form_for( @user_event, :url => user_event_path(@event.id), :html => { :method => :post }) do |form| %>
         <% if @user_event.errors.any? %>
             <div style="color: red">
             <h2><%= pluralize(@user_event.errors.count, "error") %> prohibited this event from being saved:</h2>
@@ -45,7 +44,10 @@
             <br>
             <%= form.submit %>
         </div>
-    <% end %>
+        <% end %>
+        <br>
+        <br>
+        <%= @event.qrcode(@event.id).html_safe%>
     </div>
 
     <br>
