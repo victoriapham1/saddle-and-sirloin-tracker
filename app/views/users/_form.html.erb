@@ -46,6 +46,18 @@
       <%= form.label :class, style: "display: block"%>
       <%= form.select :classify, options%>
     </div>
+
+    <%# Only display role selection to officers. %>
+    <% if User.find_by(email: current_admin.email).role != 0 %>
+      <div class="text-center">
+        <br>
+        <% roleArr = ['Member', 'Officer','President', 'Vice-President']
+          roleOptions = roleArr.map.with_index { |gd,idx| [gd, idx]}
+        %>
+        <%= form.label :role, style: "display: block"%>
+        <%= form.select :role, roleOptions%>
+      </div>
+    <% end %>
   
     <div class="text-center">
       <br>
