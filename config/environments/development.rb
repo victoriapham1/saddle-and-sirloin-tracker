@@ -1,6 +1,8 @@
 require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
+
+  ENV["URL"] = "https://localhost:3000/"
   # Settings specified here will take precedence over those in config/application.rb.
 
   # OATH
