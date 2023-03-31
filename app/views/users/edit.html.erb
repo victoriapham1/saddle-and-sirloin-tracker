@@ -1,10 +1,13 @@
 <div>
     <%= link_to "Back to member directory", users_path %>
-    <br>
-    <h1 class="text-3xl font-bold text-center">Editing User</h1>
+    <br><br>
 
-    <%= render "form", user: @user %>
-    <br>
+    <div class="container mx-auto rounded-lg" style="width: 50%;">
+      <div class="shadow shadow-2xl border border-red-900  border-4 rounded-lg p-10" style="background-color: white">
+        <%= render "form", user: @user %>
+        <br>
+      </div>
+    </div>
 
     <%# List out all events by event_type and maps which events a user has been to in the user profile.%> 
     <br>
