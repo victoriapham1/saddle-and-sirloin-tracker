@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   end
 
   # routes for user-events
-  resources :user_event do
+  resources :user_event, path: "user_event/:event_id/", only: [:new] do
     member do
       post :create
       get :delete
