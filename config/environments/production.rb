@@ -2,7 +2,7 @@ require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
 
-  ENV["URL"] = "https://tamusaddleandsirloinclub.herokuapp.com/"
+  ENV['URL'] = "https://tamusaddleandsirloinclub.herokuapp.com/"
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -10,6 +10,7 @@ Rails.application.configure do
 
   ENV['GOOGLE_OAUTH_CLIENT_ID'] = '881177367415-rdd0lakl4cu39mc42t5vqclabnkft5ne.apps.googleusercontent.com'
   ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = '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'
+  ENV['GOOGLE_APPLICATION_CREDENTIALS']='config/environments/service_account_cred.json'
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
@@ -95,6 +96,4 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  # baseurl for generating QR codes
-  ENV['URL'] = 'localhost:3000'
 end

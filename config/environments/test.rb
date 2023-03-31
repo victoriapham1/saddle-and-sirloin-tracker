@@ -9,6 +9,9 @@ Rails.application.configure do
 
   ENV["URL"] = "https://saddle-sirlo-test-csekiritzo5d.herokuapp.com/"
   # Settings specified here will take precedence over those in config/application.rb.
+  ENV['GOOGLE_APPLICATION_CREDENTIALS']='config/environments/service_account_cred.json'
+  ENV['GOOGLE_OAUTH_CLIENT_ID'] = '881177367415-rdd0lakl4cu39mc42t5vqclabnkft5ne.apps.googleusercontent.com'
+  ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = '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'
 
   # Turn false under Spring and add config.action_view.cache_template_loading = true.
   config.cache_classes = true
