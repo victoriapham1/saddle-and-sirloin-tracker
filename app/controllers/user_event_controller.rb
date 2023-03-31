@@ -21,8 +21,8 @@ class UserEventController < ApplicationController
     end
 
     #check to make sure user hasn't already registered for event
-    @user_event_check = UserEvent.where(["user_id = :user_id and event_id = :event_id", { user_id: @user_event.user_id, event_id: @user_event.event_id }])
-    if @user_event_check = nil
+    @user_event_check = UserEvent.find_by(user_id: @user_event.user_id, event_id: @user_event.event_id )
+    if @user_event_check == nil
       respond_to do |format|
         if @user_event.save
           format.html { redirect_to(event_url(@event), notice: 'Attendance recorded') }
@@ -40,7 +40,7 @@ class UserEventController < ApplicationController
   def show; end
 
   def delete
-    @user_event = UserEvent.find(params[:id])
+    @user_event = UserEvent.find(params[:event_id])
     @event = @user_event.event_id
     @user_event.destroy
     redirect_to(event_path(@event), notice: 'Attendee removed.')
