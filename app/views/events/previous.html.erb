@@ -20,10 +20,9 @@
     <%= render "events_search" %>
   </div>
   <div>
-    <%= button_to "Upcoming Events", events_path, method: :get, class:"myClass" %>
+    <%= button_to "Upcoming Events", previous_event_path(0), method: :get, class:"myClass" %>
   </div>
 </div>
-
 
 <% @events.each do |event|%>
   <br>

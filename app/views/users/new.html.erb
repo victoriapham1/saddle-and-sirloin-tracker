@@ -1,4 +1,6 @@
-<div>
-  <h1 class="font-bold text-4xl text-center">Create Profile</h1>
-  <%= render "form", user: @user %>
+<div class="container mx-auto rounded-lg" style="width: 50%;">
+    <h1 class="font-bold text-4xl text-center">Create Profile</h1>
+      <div class="shadow shadow-2xl border border-red-900  border-4 rounded-lg p-10" style="background-color: white">
+        <%= render "form", user: @user %>
+  </div>
 </div>

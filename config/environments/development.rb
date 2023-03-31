@@ -8,6 +8,8 @@ Rails.application.configure do
   # OATH
   ENV['GOOGLE_OAUTH_CLIENT_ID'] = '881177367415-rdd0lakl4cu39mc42t5vqclabnkft5ne.apps.googleusercontent.com'
   ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = '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'
+
+  ENV['GOOGLE_APPLICATION_CREDENTIALS']='config/environments/service_account_cred.json'
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.

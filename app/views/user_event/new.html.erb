@@ -1,9 +1,30 @@
 <div>
-  <h1 class="font-bold text-4xl">UserEvent#new</h1>
-  <p>Sign in for event <%= params[:event_id]%></p>
-  <p>Current user id: <%= User.find_by(email: current_admin.email).id %></p>
+  <div class = "container mx-auto content content-center">
+      <%= form_for( @user_event, :url => user_event_path(params[:event_id], 2), :html => { :method => :post } ) do |form| %>
+        <% if @user_event.errors.any? %>
+            <div style="color: red">
+            <h2><%= pluralize(@user_event.errors.count, "error") %> prohibited this event from being saved:</h2>
 
-  <%# <%form_with url: user_event_path, local: true, method: post do%>
-  <%# <%end%>
+            <ul>
+                <% @user_event.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+                <% end %>
+            </ul>
+            </div>
+            <br>
+        <% end %>
+
+        <div>
+            <br>
+            <%= form.hidden_field :attendance, value: true %>
+            <%= form.hidden_field :event_id, value: params[:event_id] %>
+            <%= form.hidden_field :user_id, value: User.find_by(email: current_admin.email).id %>
+
+        <div>
+            <br>
+            <%= form.submit %>
+        </div>
+      <% end %>
+  </div>
 
 </div>

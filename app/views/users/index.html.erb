@@ -12,8 +12,10 @@
       <%= form_tag(users_path, method: :get) do %>
           <%= text_field_tag :search, params[:search], placeholder: "Enter name or surname..." %>
           <%# Filter between isActive (activated/deactivated) & isRequesting (in queue). %>
-          <%= select_tag :category, options_for_select(["Active", "Deactive", "Approval"], params[:category]), onchange: "this.form.submit();", include_blank: "" %>
-      <%= submit_tag 'Search', name: nil %>
+          <%= select_tag :category, options_for_select(["Active", "Deactive", "Approval"], params[:category]), onchange: "this.form.submit();"%>
+          <button class="bg-sky-500 active:bg-sky-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+            <%= submit_tag 'Search', name: nil, :class=> "cursor-pointer" %>
+          </button>
     </div>
     <div style="float: right">
       <%# Allow for altering size of table %>

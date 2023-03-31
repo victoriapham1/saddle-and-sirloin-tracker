@@ -46,7 +46,7 @@
             <li class="p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100
             hover:text-maroon duration-200 cursor-pointer active">Events</li>
           </a>
-          <% if User.find_by(email: current_admin.email).role == 1 %>
+          <% if User.find_by(email: current_admin.email).role > 0 %>
             <a href="/users">
               <li class="p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100
               hover:text-maroon duration-200 cursor-pointer active">Members</li>
@@ -80,7 +80,7 @@
     <% end -%>
   <% end %>
 
-  <body>
+  <body style="background: #f5f7fa;">
     <main>
       <%= yield %>
     </main>
