@@ -1,17 +1,8 @@
 # OATH
 class DashboardsController < ApplicationController
+  before_action :authorize_user
+  
   def show
-    # Redirect the user to the create a profile page if
-    # the Oauth admin email doesn't exist as a User!
-    user = User.find_by(email: current_admin.email)
-    if user.nil?
-      redirect_to(controller: 'users', action: 'new')
-    elsif user.isActive == false
-      redirect_to(controller: 'users', action: 'waiting')
-      user.isRequesting = true
-      user.save
-    end
-
     @announcements = Announcement.all
     @user_id = User.find_by(email: current_admin.email).id
   end
@@ -53,4 +44,17 @@ class DashboardsController < ApplicationController
     @user.save
     redirect_to '/'
   end
+
+  # Verify User has created thier profile. Redirect to create profile if not
+  def authorize_user
+    user = User.find_by(email: current_admin.email)
+    if user.nil?
+      redirect_to(controller: 'users', action: 'new')
+    elsif user.isActive == false
+      redirect_to(controller: 'users', action: 'waiting')
+      user.isRequesting = true
+      user.save
+    end
+  end
+  
 end
