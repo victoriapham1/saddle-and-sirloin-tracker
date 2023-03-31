@@ -11,52 +11,77 @@
         </ul>
       </div>
     <% end %>
-  
-    <br><br>
 
-    <div class="text-center">
-      <%= form.label :first, style: "display: block" %>
-      <%= form.text_field(:first_name) %>
-    </div>
+    <div class="grid grid-cols-2">
+      <div style="width: 75%">
+        <br><br>
+        <div style="margin: auto; display: block; width: 35%">
+          <% if Admin.find_by(email: user.email) != nil %>
+            <img class="rounded-full w-20 h-20 z-0" src=<%= Admin.find_by(email: user.email).avatar_url %> referrerpolicy="no-referrer" style="display:block" />
+          <% else %>
+            <%= image_tag ("blankpfp.png"), :class => "rounded-full w-20 h-20 z-0" %>
+          <% end %>
+        </div>
+
+        <div class="text-center">
+          <br>
+          <%= form.label :email, style: "display: block; font-weight: bold;" %>
+          <%# Checks if user email exists to display on user profile OR display current new user's email if new user.%> 
+          <%= user.email || current_admin.email %>
+        </div>
+
+        <%# Only allow role selection to officers. %>
+        <div class="text-center">
+            <br>
+            <% roleArr = ['Member', 'Officer','President', 'Vice-President']
+              roleOptions = roleArr.map.with_index { |gd,idx| [gd, idx]}
+            %>
+            <%= form.label :role, style: "display: block; font-weight: bold;"%>
+            <% if User.find_by(email: current_admin.email).role != 0 %>
+              <%= form.select :role, roleOptions%>
+            <% else %>
+              <%= form.select :role, roleOptions, {},{:disabled => true}%>
+          <% end %>
+        </div>
+      </div>
+
+      <div>
+        
+          <%= form.label :first, style: "display: block; font-weight: bold;" %>
+          <%= form.text_field(:first_name, placeholder: "Enter first name") %>
+
+          <%= form.label :last, style: "display: block; font-weight: bold;" %>
+          <%= form.text_field(:last_name, placeholder: "Enter last name") %>
+
+          <%= form.label :uin, "UIN", style: "display: block; font-weight: bold;" %>
+          <%= form.text_field(:uin, placeholder: "Enter UIN") %>
+      
+          <%= form.label :phone, style: "display: block; font-weight: bold;" %>
+          <%= form.text_field(:phone, placeholder: "Enter phone number") %> 
+
+
+          <%# Map each selection to enumerated val %>
+          <div class="text-center" style="width: 75%">
+          <% arr = ['Freshman','Sophmore','Junior','Senior','Graduate']
+            options = arr.map.with_index { |gd,idx| [gd, idx+1]}
+          %>
+          <%= form.label :class, style: "display: block; font-weight: bold;"%>
+          <%= form.select :classify, options%>
+          </div>
+    
+        <div class="text-right">
+          <br>
+          <button class="bg-sky-500 active:bg-sky-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+            <% if User.find_by(email: current_admin.email).role != 0 %>
+              <%= form.submit "Save", :class=> "cursor-pointer" %>
+            <% else %>
+              <%= form.submit "Submit", :class=> "cursor-pointer" %>
+            <% end %>
+          </button>
+        </div>
   
-    <div class="text-center">
-      <br>
-      <%= form.label :last, style: "display: block" %>
-      <%= form.text_field(:last_name) %>
-    </div>
-  
-    <div class="text-center">
-      <br>
-      <%= form.label :uin, style: "display: block" %>
-      <%= form.text_field(:uin) %>
-    </div>
-  
-    <div class="text-center">
-      <br>
-      <%= form.label :phone, style: "display: block" %>
-      <%= form.text_field(:phone) %>
+      </div>
     </div>
 
-    <div class="text-center">
-      <br>
-      <%# Map each selection to enumerated val %>
-      <% arr = ['Freshman','Sophmore','Junior','Senior']
-        options = arr.map.with_index { |gd,idx| [gd, idx+1]}
-      %>
-      <%= form.label :class, style: "display: block"%>
-      <%= form.select :classify, options%>
-    </div>
-  
-    <div class="text-center">
-      <br>
-      <%= form.label :email, style: "display: block" %>
-      <%# Checks if user email exists to display on user profile OR display current new user's email if new user.%> 
-      <%= user.email || current_admin.email %>
-    </div>
-
-    <div class="text-center">
-      <br>
-      <%= form.submit %>
-    </div>
   <% end %>
   </div>

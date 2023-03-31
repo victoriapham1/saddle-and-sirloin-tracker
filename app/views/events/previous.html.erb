@@ -20,13 +20,12 @@
     <%= render "events_search" %>
   </div>
   <div>
-    <%= button_to "Previous Events", previous_event_path(0), method: :get, class:"myClass" %>
+    <%= button_to "Upcoming Events", previous_event_path(0), method: :get, class:"myClass" %>
   </div>
 </div>
 
-
 <% @events.each do |event|%>
-  <%# checks event date and compares it to current date. Only renderes the events that are either today or later %>
-  <%= render(:partial => "events_card", :locals => {:event => event}) if event.date >= Time.now.to_date%>
   <br>
+  <%# checks event date and compares it to current date. Only renderes the events that are in the past %>
+  <%= render(:partial => "events_card", :locals => {:event => event}) if event.date < Time.now.to_date%>
 <%end%>
