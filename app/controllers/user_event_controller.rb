@@ -8,7 +8,7 @@ class UserEventController < ApplicationController
     @user_event = UserEvent.new(user_event_params)
     
     #get event for redirecting
-    @event = Event.where(id: @user_event.event_id)
+    @event = Event.find(@user_event.event_id)
 
     # get user id from uin only if attendance is being taken manually
     if @user_event.user_id.digits.count == 9
