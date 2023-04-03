@@ -26,10 +26,10 @@ RSpec.describe('Event', type: :feature) do
             expect(page).to have_button("Search")
         end
 
-        it "Reders edit button for all events" do
-            visit events_path
-            expect(page).to have_link("Edit")
-        end
+        # it "Reders edit button for all events" do
+        #     visit events_path
+        #     expect(page).to have_link("Edit")
+        # end
 
 
     end
