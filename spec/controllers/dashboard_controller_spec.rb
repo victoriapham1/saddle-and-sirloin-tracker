@@ -4,7 +4,7 @@ require_relative '../login_module'
 RSpec.describe(DashboardsController, type: :controller) do
     login
     describe "AnnouncementLike" do
-        user =     User.create_with(uin: '111222333',
+        user = User.create_with(uin: '111222333',
             first_name: 'Tryston', last_name: 'Burriola',
             email: 'trystonburriola@tamu.edu', phone: '5125952682',
             password: 'password', isActive: true, role: 1, classify: 1).find_or_create_by!(email: 'trystonburriola@tamu.edu')

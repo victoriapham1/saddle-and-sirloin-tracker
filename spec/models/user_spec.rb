@@ -45,7 +45,6 @@ RSpec.describe(User, type: :model) do
     end
   end
 
-  # TODO:
   # UIN validation tests
   context 'when UIN' do
     it 'is NOT valid without uin' do

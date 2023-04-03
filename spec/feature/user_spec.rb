@@ -2,8 +2,8 @@ require 'rails_helper'
 require_relative '../login_module'
 
 RSpec.describe('User Features', type: :feature) do
-  User.delete_all
-  Admin.delete_all
+  # User.delete_all
+  # Admin.delete_all
   login
 
   it 'is at member directory' do
