@@ -80,7 +80,17 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1 or /events/1.json
   def update
+    client = get_google_calendar_client()
+
     @event = Event.find(params[:id])
+    client.delete_event(CALENDAR_ID, @event[:google_event_id])
+
+    task = params[:event]
+    event = get_event(task)
+    ge = client.insert_event(CALENDAR_ID, event)
+    params[:event][:google_event_id] = ge.id
+
+    
     respond_to do |format|
       if @event.update(event_params)
         format.html { redirect_to(event_url(@event), notice: 'Event was successfully updated.') }
@@ -119,13 +129,13 @@ class EventsController < ApplicationController
 
       description: task[:description],
       start: {
-        date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], (Integer(task['start_time(4i)'], 10) + 5).to_s, task['start_time(5i)']).to_datetime
+        date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], task['start_time(4i)'], task['start_time(5i)']).to_datetime
 
         # date_time: '2019-09-07T09:00:00-07:00',
         # time_zone: 'Asia/Kolkata',
       },
       end: {
-        date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], (Integer(task['end_time(4i)'], 10) + 5).to_s, task['end_time(5i)']).to_datetime
+        date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], task['end_time(4i)'], task['end_time(5i)']).to_datetime
       }, primary: true
     )
   end
