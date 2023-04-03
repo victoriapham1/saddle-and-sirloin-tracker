@@ -4,7 +4,7 @@ RSpec.describe(User, type: :model) do
   subject(:test_user) do
     # Create a new user if currently does not exist
     if User.where(email: 'paulinewade@tamu.edu').first.nil? == true
-      User.create!(email: 'paulinewade@tamu.edu', uin: '987654321', first_name: 'Pauline', last_name: 'Wade',
+      User.create!(email: 'paulinewade@tamu.edu', uin: '000000000', first_name: 'Pauline', last_name: 'Wade',
                    phone: '2811234567', password: 'something123', role: '0', classify: '4')
     end
   end
@@ -47,7 +47,7 @@ RSpec.describe(User, type: :model) do
 
     # Sunny: Passes bc all attributes are filled
     it 'ensures users attributes are filled' do
-      user = User.new(uin: '123456789', first_name: 'Pauline', last_name: 'Wade',
+      user = User.new(uin: '000000000', first_name: 'Pauline', last_name: 'Wade',
                       email: 'pauline.wade@tamu.edu', phone: '1234567890', isActive: true, role: '0', classify: '4').save
       expect(user).to(eq(true))
     end
