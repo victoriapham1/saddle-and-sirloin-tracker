@@ -7,6 +7,10 @@ RSpec.describe(UsersController, type: :controller) do
       it 'routes to #new' do
         expect(get: '/users/new').to(route_to('users#new'))
       end
+
+      it 'routes to queue' do
+        expect(get: '/waiting').to(route_to('users#waiting'))
+      end
     end
 
     login # Pages post-login
