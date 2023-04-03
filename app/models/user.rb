@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   validates :uin, presence: true, uniqueness: true
   validates_format_of :uin, with: /\A[0-9]{9}\Z/

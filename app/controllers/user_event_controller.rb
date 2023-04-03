@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserEventController < ApplicationController
   # before_action :authorize_user
   def new
@@ -6,8 +8,8 @@ class UserEventController < ApplicationController
 
   def create
     @user_event = UserEvent.new(user_event_params)
-    
-    #get event for redirecting
+
+    # get event for redirecting
     @event = Event.find(@user_event.event_id)
 
     # get user id from uin only if attendance is being taken manually
@@ -20,9 +22,9 @@ class UserEventController < ApplicationController
       end
     end
 
-    #check to make sure user hasn't already registered for event
-    @user_event_check = UserEvent.find_by(user_id: @user_event.user_id, event_id: @user_event.event_id )
-    if @user_event_check == nil
+    # check to make sure user hasn't already registered for event
+    @user_event_check = UserEvent.find_by(user_id: @user_event.user_id, event_id: @user_event.event_id)
+    if @user_event_check.nil?
       respond_to do |format|
         if @user_event.save
           format.html { redirect_to(event_url(@event), notice: 'Attendance recorded') }

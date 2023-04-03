@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   root 'dashboards#show'
 
@@ -9,7 +11,7 @@ Rails.application.routes.draw do
   end
 
   # routes for user-events
-  resources :user_event, path: "user_event/:event_id/", only: [:new] do
+  resources :user_event, path: 'user_event/:event_id/', only: [:new] do
     member do
       post :create
       get :delete

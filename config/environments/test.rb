@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_support/core_ext/integer/time'
 
 # The test environment is used exclusively to run your application's
@@ -6,10 +8,9 @@ require 'active_support/core_ext/integer/time'
 # and recreated between test runs. Don't rely on the data there!
 
 Rails.application.configure do
-
-  ENV["URL"] = "https://saddle-sirlo-test-csekiritzo5d.herokuapp.com/"
+  ENV['URL'] = 'https://saddle-sirlo-test-csekiritzo5d.herokuapp.com/'
   # Settings specified here will take precedence over those in config/application.rb.
-  ENV['GOOGLE_APPLICATION_CREDENTIALS']='config/environments/service_account_cred.json'
+  ENV['GOOGLE_APPLICATION_CREDENTIALS'] = 'config/environments/service_account_cred.json'
   ENV['GOOGLE_OAUTH_CLIENT_ID'] = '881177367415-rdd0lakl4cu39mc42t5vqclabnkft5ne.apps.googleusercontent.com'
   ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = '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'
 

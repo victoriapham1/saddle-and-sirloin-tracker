@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 require_relative '../login_module'
 
@@ -31,7 +33,7 @@ RSpec.describe('User Features', type: :feature) do
     # end
 
     it 'is successful' do
-      visit edit_user_path(User.find_by(uin: 111222333))
+      visit edit_user_path(User.find_by(uin: 111_222_333))
       fill_in('Phone', with: '2814941234')
       expect(page).to(have_selector(:link_or_button, 'Save'))
       click_on('Save')

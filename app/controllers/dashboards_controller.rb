@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 # OATH
 class DashboardsController < ApplicationController
   before_action :authorize_user
-  
+
   def show
     @announcements = Announcement.all
     @user_id = User.find_by(email: current_admin.email).id
@@ -15,16 +17,14 @@ class DashboardsController < ApplicationController
     user_announcement = UserAnnouncement.find_by(user_id: uid, announcement_id: aid)
     if user_announcement.nil?
       UserAnnouncement.create(user_id: uid, announcement_id: aid)
-      redirect_to action: 'show'
     else
       user_announcement.destroy
-      redirect_to action: 'show'
     end
+    redirect_to action: 'show'
 
     # update_like
-
   end
-  
+
   def like_params
     params.permit(:user_id, :announcement_id, :like, :not_liked)
   end
@@ -32,9 +32,9 @@ class DashboardsController < ApplicationController
   # FIXEME
   def update_like
     render turbo_stream:
-      turbo_stream.replace("like",
-        partial: "likes",
-        locals: like_params) 
+      turbo_stream.replace('like',
+                           partial: 'likes',
+                           locals: like_params)
   end
 
   # FOR TESTING! REMOVE
@@ -56,5 +56,4 @@ class DashboardsController < ApplicationController
       user.save
     end
   end
-  
 end

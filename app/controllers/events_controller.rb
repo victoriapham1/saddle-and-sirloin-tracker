@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'google/apis/calendar_v3'
 require 'google/api_client/client_secrets'
 require 'googleauth'
 class EventsController < ApplicationController
   # VERY IMPORTANT! This ID is FROM the settings of the specified Google Calendar
   # Get this from the Google Calendar website, under the settings of that calendar
-  CALENDAR_ID = 'c_1b2ba3a0c5d0ac6eb82d42ca9e7763c8bcb8755d05c39efe5f875fe3d7dabe25@group.calendar.google.com'.freeze
+  CALENDAR_ID = 'c_1b2ba3a0c5d0ac6eb82d42ca9e7763c8bcb8755d05c39efe5f875fe3d7dabe25@group.calendar.google.com'
   before_action :authorize_user
   before_action :block_member, except: %i[index show previous]
   helper_method :sort_column, :sort_direction
@@ -25,7 +27,7 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @user_event = UserEvent.new
-    @users = User.order(sort_column + ' ' + sort_direction)
+    @users = User.order("#{sort_column} #{sort_direction}")
     @count_users = 0
   end
 
@@ -40,17 +42,17 @@ class EventsController < ApplicationController
   end
 
   # gets the current client that is logged in right now with all of its tokens and information
-  def get_google_calendar_client()
+  def get_google_calendar_client
     client = Google::Apis::CalendarV3::CalendarService.new
     # Allows creae/edit/delete scope permissions to the API requests
     scope = 'https://www.googleapis.com/auth/calendar'
 
-    auth = Google::Auth::ServiceAccountCredentials.from_env(scope: scope)
-    
+    auth = Google::Auth::ServiceAccountCredentials.from_env(scope:)
+
     # Authenticates the Calendar Service with JWT credentials from Google Cloud Platform.
     # Links service account to this service.
     client.authorization = auth
-  
+
     # Return the client
     client
   end
@@ -58,7 +60,7 @@ class EventsController < ApplicationController
   # POST /events or /events.json
   # syncs the events made to the calendar
   def create
-    client = get_google_calendar_client()
+    client = get_google_calendar_client
     task = params[:event]
     event = get_event(task)
     # USING the CALENDAR_ID, be sure to set this to the correct calendar (View comment over CALENDAR_ID)
@@ -80,7 +82,7 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1 or /events/1.json
   def update
-    client = get_google_calendar_client()
+    client = get_google_calendar_client
 
     @event = Event.find(params[:id])
     client.delete_event(CALENDAR_ID, @event[:google_event_id])
@@ -90,7 +92,6 @@ class EventsController < ApplicationController
     ge = client.insert_event(CALENDAR_ID, event)
     params[:event][:google_event_id] = ge.id
 
-    
     respond_to do |format|
       if @event.update(event_params)
         format.html { redirect_to(event_url(@event), notice: 'Event was successfully updated.') }
@@ -108,7 +109,7 @@ class EventsController < ApplicationController
 
   # DELETE /books/1 or /books/1.json
   def destroy
-    client = get_google_calendar_client()
+    client = get_google_calendar_client
 
     @event = Event.find(params[:id])
     client.delete_event(CALENDAR_ID, @event[:google_event_id])
@@ -173,7 +174,7 @@ class EventsController < ApplicationController
 
   # URL protection: don't allow members to view officer pages/actions
   def block_member
-    return unless User.find_by(email: current_admin.email).role == 0
+    return unless User.find_by(email: current_admin.email).role.zero?
 
     redirect_to '/'
   end

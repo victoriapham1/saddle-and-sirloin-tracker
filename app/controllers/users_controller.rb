@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   before_action :authorize_user, except: %i[new create waiting approve]
   before_action :unique_user, only: [:new]
@@ -10,21 +12,22 @@ class UsersController < ApplicationController
     @per_page = params[:per_page] || User.per_page || 10
     if params[:search]
       # Able to search for first, last or both (where), Paginate splits table (paginate)
-      @users = User.order(sort_column + ' ' + sort_direction).where("CONCAT_WS(' ', first_name, last_name) ILIKE ?", "%#{params[:search].strip.downcase}%").paginate(
+      @users = User.order("#{sort_column} #{sort_direction}").where("CONCAT_WS(' ', first_name, last_name) ILIKE ?", "%#{params[:search].strip.downcase}%").paginate(
         per_page: @per_page, page: params[:page]
       )
 
       # Display directory based on current status of users
-      if params[:category] == 'Active'
+      case params[:category]
+      when 'Active'
         @users = @users.where(isActive: true)
-      elsif params[:category] == 'Deactive'
+      when 'Deactive'
         @users = @users.where(isActive: false, isRequesting: false)
-      elsif params[:category] == 'Approval'
+      when 'Approval'
         @users = @users.where(isRequesting: true)
       end
 
     else
-      @users = User.order(sort_column + ' ' + sort_direction).paginate(per_page: @per_page,
+      @users = User.order("#{sort_column} #{sort_direction}").paginate(per_page: @per_page,
                                                                        page: params[:page]).where(isActive: true)
     end
   end
@@ -67,7 +70,7 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     # This will allow categorization of events by event_type
-    @categorize_events = Event.all.group_by { |t| t.event_type }
+    @categorize_events = Event.all.group_by(&:event_type)
 
     # To calculate participation score
     @total_attended = 0
@@ -147,7 +150,7 @@ class UsersController < ApplicationController
 
   # URL protection: don't allow members to view officer pages/actions
   def block_member
-    return unless User.find_by(email: current_admin.email).role == 0
+    return unless User.find_by(email: current_admin.email).role.zero?
 
     redirect_to '/'
   end
