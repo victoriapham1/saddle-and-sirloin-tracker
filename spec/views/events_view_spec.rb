@@ -1,4 +1,4 @@
-RSpec.describe('UserEvent', type: :feature) do
+RSpec.describe('Event', type: :feature) do
     login
     describe "Event Usability Tests" do
         it "Loads link to create new event" do
