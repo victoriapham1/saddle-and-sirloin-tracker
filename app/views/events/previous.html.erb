@@ -1,0 +1,31 @@
+
+<div>
+  <div class="container mx-auto">
+    <br>
+    <%# Conditionally render create new event to only officers %>
+    <% if User.find_by(email: current_admin.email).role == 1 %>
+      <%= link_to("Create new event", new_event_path, class: "action new")%>
+    <%end%>
+    <h1 class="text-3xl font-bold text-center">Events</h1>
+    <br>
+  </div>
+</div>
+
+<% if flash[:notice] %>
+  <div class="notice"><%= flash[:notice] %></div>
+<% end %>
+
+<div class="container mx-auto px-10">
+  <div>
+    <%= render "events_search" %>
+  </div>
+  <div>
+    <%= button_to "Upcoming Events", events_path, method: :get, class:"myClass" %>
+  </div>
+</div>
+
+<% @events.each do |event|%>
+  <br>
+  <%# checks event date and compares it to current date. Only renderes the events that are in the past %>
+  <%= render(:partial => "events_card", :locals => {:event => event}) if event.date < Time.now.to_date%>
+<%end%>

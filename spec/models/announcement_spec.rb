@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe(Announcement, type: :model) do
@@ -8,8 +10,13 @@ RSpec.describe(Announcement, type: :model) do
     end
 
     it 'ensures announcement description' do
-      ann = Announcement.new(description: 'This is the description!').save
+      ann = Announcement.new(title: 'This is the title!').save
       expect(ann).to(eq(false))
+    end
+
+    it 'valid test' do
+      ann = Announcement.new(title: 'This is the title!', description: 'This is the description!').save
+      expect(ann).to(eq(true))
     end
   end
 end

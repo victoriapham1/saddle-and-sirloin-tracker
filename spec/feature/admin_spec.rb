@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 require_relative '../login_module'
 
@@ -54,6 +56,13 @@ RSpec.describe('Oauth', type: :feature) do
 
     it 'calendar#index redirects to Sign in if not signed in' do
       visit '/calendar'
+      expect(page).to(have_current_path(new_admin_session_path))
+      expect(page).to(have_content('You need to sign in or sign up before continuing'))
+      expect(page).to(have_selector(:link_or_button, 'Sign in'))
+    end
+
+    it 'userevent#new redirects to sign in if not signed in' do
+      visit '/user_event/50/new'
       expect(page).to(have_current_path(new_admin_session_path))
       expect(page).to(have_content('You need to sign in or sign up before continuing'))
       expect(page).to(have_selector(:link_or_button, 'Sign in'))
@@ -117,6 +126,11 @@ RSpec.describe('Oauth', type: :feature) do
       expect(page).to(have_current_path('/calendar'))
       # expect(page).to(have_content('Embed Example')) #NEEDS TO BE THE CALENDAR NAME
       # expect(page).to(have_selector(:link_or_button, 'Sign in'))
+    end
+    it 'userevent#new when signed in' do
+      visit '/user_event/50/new'
+      expect(page).to(have_current_path('/user_event/50/new'))
+      expect(page).to(have_selector(:link_or_button, 'Create User event'))
     end
   end
 end

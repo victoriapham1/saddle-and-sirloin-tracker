@@ -1,5 +1,5 @@
 <%= form_tag events_path, :method => "get" do%>
     <%= text_field_tag :search, params[:search],  placeholder: "Event Name"%>
-    <%= select_tag :category, options_for_select(["Social", "Meetings", "Service"], params[:category]), onchange: "this.form.submit();", include_blank: "" %>
+    <%= select_tag :category, options_for_select(["Social", "Meeting", "Service"], params[:category]), onchange: "this.form.submit();", include_blank: "" %>
     <%= submit_tag("Search", :name => nil)%>
 <%end%>

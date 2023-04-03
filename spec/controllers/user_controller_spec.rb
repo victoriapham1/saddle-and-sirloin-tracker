@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 require_relative '../login_module'
 
@@ -6,6 +8,10 @@ RSpec.describe(UsersController, type: :controller) do
     context 'prior login' do
       it 'routes to #new' do
         expect(get: '/users/new').to(route_to('users#new'))
+      end
+
+      it 'routes to queue' do
+        expect(get: '/waiting').to(route_to('users#waiting'))
       end
     end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
@@ -65,4 +67,5 @@ RSpec.configure do |config|
   config.include(Devise::Test::IntegrationHelpers, type: :feature)
   config.include(Devise::Test::ControllerHelpers, type: :controller)
   config.include(Devise::Test::ControllerHelpers, type: :view)
+  config.include(Devise::Test::ControllerHelpers, type: :request)
 end

@@ -1,7 +1,9 @@
 <h1>Announcement: <%= @announcement.title %></h1>
 <%= render @announcement %>
 
-<div>
-  <%= link_to "Edit announcement", edit_announcement_path(@announcement) %> |
-  <%= link_to "Delete announcement", delete_announcement_path(@announcement) %> 
-</div>
+<% if User.find_by(email: current_admin.email).role == 1 %>
+  <div>
+    <%= link_to "Edit announcement", edit_announcement_path(@announcement) %> |
+    <%= link_to "Delete announcement", delete_announcement_path(@announcement) %> 
+  </div>
+<%end%>

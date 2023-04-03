@@ -14,32 +14,83 @@
     <p class = "text-3xl font-bold"><%= @event.description%></p>
 </div>
 
-<div class = "container mx-auto">
-    <%= form_for( @user_event, :url => user_event_path( user_event_path ), :html => { :method => :post } ) do |form| %>
-    <% if @user_event.errors.any? %>
-        <div style="color: red">
-        <h2><%= pluralize(@user_event.errors.count, "error") %> prohibited this event from being saved:</h2>
 
-        <ul>
-            <% @user_event.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-            <% end %>
-        </ul>
+<%# Conditionally render UIN submission for user event creation as well as the event attendance. Only allow officers to see this! %>
+<% if User.find_by(email: current_admin.email).role == 1 %>
+
+    <div class = "container mx-auto">
+        <%= form_for( @user_event, :url => user_event_path(@event.id), :html => { :method => :post }) do |form| %>
+        <% if @user_event.errors.any? %>
+            <div style="color: red">
+            <h2><%= pluralize(@user_event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+            <ul>
+                <% @user_event.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+                <% end %>
+            </ul>
+            </div>
+            <br>
+        <% end %>
+
+        <div>
+            <br>
+            <%= form.hidden_field :attendance, value: true %>
+            <%= form.hidden_field :event_id, value: @event.id %>
+            <%= form.label :user_id, style: "display: block" %>
+            <%= form.text_field(:user_id,  placeholder: "UIN", minlength: 9, maxlength: 9) %>
+
+        <div>
+            <br>
+            <%= form.submit %>
         </div>
+        <% end %>
         <br>
-    <% end %>
-
-    <div>
         <br>
-        <%= form.hidden_field :attendance, value: true %>
-        <%= form.hidden_field :event_id, value: @event.id %>
-        <%= form.label :user_id, style: "display: block" %>
-        <%= form.text_field(:user_id,  placeholder: "UIN", minlength: 9, maxlength: 9) %>
+        <%= @event.qrcode(@event.id).html_safe%>
     </div>
 
+    <br>
+    <%# Display all user attendance for event. -%>
     <div>
-        <br>
-        <%= form.submit %>
+        <%= form_for(@event) do |f| %>
+            <%# Only display table if user attendance to be viewed. -%>
+            <% @users.each do | user | %>
+                    <% if @event.users.include?(user) -%>
+                        <% @count_users = @count_users + 1 %>
+                    <% end %>
+            <% end %>
+
+            <% if @count_users > 0 -%>
+                <p style="text-indent: 15%;">Total attendees: <%=h @count_users %> </p>
+                <table style="width: 70%; margin-left: auto; margin-right: auto;" class="table-auto pretty">
+                    <thead class="text-white uppercase bg-maroon dark:bg-maroon dark:text-white ">
+                        <tr>
+                            <th><%= sortable "uin" %></th>
+                            <th><%= sortable "first_name", "First Name" %></th>
+                            <th><%= sortable "last_name", "Last Name"%></th>
+                            <th><%= sortable "email", "Email" %></th>
+                            <th><%= sortable "phone", "Phone" %></th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <% @users.each do | user | %>
+                        <% if @event.users.include?(user) -%>
+                            <tr class="<%= cycle('bg-khaki', 'bg-gray-100') %>">
+                                <td class="text-center"><%= link_to user.uin, edit_user_path(user), class: 'action show' %></td>
+                                <td><%=h user.first_name %></td>
+                                <td><%=h user.last_name %></td>
+                                <td><%=h user.email %></td>
+                                <td class="text-center"><%=h number_to_phone(user.phone) %></td>
+                                <td class="text-center"><%= link_to "X", delete_user_event_path(UserEvent.where("user_id = ? AND event_id = ?", user.id, @event.id).ids.first) %></td>
+                            </tr>
+                        <% end %>
+                    <% end %>
+                    </tbody>
+                </table>
+            <% end %>
+        <% end %>
     </div>
-<% end %>
-</div>
+
+<%end%>
