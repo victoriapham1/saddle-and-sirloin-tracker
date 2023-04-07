@@ -32,10 +32,12 @@ class UserEventController < ApplicationController
         else
           format.html { render(:new, status: :unprocessable_entity) }
           format.json { render(json: @event.errors, status: :unprocessable_entity) }
+          return
         end
       end
     else
       redirect_to(event_url(@event), notice: 'Attendance already recorded')
+      return
     end
   end
 

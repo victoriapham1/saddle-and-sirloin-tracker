@@ -9,5 +9,8 @@
     </div>
 
     <br><br>
-    <%= render "attend", user: @user %>
+    <% if @user.errors.any? %>
+    <% else %>
+      <%= render "attend", user: @user %>
+    <% end %>
 </div>

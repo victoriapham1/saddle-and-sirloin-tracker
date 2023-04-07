@@ -1,10 +1,10 @@
 <%= form_with(model: user) do |form| %>
     <%# Checks if users inputted has all necessary attributes.%> 
     <% if user.errors.any? %>
-      <div style="color: red">
-        <h2 class="text-3xl font-bold absolute"><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <div style="color: red" class="text-left">
+        <h2 class="text-3xl font-bold"><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
   
-        <ul class="absolute top-24">
+        <ul class=" top-24">
           <% user.errors.each do |error| %>
             <li><%= error.full_message %></li>
           <% end %>
@@ -57,7 +57,7 @@
           <%= form.text_field(:last_name, required: true, class: "form-input mt-1 block w-full text-field focus:shadow-outline focus:border-green-300", placeholder: "Enter last name", style: "width: 90%; height: 10%") %>
 
           <%= form.label :uin, required: true, class: "block text-xxs uppercase", style: "font-weight: bold;" %>
-          <%= form.text_field(:uin, required: true, class: "form-input mt-1 block w-full text-field focus:shadow-outline focus:border-green-300", placeholder: "Enter UIN", style: "width: 90%; height: 10%") %>
+          <%= form.text_field(:uin, required: true, class: "form-input mt-1 block w-full text-field focus:shadow-outline focus:border-green-300", placeholder: "Enter UIN", style: "width: 90%; height: 10%", minlength: 9, maxlength: 9, message: "Please enter a valid UIN.") %>
 
           <%= form.label :phone, required: true, class: "block text-xxs uppercase", style: "font-weight: bold;" %>
           <%= form.text_field(:phone, required: true, class: "form-input mt-1 block w-full text-field focus:shadow-outline focus:border-green-300", placeholder: "Enter phone number", style: "width: 90%; height: 10%") %>
@@ -84,5 +84,5 @@
       </div>
     </div>
 
-  <% end %>
-  </div>
+</div>
+<% end %>
