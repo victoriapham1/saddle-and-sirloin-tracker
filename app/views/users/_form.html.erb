@@ -18,7 +18,7 @@
           <% if Admin.find_by(email: user.email) != nil %>
             <img class="rounded-full object-center" src=<%= Admin.find_by(email: user.email).avatar_url %> referrerpolicy="no-referrer" style="display:block" />
           <% else %>
-            <%= image_tag ("blankpfp.png"), :class => "rounded-full" %>
+            <%= image_tag ("blankpfp.jpg"), :class => "rounded-full w-20 h-20" %>
           <% end %>
         </div>
 
@@ -51,16 +51,16 @@
       <div class="w-full max-w-md mx-auto" >
 
           <%= form.label :first, required: true, class: "block text-xxs uppercase", style: "font-weight: bold;" %>
-          <%= form.text_field(:first_name, required: true, class: "form-input mt-1 block w-full text-field focus:shadow-outline focus:border-green-300", placeholder: "Enter first name", style: "width: 90%; height: 10%") %>
+          <%= form.text_field(:first_name, required: true, class: "form-input mt-1 block w-full text-field focus:shadow-outline focus:border-green-300", placeholder: "First Name*", style: "width: 90%; height: 10%") %>
 
           <%= form.label :last, required: true, class: "block text-xxs uppercase", style: "font-weight: bold;" %>
-          <%= form.text_field(:last_name, required: true, class: "form-input mt-1 block w-full text-field focus:shadow-outline focus:border-green-300", placeholder: "Enter last name", style: "width: 90%; height: 10%") %>
+          <%= form.text_field(:last_name, required: true, class: "form-input mt-1 block w-full text-field focus:shadow-outline focus:border-green-300", placeholder: "Last Name*", style: "width: 90%; height: 10%") %>
 
           <%= form.label :uin, required: true, class: "block text-xxs uppercase", style: "font-weight: bold;" %>
-          <%= form.text_field(:uin, required: true, class: "form-input mt-1 block w-full text-field focus:shadow-outline focus:border-green-300", placeholder: "Enter UIN", style: "width: 90%; height: 10%", minlength: 9, maxlength: 9, message: "Please enter a valid UIN.") %>
+          <%= form.text_field(:uin, required: true, class: "form-input mt-1 block w-full text-field focus:shadow-outline focus:border-green-300", placeholder: "UIN*", style: "width: 90%; height: 10%", minlength: 9, maxlength: 9, message: "Please enter a valid UIN.") %>
 
           <%= form.label :phone, required: true, class: "block text-xxs uppercase", style: "font-weight: bold;" %>
-          <%= form.text_field(:phone, required: true, class: "form-input mt-1 block w-full text-field focus:shadow-outline focus:border-green-300", placeholder: "Enter phone number", style: "width: 90%; height: 10%") %>
+          <%= form.text_field(:phone, required: true, class: "form-input mt-1 block w-full text-field focus:shadow-outline focus:border-green-300", placeholder: "Phone (eg. 9797643500)*", style: "width: 90%; height: 10%") %>
 
           <div class="text-center">
             <% arr = ['Freshman','Sophmore','Junior','Senior','Graduate']
