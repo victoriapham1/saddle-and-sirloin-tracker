@@ -1,10 +1,12 @@
 <%# List out all events by event_type and maps which events a user has been to in the user profile.%> 
-<div class="grid lg:grid-cols-3 gap-12 lg:gap-12 lg:flex lg:justify-center">
+<div class="flex items-center justify-center">
+    <div class="grid lg:grid-cols-3 gap-6 lg:flex lg:justify-center">
+    <%# <div class="grid lg:grid-cols-3 gap-12 lg:gap-12 lg:flex lg:justify-center"> %>
     <% @categorize_events.each do | cateogory, events | %>
     
     <div class="w-full max-w-md mx-auto">
-        <div class="container mx-auto rounded-lg" style="width: 60%;">
-            <div class="shadow shadow-2xl border border-red-900 border-4 rounded-lg p-10" style="background-color: white">
+        <div class="container mx-auto rounded-lg">
+            <div class="shadow shadow-2xl border border-red-900 border-4 rounded-lg p-10 bg-white">
                 <div data-controller="read-more">
 
                     <b class= "block text-xxs uppercase text-center">
@@ -54,11 +56,12 @@
     </div>
     <% end %>
 </div>
+</div>
 
-<br><br>
+<br>
 <div class="w-full max-w-md mx-auto text-center">
-    <div class="container mx-auto rounded-lg" style="width: 65%;">
-        <div class="shadow shadow-2xl border border-red-900  border-4 rounded-lg p-10" style="background-color: white">
+    <div class="container mx-auto rounded-lg" style="width: 60%;">
+        <div class="shadow shadow-2xl border border-red-900  border-4 rounded-lg p-10 bg-white">
             <b class= "block text-xxs uppercase"> Total score </b>
             <p class= "block text-lg"><%=h @total_attended %> </p>
         </div>
