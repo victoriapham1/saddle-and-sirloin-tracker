@@ -27,7 +27,7 @@ class Event < ApplicationRecord
       if search
         named_event = Event.where('name ilike ?', "%#{search}%")
         # if event with  name exists show the events with that name
-        @events = if named_event
+        @events = if named_event != []
                     # here we use .where method since we need @events to be an array. .find_by only returns 1 obj
                     Event.where('name ilike ?', "%#{search}%")
                   # if no events with that name exist print all events
@@ -40,7 +40,7 @@ class Event < ApplicationRecord
     elsif search
       named_event = Event.where('name ilike ? AND event_type = ?', "%#{search}%", TYPE[category])
       # if event with  name exists show the events with that name
-      @events = if named_event
+      @events = if named_event != []
                   # here we use .where method since we need @events to be an array. .find_by only returns 1 obj
                   Event.where('name ilike ? AND event_type = ?', "%#{search}%", TYPE[category])
                 # if no events with that name exist print all events
