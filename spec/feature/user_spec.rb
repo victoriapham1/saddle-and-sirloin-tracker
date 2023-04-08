@@ -17,9 +17,9 @@ RSpec.describe('User Features', type: :feature) do
 
   describe('view user') do
     it 'is able to see profile information' do
-      visit edit_user_path(User.find_by(uin: 111_222_333))
+      visit edit_user_path(User.find_by(uin: 111222333))
       expect(page).to(have_content('Email'))
-      expect(page).to(have_content('Events Attendance:'))
+      expect(page).to(have_content('Total score'))
     end
   end
 
@@ -37,6 +37,7 @@ RSpec.describe('User Features', type: :feature) do
       fill_in('Phone', with: '2814941234')
       expect(page).to(have_selector(:link_or_button, 'Save'))
       click_on('Save')
+      visit users_path
       expect(page).to(have_content('281-494-1234'))
     end
   end
