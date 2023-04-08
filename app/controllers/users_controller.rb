@@ -3,7 +3,8 @@
 class UsersController < ApplicationController
   before_action :authorize_user, except: %i[new create waiting approve]
   before_action :unique_user, only: [:new]
-  before_action :block_member, except: %i[new create waiting approve]
+  before_action :block_member, except: %i[new create waiting approve update edit]
+  before_action :authorize_profile, only: [:edit]
   helper_method :sort_column, :sort_direction
   before_action :set_user, only: %i[show edit update destroy]
 
@@ -153,5 +154,19 @@ class UsersController < ApplicationController
     return unless User.find_by(email: current_admin.email).role.zero?
 
     redirect_to '/'
+  end
+
+  # URL protection: don't allow members to view officer pages/actions
+  def authorize_profile
+    if User.find_by(email: current_admin.email).role == 0
+      id = params[:id]
+      puts id
+      puts User.find_by(email: current_admin.email).id 
+      if User.find_by(email: current_admin.email).id != id.to_i
+        redirect_to "/"
+      else
+        return
+      end
+    end
   end
 end
