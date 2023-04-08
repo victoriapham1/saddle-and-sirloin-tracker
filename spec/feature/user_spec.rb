@@ -17,7 +17,7 @@ RSpec.describe('User Features', type: :feature) do
 
   describe('view user') do
     it 'is able to see profile information' do
-      visit edit_user_path(User.find_by(uin: 111222333))
+      visit edit_user_path(User.find_by(uin: 111_222_333))
       expect(page).to(have_content('Email'))
       expect(page).to(have_content('Total score'))
     end

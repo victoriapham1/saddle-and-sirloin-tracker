@@ -37,7 +37,7 @@ class UserEventController < ApplicationController
       end
     else
       redirect_to(event_url(@event), notice: 'Attendance already recorded')
-      return
+      nil
     end
   end
 

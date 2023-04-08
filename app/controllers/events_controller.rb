@@ -27,7 +27,9 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @user_event = UserEvent.new
-    @users = User.where(id: UserEvent.where(event_id: @event.id).select("user_id")).order("#{sort_column} #{sort_direction}").paginate(:page => params[:page], :per_page => 10)
+    @users = User.where(id: UserEvent.where(event_id: @event.id).select('user_id')).order("#{sort_column} #{sort_direction}").paginate(
+      page: params[:page], per_page: 10
+    )
   end
 
   # GET /events/new
