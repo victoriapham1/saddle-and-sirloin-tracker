@@ -1,14 +1,11 @@
-<div>
-  <div class="container mx-auto">
-    <br>
-    <h1 class="text-3xl font-bold text-center">Member Directory</h1>
-  </div>
-</div>
+<div class="container mx-auto">
+  <br>
+  <h1 class="text-3xl font-bold text-center">Member Directory</h1>
 
 <%# Search bar %>
 <br>
 <div class="container mx-auto px-10">
-    <div style="width: 50%; float: left;">
+    <div style="width: 40%; float: left;">
       <%= form_tag(users_path, method: :get) do %>
           <%= text_field_tag :search, params[:search], placeholder: "Enter name or surname..." %>
           <%# Filter between isActive (activated/deactivated) & isRequesting (in queue). %>
@@ -24,13 +21,15 @@
       <% end %>
     </div>
   <br>
-</div>
 
-<br><br>
-<%= render "user", users: @users %>
 
-<%# Paginate users table %>
-<br>
-<div class="mx-auto text-center my-4">
-  <%= will_paginate @users %>
+  <br><br>
+  <%= render "user", users: @users %>
+
+  <%# Paginate users table %>
+  <br>
+  <div class="mx-auto text-center my-4">
+    <%= will_paginate @users %>
+  </div>
+
 </div>
