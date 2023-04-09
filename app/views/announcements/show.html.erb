@@ -1,9 +1,13 @@
-<h1>Announcement: <%= @announcement.title %></h1>
-<%= render @announcement %>
-
-<% if User.find_by(email: current_admin.email).role == 1 %>
-  <div>
-    <%= link_to "Edit announcement", edit_announcement_path(@announcement) %> |
-    <%= link_to "Delete announcement", delete_announcement_path(@announcement) %> 
-  </div>
-<%end%>
+<div class="container mx-auto w-1/2 h-[85vh] text-center">
+  <h1 class="text-2xl text-maroon font-bold"><%= @announcement.title %></h1>
+  <br>
+  <h2 class="text-lg"><%= @announcement.description %></h2>
+  <br>
+  <h3 class="text-base"><%= @announcement.updated_at.strftime("%m/%d/%Y")%></h3>
+  <% if User.find_by(email: current_admin.email).role == 1 %>
+    <div>
+      <%= link_to "Edit announcement", edit_announcement_path(@announcement), class: "border-b-2 border-emerald-500"%> |
+      <%= link_to "Delete announcement", delete_announcement_path(@announcement), class: "border-b-2 border-red-500" %> 
+    </div>
+  <%end%>
+</div>

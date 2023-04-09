@@ -3,7 +3,8 @@
 class UsersController < ApplicationController
   before_action :authorize_user, except: %i[new create waiting approve]
   before_action :unique_user, only: [:new]
-  before_action :block_member, except: %i[new create waiting approve]
+  before_action :block_member, except: %i[new create waiting approve update edit]
+  before_action :authorize_profile, only: [:edit]
   helper_method :sort_column, :sort_direction
   before_action :set_user, only: %i[show edit update destroy]
 
@@ -44,14 +45,12 @@ class UsersController < ApplicationController
 
     # Don't allow duplicate user creation (Unique user per email)
     if User.find_by(email: @user.email)
-    # Rails.logger.debug('USER EXISTS!') # Show error here
-    # DEBUG
-    # puts("USER CLASSIFY: " + @user.classify.to_s)
+        redirect_to "/"
     else
       respond_to do |format|
         if @user.save
           @error = false
-          format.html { redirect_to(users_path, notice: 'User was successfully created.') }
+          format.html { redirect_to(users_path) }
           format.json { render(:show, status: :created, location: @user) }
         else
           Rails.logger.debug(@user.errors.inspect)
@@ -89,15 +88,16 @@ class UsersController < ApplicationController
     end
   end
 
-  def waiting; end
-
-  # FOR TESTING, allows member to approve themselves through the queue. WILL BE REMOVED
-  def approve
-    @user = User.find_by(email: current_admin.email)
-    @user.isActive = true
-    @user.isRequesting = false
-    @user.save!
-    redirect_to '/'
+  def waiting
+    # Protects route from non-users
+    user = User.find_by(email: current_admin.email)
+    if user.nil? 
+      redirect_to(controller: 'users', action: 'new')
+    else
+      if user.isActive
+        redirect_to '/'
+      end
+    end
   end
 
   def update_multiple
@@ -154,5 +154,17 @@ class UsersController < ApplicationController
     return unless User.find_by(email: current_admin.email).role.zero?
 
     redirect_to '/'
+  end
+
+  # URL protection: don't allow members to view officer pages/actions
+  def authorize_profile
+    if User.find_by(email: current_admin.email).role == 0
+      id = params[:id]
+      if User.find_by(email: current_admin.email).id != id.to_i
+        redirect_to "/"
+      else
+        return
+      end
+    end
   end
 end

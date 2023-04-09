@@ -1,18 +1,14 @@
-<h1>Editing announcement</h1>
+<div class="container mx-auto w-1/2 h-[85vh] text-center">
+  <h1 class="text-3xl font-bold">Edit Announcement</h1>
 
   <%= form_for(@announcement) do |f| %>
-    <% # url: tasks_path, method: 'post' %>
-
-    <%= render(partial: 'form',locals: {f: f}) %>
-
-    <div class="form-buttons">
-      <%= f.submit("Edit Announcement") %>
+    <div class="w-full h-full">
+      <%= render(partial: 'form',locals: {f: f, announcement:@announcement}) %>
     </div>
-
+        <br>
+        <button class="bg-sky-500 active:bg-sky-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+            <%= f.submit "Submit", :class=> "cursor-pointer" %>
+        </button>
+    </div>
   <% end %>
-
-<br>
-
-<div>
-  <%= link_to "Show this announcement", @announcement %> |
 </div>

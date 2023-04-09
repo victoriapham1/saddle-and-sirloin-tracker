@@ -1,12 +1,13 @@
-<h2>Are you sure you want to permanently delete this announcement?</h2>
+<div class="container mx-auto w-1/2 h-[85vh] text-center">
+  <h2 class="text-2xl text-maroon font-bold">Are you sure you want to permanently delete this announcement?</h2>
+    <br>
+    <%= form_for(@announcement, method: 'delete') do |f| %>
 
-  <%= form_for(@announcement, method: 'delete') do |f| %>
+      <p class="text-lg"><%= @announcement.title %></p>
+      <br>
+      <button class="bg-red-500 active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+        <%= f.submit("Delete Announcement", :class=> "cursor-pointer") %>
+      </button>
 
-    <p><%= @announcement.title %></p>
-
-    <div class="form-buttons">
-      <%= f.submit("Delete Announcement") %>
-    </div>
-
-  <% end %>
-
+    <% end %>
+</div>

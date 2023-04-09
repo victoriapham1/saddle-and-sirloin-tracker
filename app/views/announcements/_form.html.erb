@@ -1,10 +1,25 @@
-<table summary="Announcement form fields">
-  <tr>
-    <th>Title</th>
-    <td><%= f.text_field(:title) %></td>
-  </tr>
-  <tr>
-    <th>Description</th>
-    <td><%= f.text_field(:description) %></td>
-  </tr>
-</table>
+<%# Checks if users inputted has all necessary attributes.%> 
+<div class="absolute left-0 w-full">
+  <% if announcement.errors.any? %>
+    <div style="color: red">
+      <h2 class="text-2xl font-bold absolute"><%= pluralize(announcement.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul class="absolute top-16">
+        <% announcement.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>
+<div class="grid justify-center">
+  <table summary="Announcement form fields">
+    <tr>
+      <td><%= f.text_area(:title, placeholder: "Title", class: "rounded-sm") %></td>
+    </tr>
+    <br>
+    <tr>
+      <td><%= f.text_area(:description, placeholder: "Description", class: "rounded-sm w-full") %></td>
+    </tr>
+  </table>
+</div>
