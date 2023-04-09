@@ -4,9 +4,6 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
-#Ignore schema
-/db/schema.rb
-
 # Ignore bundler config.
 /.bundle
 
@@ -36,3 +33,7 @@
 /node_modules
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# Ignore SimpleCov files
+/coverage.data
+/coverage/

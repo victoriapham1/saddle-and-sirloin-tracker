@@ -5,9 +5,9 @@ require 'rails_helper'
 RSpec.describe(User, type: :model) do
   subject(:test_user) do
     # Create a new user if currently does not exist
-    if User.where(email: 'paulinewade@tamu.edu').first.nil? == true
-      User.create!(email: 'paulinewade@tamu.edu', uin: '987654321', first_name: 'Pauline', last_name: 'Wade',
-                   phone: '2811234567', password: 'password', role: '0', classify: '4')
+    if User.where(email: 'camilee@tamu.edu').first.nil? == true
+      User.create!(email: 'camilee@tamu.edu', uin: '123456789', first_name: 'Cami', last_name: 'Lee',
+                   phone: '2817981230', password: 'password', role: '0', classify: '3')
     end
   end
 
