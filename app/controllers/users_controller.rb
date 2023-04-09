@@ -45,9 +45,7 @@ class UsersController < ApplicationController
 
     # Don't allow duplicate user creation (Unique user per email)
     if User.find_by(email: @user.email)
-      Rails.logger.debug('USER EXISTS!') # Show error here
-    # DEBUG
-    # puts("USER CLASSIFY: " + @user.classify.to_s)
+        redirect_to "/"
     else
       respond_to do |format|
         if @user.save
@@ -89,15 +87,16 @@ class UsersController < ApplicationController
     end
   end
 
-  def waiting; end
-
-  # FOR TESTING, allows member to approve themselves through the queue. WILL BE REMOVED
-  def approve
-    @user = User.find_by(email: current_admin.email)
-    @user.isActive = true
-    @user.isRequesting = false
-    @user.save!
-    redirect_to '/'
+  def waiting
+    # Protects route from non-users
+    user = User.find_by(email: current_admin.email)
+    if user.nil? 
+      redirect_to(controller: 'users', action: 'new')
+    else
+      if user.isActive
+        redirect_to '/'
+      end
+    end
   end
 
   def update_multiple
@@ -160,8 +159,6 @@ class UsersController < ApplicationController
   def authorize_profile
     if User.find_by(email: current_admin.email).role == 0
       id = params[:id]
-      puts id
-      puts User.find_by(email: current_admin.email).id 
       if User.find_by(email: current_admin.email).id != id.to_i
         redirect_to "/"
       else

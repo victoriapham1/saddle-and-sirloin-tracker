@@ -3,20 +3,32 @@
     <%= button_to "Swap Role", "/swapRole", method: :put%>
 </div>
 
+
+<%# ANNOUNCEMENT FEED DIV!%>
 <div class="flex flex-row gap-x-10 w-full h-[85vh] flex-wrap">
-    <%# ANNOUNCEMENT FEED DIV!%>
+
     <%# style directions make scrollbar on left! %>
-    <%# w-[404px] prevents horizontal scrollbar %>
-    <%# -z-20 ml-4%>
-    <div class="w-1/4 h-full flex flex-col gap-y-2 items-center flex-grow overflow-auto border-2 border-gray-200 rounded-lg" style="direction:rtl">
-            <a href="/announcements">
-                <div class="text-center w-full font-semibold text-lg p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100
-                hover:text-maroon duration-200 cursor-pointer active">Announcements</div>
-            </a>
-        <% @announcements.each do |ann|%>
+    <div class="w-1/4 h-full min-w-[200px] flex flex-col items-center flex-grow overflow-auto border-2 border-gray-200 rounded-lg" style="direction:rtl">
+
+        
+        <div class="flex flex-row place-content-center items-center w-full gap-x-1">
+        
+            <%if User.find_by(email: current_admin.email).role == 1%>
+                <%# Add event icon %>
+                <div class="flex min-w-[24px] min-h-[24px]">
+                    <a href= "<%= new_announcement_path %>" class="w-6 h-6 rounded-full
+                hover:bg-blue-500 hover:opacity-50 duration-300 cursor-pointer">
+                        <span class="material-icons">add</span>
+                    </a>
+                </div>
+            <% end %>
+            <%# Announcements title %>
+            <div class="text-center font-semibold text-lg p-2">Announcements</div>
+        </div>
+        
+
         <%# Individual Announcement! %>
-        <%# w-96 h-16 %>
-        <%#container  -z-10 %>
+        <% @announcements.each do |ann|%>
             <div class="w-4/5 h-16" style="direction:ltr">
                 <%= link_to announcement_path(ann), class: 'action show' do%>
                 <div class="h-16 border-gray-200 border-2 rounded-sm p-5 transition duration-700 ease-in-out 
@@ -26,6 +38,22 @@
                 </div>
             </div>
             <%end%>
+            <%# Edit icon/link %>
+            <div class="relative w-4/5 h-6 min-h-[24px] mb-2">
+                <div class="absolute left-0 top-0">
+                    <%= ann.updated_at.strftime("%m/%d/%Y")%>
+                </div>
+                <%if User.find_by(email: current_admin.email).role == 1%>
+                    <a href="<%= edit_announcement_path(ann.id)%>" class="absolute right-7 w-[20px] h-[20px] rounded-full
+                hover:bg-emerald-500 hover:opacity-50 duration-300 cursor-pointer">
+                        <span class="material-icons absolute right-0 top-0" style="font-size: 20px">edit_note</span>
+                    </a>
+                    <a href="<%= delete_announcement_path(ann.id)%>" class="absolute right-0 w-[20px] h-[20px] rounded-full
+                hover:bg-red-500 hover:opacity-50 duration-300 cursor-pointer">
+                    <span class="material-icons absolute right-0 top-0" style="font-size: 20px">delete</span>
+                    </a>
+                <%end%>    
+            </div>
         <%end%>
     </div>
 
