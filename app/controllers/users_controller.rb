@@ -44,7 +44,7 @@ class UsersController < ApplicationController
 
     # Don't allow duplicate user creation (Unique user per email)
     if User.find_by(email: @user.email)
-      Rails.logger.debug('USER EXISTS!') # Show error here
+    # Rails.logger.debug('USER EXISTS!') # Show error here
     # DEBUG
     # puts("USER CLASSIFY: " + @user.classify.to_s)
     else
@@ -63,8 +63,9 @@ class UsersController < ApplicationController
     end
   end
 
+  # TODO: Delete? We don't use that view.
   def show
-    @user = User.find(params[:id])
+    # @user = User.find(params[:id])
   end
 
   def edit
