@@ -50,7 +50,7 @@ class UsersController < ApplicationController
       respond_to do |format|
         if @user.save
           @error = false
-          format.html { redirect_to(users_path, notice: 'User was successfully created.') }
+          format.html { redirect_to(users_path) }
           format.json { render(:show, status: :created, location: @user) }
         else
           Rails.logger.debug(@user.errors.inspect)

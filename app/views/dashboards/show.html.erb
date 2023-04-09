@@ -1,14 +1,15 @@
 <div class="grid place-items-center"> 
     <%# FOR TESTING, will be removed %>
-    <%= button_to "Swap Role", "/swapRole", method: :put%>
+    <%# button_to "Swap Role", "/swapRole", method: :put%>
 </div>
 
 
 <%# ANNOUNCEMENT FEED DIV!%>
-<div class="flex flex-row gap-x-10 w-full h-[85vh] flex-wrap">
+<br>
+<div class="flex flex-row gap-x-10 w-full h-[85vh] flex-wrap ">
 
     <%# style directions make scrollbar on left! %>
-    <div class="w-1/4 h-full min-w-[200px] flex flex-col items-center flex-grow overflow-auto border-2 border-gray-200 rounded-lg" style="direction:rtl">
+    <div class="w-1/4 h-full min-w-[200px] flex flex-col items-center flex-grow overflow-auto border-2 border-maroon rounded-lg" style="direction:rtl">
 
         
         <div class="flex flex-row place-content-center items-center w-full gap-x-1">
@@ -32,8 +33,8 @@
             <div class="w-4/5 h-16" style="direction:ltr">
                 <%= link_to announcement_path(ann), class: 'action show' do%>
                 <div class="h-16 border-gray-200 border-2 rounded-sm p-5 transition duration-700 ease-in-out 
-                            hover:bg-gray-100 transform 
-                            hover:-translate-y-1 hover:scale-110 hover:border-maroon">
+                            hover:bg-white transform 
+                            hover:-translate-y-1 hover:scale-110 hover:border-maroon bg-white">
                     <h1 class = "text-center truncate block"><%= ann.title %></h3>
                 </div>
             </div>
