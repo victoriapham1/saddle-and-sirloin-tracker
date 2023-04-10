@@ -7,9 +7,9 @@
         <%= image_tag ("SnSnoBg.png"), :class => "w-20 h-20" %>
       </div>
 
-      <h1 class="text-2xl text-maroon font-bold"><%= @announcement.title %></h1>
+      <h1 class="break-all text-2xl text-maroon font-bold"><%= @announcement.title %></h1>
       <br>
-      <h2 class="text-xl font-bold"><%= @announcement.description %></h2>
+      <h2 class="break-all text-xl font-bold"><%= @announcement.description %></h2>
       <br>
       <h3 class="text-base"><%= @announcement.updated_at.strftime("%m/%d/%Y")%></h3>
       <% if User.find_by(email: current_admin.email).role > 0  %>
