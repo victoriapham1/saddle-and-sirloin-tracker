@@ -114,7 +114,6 @@ class UsersController < ApplicationController
   def activate_reset
     user = User.find_by(email: current_admin.email)
     if user.role != 2 && user.role != 3
-      puts "NOT PRES OR VP " + user.role.to_s
       redirect_to '/'
       return
     end
@@ -134,8 +133,6 @@ class UsersController < ApplicationController
       redirect_to confirm_path
       return
     else
-      # format.html { redirect_to(edit_user_path(user.id), notice: 'Reset activated! Waiting for other admin to approve the reset!') }
-      # format.json { render(:edit, status: :ok, location: user) }
       redirect_to edit_user_path(user.id) 
       return
     end
@@ -143,16 +140,32 @@ class UsersController < ApplicationController
 
 
   def confirm
+    user = User.find_by(email: current_admin.email)
     p = User.find_by(role: 2)
     vp = User.find_by(role: 3)
+
+    # 2 factor auth
+    if !(p.isReset && vp.isReset) || user.role < 2
+      redirect_to edit_user_path(user.id) 
+      return
+    end
+
     p.isReset = false
     vp.isReset = false
     p.save
     vp.save
-
   end
 
   def reset
+    user = User.find_by(email: current_admin.email)
+    p = User.find_by(role: 2)
+    vp = User.find_by(role: 3)
+    # 2 factor auth
+    if !(p.isReset && vp.isReset) || user.role < 2
+      redirect_to edit_user_path(user.id) 
+      return
+    end
+
     users = User.where(isActive: true, role:[0,1]).update_all(isActive: false, isRequesting: false, role: 0)
     events = Event.all
     announcements = Announcement.all
