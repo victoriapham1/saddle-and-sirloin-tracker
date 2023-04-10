@@ -1,10 +1,27 @@
-<div class="container mx-auto w-1/2 h-[85vh] text-center">
-  <h2 class="text-2xl text-maroon font-bold">Are you sure you want to permanently delete this announcement?</h2>
-    <br>
-    <%= form_for(@announcement, method: 'delete') do |f| %>
+<div class="container mx-auto rounded-lg text-center" style="width: 48%;">
+  <br><br>
+  <div class="shadow shadow-2xl border border-red-900  border-4 rounded-lg p-10 bg-white">
+  <div class="flex items-center text-center">
+    <div class="w-full h-full">
+      <div class="hero container max-w-screen-lg mx-auto pb-10 flex justify-center">
+        <%= image_tag ("SnSnoBg.png"), :class => "w-20 h-20" %>
+      </div>
 
-      <p class="text-lg"><%= @announcement.title %></p>
-      <br>
-        <%= f.submit "Delete", :class=> "cursor-pointer w-[72px] h-[32px] bg-red-500 active:bg-red-600 font-bold uppercase text-xs rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150" %>
-    <% end %>
+      <%= form_for(@announcement, method: 'delete') do |f| %>
+
+        <div class="justify-center">
+        <%= f.label :title, required: true, class: "block text-xxs", style: "font-weight: bold;" %>
+        <%= f.text_field(:title, placeholder: "Title*", required: true, class: "form-input mt-1 block w-full text-field focus:shadow-outline focus:border-green-300") %>
+
+        <br>
+        <%= f.label :description, required: true, class: "block text-xxs", style: "font-weight: bold;" %>
+        <%= f.text_area(:description, required:true, placeholder: "Description*", class: "rounded-sm w-full form-input mt-1 block w-full text-field focus:shadow-outline focus:border-green-300") %>
+    </div>
+
+        <br>
+        <%= f.submit "Delete", method: 'delete', :class=> "cursor-pointer w-[72px] h-[32px] bg-red-500 active:bg-red-600 font-bold uppercase text-xs rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150" %>
+      <% end %>
+    </div>
+  </div>
+  </div>
 </div>

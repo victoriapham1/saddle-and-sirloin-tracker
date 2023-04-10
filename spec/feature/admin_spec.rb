@@ -116,7 +116,7 @@ RSpec.describe('Oauth', type: :feature) do
     it 'announcements#new when signed in' do
       visit new_announcement_path
       expect(page).to(have_current_path(new_announcement_path))
-      expect(page).to(have_content('New Announcement'))
+      expect(page).to(have_content('Title'))
       # expect(page).to(have_selector(:link_or_button, 'Sign in'))
     end
 

@@ -16,7 +16,7 @@ class AnnouncementsController < ApplicationController
     @announcement = Announcement.new(announcement_params)
     respond_to do |format|
       if @announcement.update(announcement_params)
-        format.html { redirect_to('/', notice: 'Announcement was successfully updated.') }
+        format.html { redirect_to('/', notice: 'Announcement was successfully created.') }
         format.json { render(:show, status: :ok, location: @announcement) }
       else
         format.html { render(:new, status: :unprocessable_entity) }
@@ -53,7 +53,7 @@ class AnnouncementsController < ApplicationController
   def destroy
     @announcement = Announcement.find(params[:id])
     @announcement.destroy
-    redirect_to('/', notice: 'Announcement was successfully destroyed.')
+    redirect_to('/', notice: 'Announcement was deleted.')
   end
 
   def calendar; end
