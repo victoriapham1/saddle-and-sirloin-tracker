@@ -3,7 +3,7 @@
 class UsersController < ApplicationController
   before_action :authorize_user, except: %i[new create waiting approve]
   before_action :unique_user, only: [:new]
-  before_action :block_member, except: %i[new create waiting approve update edit]
+  before_action :block_member, except: %i[new create waiting approve update edit faq]
   before_action :authorize_profile, only: [:edit]
   helper_method :sort_column, :sort_direction
   before_action :set_user, only: %i[show edit update destroy]
