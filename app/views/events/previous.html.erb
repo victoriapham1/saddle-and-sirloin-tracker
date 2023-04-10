@@ -23,5 +23,5 @@
 <br>
 <% @events.each do |event|%>
   <%# checks event date and compares it to current date. Only renderes the events that are in the past %>
-  <%= render(:partial => "events_card", :locals => {:event => event}) if event.date < Time.now.to_date%>
+  <%= render(:partial => "events_card", :locals => {:event => event}) if event.date < Time.now.to_date || !event.isActive%>
 <%end%>
