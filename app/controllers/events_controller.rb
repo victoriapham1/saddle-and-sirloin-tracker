@@ -73,6 +73,10 @@ class EventsController < ApplicationController
         # USING the CALENDAR_ID, be sure to set this to the correct calendar (View comment over CALENDAR_ID)
         ge = client.insert_event(CALENDAR_ID, event)
         params[:event][:google_event_id] = ge.id
+
+        @event.google_event_id = params[:event][:google_event_id]
+        @event.save
+        
         flash[:notice] = 'Event was successfully added.'
 
         format.html { redirect_to(event_url(@event), notice: 'Event was successfully created.') }
@@ -93,13 +97,16 @@ class EventsController < ApplicationController
       if @event.update(event_params)
 
         client = get_google_calendar_client
-        client.delete_event(CALENDAR_ID, @event[:google_event_id])
+        client.delete_event(CALENDAR_ID, @event.google_event_id)
 
         task = params[:event]
         event = get_event(task)
         ge = client.insert_event(CALENDAR_ID, event)
         params[:event][:google_event_id] = ge.id
-        
+
+        @event.google_event_id = params[:event][:google_event_id]
+        @event.save
+
         format.html { redirect_to(event_url(@event), notice: 'Event was successfully updated.') }
         format.json { render(:show, status: :ok, location: @event) }
       else
@@ -118,7 +125,7 @@ class EventsController < ApplicationController
     client = get_google_calendar_client
 
     @event = Event.find(params[:id])
-    client.delete_event(CALENDAR_ID, @event[:google_event_id])
+    client.delete_event(CALENDAR_ID, @event.google_event_id)
     @event.destroy
 
     redirect_to(events_path, notice: 'Event was successfully destroyed.')
