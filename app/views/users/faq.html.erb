@@ -1,0 +1,180 @@
+<div class="container mx-auto rounded-lg" style="width: 80%;">
+  <br>
+  <div class="shadow shadow-2xl border border-red-900  border-4 rounded-lg p-10 bg-white">
+    <div class="hero container max-w-screen-lg mx-auto pb-10 flex justify-center">
+      <%= image_tag ("SnSnoBg.png"), :class => "w-20 h-20" %>
+    </div>
+
+    <h1 class="font-bold text-2xl text-center">Frequently Asked Questions (FAQ)</h1>
+    <div class="hero container max-w-screen-lg mx-auto pb-10 flex justify-center text-center">
+        This document consists of information on how to navigate and access the functionalities of the Saddle & Sirloin Club application. For more specific information, please contact the development team for additional assistance or questions.
+    </div>
+
+    <div class="font-bold">
+        <h1 class="text-xl">Sections</h1>
+        <ol>
+            <li>1 Accessing the Website</li>
+            <li>2 Member View</li>
+                <ul class="indent-8">
+                    <li>2.1 Member Profile</li>
+                    <li>2.2 Dashboard & Events</li>
+                    <li>2.3 Event Sign-in</li>
+                </ul>
+
+            <% if User.find_by(email: current_admin.email).role > 0 %>
+                <li>3 Officer View</li>
+                    <ul class="indent-8">
+                        <li>3.1 Events & Attendance</li>
+                        <li>3.2 Member Directory</li>
+                        <li>3.3 Announcements</li>
+                        <li>3.4 Role Distinction</li>
+                        <li>3.5 <mark class="bg-red-400">PRESIDENT/VICE-PRESIDENT: The Yearly Reset</mark></li>
+                    </ul>
+                <li>4 Deployment & Support</li>
+            <% end %>
+        </ol>
+    </div>
+
+    <br>
+    <div>
+        <h1 class="font-bold text-lg underline">1 - Accessing the Website</h1>
+        <p class="text-sm font-bold">To create an account to the website, only TAMU credentials will be accepted. Please use your TAMU email and encourage others to do the same.</p>
+        
+        <br>
+        <h3 class="font-bold">I created an account but can't access the website. What should I do?</h3>
+        <p>By default all users will not have access to the website until they have paid their dues and been accepted by the officers. The officers will activate your account granting you access to the rest of the website. Please contact your officers to grant access to the website.</p>
+
+        <br>
+        <h3 class="font-bold">I forgot my TAMU credentials and can't sign into the website. What should I do?</h3>
+        <p>We cannot change your TAMU credentials for you, in order to regain access to the website you will have to contact TAMU directly to change your credentials in order to sign in to the website.</p>
+    </div>
+    
+    <%# Member Questions %>
+    <br>
+    <div>
+        <h1 class="font-bold text-lg underline">2 - Member View</h1>
+        <p class="text-sm font-bold">Every member is able to sign-in to events via QR code, view upcoming announcements and events, and view their individual member profile.</p>
+        
+        <%# 2.1 - Member Profile %>
+        <br>
+        <h2 class="font-bold text-base underline">2.1 - Member Profile</h2>
+        <h3 class="font-bold">I lost track of what events I have attended and am not sure how many more events I need to attend to reach the quota. Can I check what events I've attended?</h3>
+        <p>If you press your profile on the top right you should get some insight into which events you have attended. The point breakdown is separated by each event category. For further information regarding how the events points are calculated please contact the officer board.</p>
+
+        <br>
+        <h3 class="font-bold">If I changed my phone number and the application has my old number on record how do I update it?</h3>
+        <p>If you press on your profile picture in the top right corner you will be given the option to change all attributes of your profile except the email	address, which is determined by the TAMU account you used to register for the app.</p>
+
+        <%# 2.2 Dashboard & Events %>
+        <br>
+        <h2 class="font-bold text-base underline">2.2 Dashboard & Events</h2>
+        <h3 class="font-bold">Where can I see the events in a calendar form?</h3>
+        <p>You should be able to see the events listed in the google calendar in the dashboard with events updated by the hour.</p>
+
+        <br>
+        <h3 class="font-bold">How can I stay up to date on any announcements officers are making?</h3>
+        <p>In the dashboard all announcements made by officers will be displayed next to the calendar. You are allowed to interact with these announcements by liking them.</p>
+
+        <%# 3.3 Event Sign-In %>
+        <br>
+        <h2 class="font-bold text-base underline">2.3 Event Sign-In</h2>
+        <h3 class="font-bold">How do I sign into an event?</h3>
+        <p>During the event the officers should present the QR code you can scan to sign into the event and have your attendance tracked.</p>
+
+        <br>
+        <h3 class="font-bold">I went to an event but forgot to scan the QR code. Can I still get points for attendance?</h3>
+        <p>Officers do have the ability to register your attendance to an event after the event has happened. However, this is at the discretion of the officers and they will likely need proof that you did attend the event. Please contact your officers in regards to this situation.</p>
+    </div>
+
+    <%# Officer Questions %>
+    <% if User.find_by(email: current_admin.email).role > 0 %>
+        <br>
+        <div>
+            <h1 class="font-bold text-lg underline">3 - Officer View</h1>
+            <p class="text-sm font-bold">Officers have extended abilities to monitor the application, with additional features like the ability to manage events, announcements, and the member directory. <mark class="bg-red-400">Furthermore, for the President and Vice-President, an additional feature, the yearly reset, is available. Please read carefully about this functionality and what it does for this application before continuing. The aftermath may become irreversible if used improperly.</mark></p>
+            
+            <%# 3.1 - Events %>
+            <br>
+            <h2 class="font-bold text-base underline">3.1 - Events</h2>
+            <h3 class="font-bold">How do I create a new event?</h3>
+            <p>Permission to create an event is reserved to users with admin permissions (officers). In the events page, which you can get to by going to events on the navigation bar, a link will appear on the top right that says “create new event” which will take you to a form to submit an event.</p>
+
+            <br>
+            <h3 class="font-bold">How do I delete an event as an officer?</h3>
+            <p>You can delete the event by simply clicking on the “delete event” button and it will take you to a form of the event information page and then you can click on the “delete event” button.</p>
+
+            <br>
+            <h3 class="font-bold">I created an event but put the wrong date. What should I do?</h3>
+            <p>Every event has an edit function in the card which is displaying the event. Simply press the edit button to take you to the form which will allow you to change the event details.</p>
+
+            <br>
+            <h3 class="font-bold">How do I view the attendance of an event?</h3>
+            <p>Each event will have an attendance sheet attached to it, displaying all the members that have attended that event. You can view this sheet if you click on an event for more information and that event currently has attendees. Furthermore, this page will allow you to add or remove individual members to the event.</p>
+
+            <%# 3.2 Member Directory %>
+            <br>
+            <h2 class="font-bold text-base underline">3.2 Member Directory</h2>
+            <h3 class="font-bold">How do I accept members into the website?</h3>
+            <p>Members are admitted to a waiting queue once signing into the website and creating their user profile. Officers will be able to see these queued members by navigating to the member directory. The directory has a filter 'Approval' that displays users in need of approval. These users can be manually approved through the checkboxes on their entry, and then the process can be submitted by clicking on the 'Approve' button. After this is done, the user should have access to the website and its features.</p>
+
+            <%# 3.3 Announcements %>
+            <br>
+            <h2 class="font-bold text-base underline">3.3 Announcements</h2>
+            <h3 class="font-bold">How do I create new announcements?</h3>
+            <p>Permission to create announcements is reserved to users with admin permissions (officers). In the announcements page, which you can get to by going to announcements on the navigation bar, a link will appear on the top right that says “create new announcement” which will take you to a form to submit an announcement.</p>
+
+            <br>
+            <h3 class="font-bold">How do I delete an announcement as an officer?</h3>
+            <p>You can delete the announcement by simply clicking on the “delete announcement” button and it will take you to a form of the announcement information page and then you can click on the “delete announcement” button.</p>
+
+            <br>
+            <h3 class="font-bold">I created an announcement but put the wrong information. What should I do?</h3>
+            <p>Every announcement has an edit function in the card which is displaying the announcement. Simply press the edit button to take you to the form which will allow you to change the announcement details.</p>
+
+            <%# 3.4 Role Distinction %>
+            <br>
+            <h2 class="font-bold text-base underline">3.4 Role Distinction</h2>
+            <h3 class="font-bold">What are the roles on this website?</h3>
+            <p>Role distinction defines the processes and web page views that specific users see depending on their role in the organization. 
+There are two main roles: Officers and Members. Members are allowed to view the dashboard, events, calendar, and announcement pages as well as their specific profile page. Officers can also view these pages, however many of these pages allow more functionality to officers. </p>
+
+            <br>
+            <h3 class="font-bold">How do I grant officer access to a member?</h3>
+            <p>The President and vice-president have the ability to change the role of a user to an officer. This can be done by selecting a member's profile and changing the role of that specific user. Once this is done, the member will have a seamless transition to all of the features of an officer.</p>
+
+            <br>
+            <h3 class="font-bold">How do I remove access to an officer?</h3>
+            <p>Revoking access is the same process as granting access: Officers will need to manually change the user's role within a member's profile.</p>
+
+            <%# The Yearly Reset %>
+            <br>
+            <h2 class="font-bold text-base underline"><mark class="bg-red-400">3.5 The Yearly Reset*</mark></h2>
+            <p class="text-sm font-bold">For president and vice-president use only: This should only be done once at the end of each school year. This function may result in irreversible changes and the attendance scoring calculation if reset improperly or too early. We encourage you to only reset the application during the summer to ensure a proper and safe reset. Please discuss in detail with the previous president and vice-president for more information or the development team for any potential concerns.</p>
+            <h3 class="font-bold"></h3>
+            <p></p>
+
+            <br>
+            <h3 class="font-bold">How do I do the yearly reset?</h3>
+            <p>The reset requires the action of the president and the vice-president. On both respective profiles, there is a button called 'Activate Yearly Reset'. This will only be shown on the president and vice-president's profile. If one of the two clicks on the button, it will partially activate the reset call. The second user to click on the reset button will redirect them to a confirmation page. If that user clicks 'Reset Now,' this will activate the reset and remove access for all members, but the president and vice-president. If that user clicks, 'Back' the reset process must be restarted and both users must click on the button again.</p>
+
+            <h3 class="font-bold">What does the yearly reset entail?</h3>
+            <p>This functionality will remove all members with the 'Member' role access to the website, as well as reset the points system for the year. This will allow the application to begin on a 'clean slate' at the beginning of each year, where officers are able to approve only current members of the new year, and reset the calculation of the attendance points system. Announcements and events from the past year will also be removed.</p>
+
+            <h3 class="font-bold">What if I accidentally click on the reset button?</h3>
+            <p>If one of the two clicks on the reset button the member profile, you have an option to click the button to deactivate the reset request. Nothing will occur if only one user has clicked on the reset button.</p>
+
+            <%# Deployment & Support %>
+            <br>
+            <h1 class="font-bold text-lg underline">4 - Deployment & Support</h1>
+            <p class="text-sm font-bold">This should not be of concern for member usage, but for any application maintenance please refer to the admin maintenance documentation.</p>
+            
+            <br>
+            <h3 class="font-bold">What happens if the application crashes or further development is needed?</h3>
+            <p>Please refer to the administration help documentation provided to the current officer board for more information regarding maintenance of this application. For more information or questions, you may contact the development team.</p>
+
+        </div>
+    <% end %>
+
+  </div>
+</div>
+<br>

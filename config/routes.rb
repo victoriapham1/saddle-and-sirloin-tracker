@@ -49,7 +49,7 @@ Rails.application.routes.draw do
 
   match 'waiting', to: 'users#waiting', via: :get
 
-  match 'confirm', to: 'users#confirm', via: :get
+  match 'faq', to: 'users#faq', via: :get
 
   # OATH
   devise_for :admins, controllers: { omniauth_callbacks: 'admins/omniauth_callbacks' }

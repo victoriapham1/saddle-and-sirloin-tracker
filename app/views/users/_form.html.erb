@@ -39,9 +39,10 @@
               <%= form.label :role, required: true, class: "block text-xxs uppercase", style: "font-weight: bold;" %>
               <%# Renders if NOT on user create page %>
               <% if User.find_by(email: current_admin.email).role != 0 %>
-                <%= form.select :role, roleOptions, style: "width: 80%; height: 10%"%>
+                <%= form.select :role, roleOptions, style: "width: 70%; height: 10%"%>
               <% else %>
-                <%= form.select :role, roleOptions, {},{:disabled => true}, style: "width: 70%; height: 10%"%>
+
+                <%= form.select :role, roleOptions, {} , {:disabled => true}%>
               <% end %>
             <% end %>
 
