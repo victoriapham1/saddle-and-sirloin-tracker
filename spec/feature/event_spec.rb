@@ -39,15 +39,4 @@ RSpec.describe('Event', type: :feature) do
 
     expect(events).to(eq(all_events))
    end
-
-   it "returns all events if no search parameters are inputted" do
-    event = Event.new(name: "Tailgate", event_type: 3, date: '12/12/2023',
-        description: 'cookout where you can meet fellow members.').save
-    event2 = Event.new(name: "cookout", event_type: 2, date: '08/12/2023',
-        description: 'cookout where you can meet fellow members.').save
-    all_events = Event.all
-    events = Event.search('', '')
-
-    expect(events).to(eq(all_events))
-   end
 end
