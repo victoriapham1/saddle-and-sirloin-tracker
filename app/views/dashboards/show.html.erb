@@ -14,7 +14,7 @@
         
         <div class="flex flex-row place-content-center items-center w-full gap-x-1">
         
-            <%if User.find_by(email: current_admin.email).role == 1%>
+            <%if User.find_by(email: current_admin.email).role > 0 %>
                 <%# Add event icon %>
                 <div class="flex min-w-[24px] min-h-[24px]">
                     <a href= "<%= new_announcement_path %>" class="w-6 h-6 rounded-full
@@ -44,7 +44,7 @@
                 <div class="absolute left-0 top-0">
                     <%= ann.updated_at.strftime("%m/%d/%Y")%>
                 </div>
-                <%if User.find_by(email: current_admin.email).role == 1%>
+                <%if User.find_by(email: current_admin.email).role > 0%>
                     <a href="<%= edit_announcement_path(ann.id)%>" class="absolute right-7 w-[20px] h-[20px] rounded-full
                 hover:bg-emerald-500 hover:opacity-50 duration-300 cursor-pointer">
                         <span class="material-icons absolute right-0 top-0" style="font-size: 20px">edit_note</span>
