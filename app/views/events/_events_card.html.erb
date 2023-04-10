@@ -1,6 +1,6 @@
 <%= link_to event_path(event), class: 'action show' do%>
 <div class="container mx-auto rounded-lg px-10">
-  <div class="shadow shadow-2xl border border-red-900  border-4 rounded-lg p-10">
+  <div class="shadow shadow-2xl border border-red-900  border-4 rounded-lg p-10" style="background-color: white">
       <h1 class = "text-left"><%= event.name %></h3>
       <h2 class = "text-right"><%= event.date.strftime("%m/%d/%Y") %></h2>
       <%# only renders start_time & end_time if they are presesnt can have custom styling %>
@@ -8,13 +8,14 @@
         <%= render "events_time", locals: { event: event, style: "text-right" } %>
       <%end%>
       <h2>Type: <%= event.formatted_type %></h2>
-      <p> <%= event.description %> <p>
+      <p class="break-all"> <%= event.description %> </p>
       <%# In the future make it so the edit/delete links only appear for officers or only the officer who made it %>
       <% if User.find_by(email: current_admin.email).role == 1 %>
-        <%= link_to("Edit", edit_event_path(event), class: 'action edit')%>
-        <%= link_to("Delete", delete_event_path(event), class: 'action delete')%>
+        <br>
+        <%= link_to("Edit", edit_event_path(event), class: "bg-sky-500 active:bg-sky-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150")%>
+        <%= link_to("Delete", delete_event_path(event), class: "bg-red-400 active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150")%>
       <%end%>
-      <br>
     </div>
 </div>
+<br>
 <%end%>

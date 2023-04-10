@@ -31,6 +31,6 @@ RSpec.describe(Event, type: :model) do
     end
   end
 
-  context 'page loading tests' do
+  context ' do
   end
 end
