@@ -63,7 +63,12 @@
                       <a href="<%= edit_user_path(User.find_by(email: current_admin.email).id) %>" class="block px-4 py-2 hover:bg-gray-100">
                           Profile
                       </a>
-                  </li>            
+                  </li>    
+                  <li>
+                      <a href="<%= '/faq' %>" class="block px-4 py-2 hover:bg-gray-100">
+                          FAQs
+                      </a>
+                  </li>        
                   <li>
                       <a href="<%=destroy_admin_session_path%>" class="block px-4 py-2 hover:bg-gray-100">
                           Sign Out

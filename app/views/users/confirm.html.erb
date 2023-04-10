@@ -2,9 +2,7 @@
   <br>
   <div class="shadow shadow-2xl border border-red-900  border-4 rounded-lg p-10 bg-white">
     
-    <button class="bg-sky-500 active:bg-sky-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-        <%= link_to "Back", "/", :class=> "cursor-pointer"  %> 
-    </button>
+    <%= link_to("Back", root_path, class: "bg-sky-500 active:bg-sky-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150")%>
 
     <div class="hero container max-w-screen-lg mx-auto pb-10 flex justify-center">
       <%= image_tag ("SnSnoBg.png"), :class => "w-20 h-20" %>
@@ -17,7 +15,7 @@
     </div>
     <h2 class="text-center font-bold text-red-800 uppercase text-lg">This change will be irreversible.</h2>
     <%# Todo: Add link to the FAQ %>
-    <p class="text-center text-lg">For more information about the reset, please click <b>here.</b></p>
+    <p class="text-center text-lg">For more information about the reset, please click <b><a href="<%= '/faq' %>">here.</a></b></p>
     
     <br>
     <div class="text-center">
