@@ -14,13 +14,12 @@ class EventsController < ApplicationController
   $upcoming = true
   # GET /events or /events.json
   def index
-    @events = Event.all
-    @events = Event.search(params[:search], params[:category]).sort_by(&:date)
+    # @events = Event.paginate(page: params[:page], per_page: 5)
+    @events = Event.search(params[:search], params[:category]).paginate(page: params[:page], per_page: 5).order("date ASC")
   end
 
   def previous
-    @events = Event.all
-    @events = Event.search(params[:search], params[:category]).sort_by(&:date)
+    @events = Event.prev_search(params[:search], params[:category]).paginate(page: params[:page], per_page: 5).order("date DESC")
   end
 
   # GET /events/1 or /events/1.json

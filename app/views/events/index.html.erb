@@ -22,7 +22,11 @@
 </div>
 <br>
 
-<% @events.each do |event|%>
-  <%# checks event date and compares it to current date. Only renderes the events that are either today or later %>
-  <%= render(:partial => "events_card", :locals => {:event => event}) if event.isActive && event.date >= Time.now.to_date%>
-<%end%>
+
+<%  @events.each do |event|%>
+  <%= render(:partial => "events_card", :locals => {:event => event})%>
+<%end %>
+<div class = "flex justify-center">
+  <%= will_paginate @events %>
+</div>
+<br>

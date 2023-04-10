@@ -1,0 +1,7 @@
+<div class="flex justify-between">
+    <%= form_tag previous_event_path(0), :method => "get" do%>
+        <%= text_field_tag :search, params[:search],  placeholder: "Event Name"%>
+        <%= select_tag :category, options_for_select(["Social", "Meeting", "Service"], params[:category]), onchange: "this.form.submit();", include_blank: "" %>
+        <%= submit_tag("Search", :name => nil, class: "bg-sky-500 active:bg-sky-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150")%>
+    <%end%>
+</div>
