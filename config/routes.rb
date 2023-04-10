@@ -49,7 +49,9 @@ Rails.application.routes.draw do
 
   match 'waiting', to: 'users#waiting', via: :get
 
+  match 'activate_reset', to: 'users#activate_reset', via: :get
   match 'confirm', to: 'users#confirm', via: :get
+  match 'reset', to: 'users#reset', via: :get
 
   # OATH
   devise_for :admins, controllers: { omniauth_callbacks: 'admins/omniauth_callbacks' }

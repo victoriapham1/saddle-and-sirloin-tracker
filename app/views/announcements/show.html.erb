@@ -4,7 +4,7 @@
   <h2 class="text-lg"><%= @announcement.description %></h2>
   <br>
   <h3 class="text-base"><%= @announcement.updated_at.strftime("%m/%d/%Y")%></h3>
-  <% if User.find_by(email: current_admin.email).role == 1 %>
+  <% if User.find_by(email: current_admin.email).role > 0  %>
     <div>
       <%= link_to "Edit announcement", edit_announcement_path(@announcement), class: "border-b-2 border-emerald-500"%> |
       <%= link_to "Delete announcement", delete_announcement_path(@announcement), class: "border-b-2 border-red-500" %> 

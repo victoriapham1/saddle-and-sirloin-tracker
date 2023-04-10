@@ -79,6 +79,17 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
+        # NEED TO MAKE ONLY PRES/VP ALLOWED TO PROMOTE TO PRES/VP
+        changer = User.find_by(email: current_admin.email)#This is the active user that submitted the update request (officer, pres, vp, self)
+        # This shows the pushed update is to promote a user to PRES or VP
+        # -> a PRES or VP is stepping down and promoting a user
+        # Rendering on _form creates invariant: IF a user is being updated to a Pres VP role -> the changer must be a pres or vp.
+        # Additionally, pres/vp cannot change themselves, they must promote someone to update themselves
+        if @user.role > 1
+          changer.role = 1
+          changer.save
+        end
+
         format.html { redirect_to(edit_user_path(@user.id), notice: 'Member successfully updated.') }
         format.json { render(:show, status: :ok, location: @user) }
       else
@@ -98,6 +109,57 @@ class UsersController < ApplicationController
         redirect_to '/'
       end
     end
+  end
+
+  def activate_reset
+    user = User.find_by(email: current_admin.email)
+    if user.role != 2 && user.role != 3
+      puts "NOT PRES OR VP " + user.role.to_s
+      redirect_to '/'
+      return
+    end
+
+    p = User.find_by(role: 2)
+    vp = User.find_by(role: 3)
+
+    if user.id == p.id
+      p.isReset = !p.isReset
+      p.save
+    elsif user.id == vp.id
+      vp.isReset = !vp.isReset
+      vp.save
+    end
+
+    if p.isReset && vp.isReset
+      redirect_to confirm_path
+      return
+    else
+      # format.html { redirect_to(edit_user_path(user.id), notice: 'Reset activated! Waiting for other admin to approve the reset!') }
+      # format.json { render(:edit, status: :ok, location: user) }
+      redirect_to edit_user_path(user.id) 
+      return
+    end
+  end
+
+
+  def confirm
+    p = User.find_by(role: 2)
+    vp = User.find_by(role: 3)
+    p.isReset = false
+    vp.isReset = false
+    p.save
+    vp.save
+
+  end
+
+  def reset
+    users = User.where(isActive: true, role:[0,1]).update_all(isActive: false, isRequesting: false, role: 0)
+    events = Event.all
+    announcements = Announcement.all
+
+    events.update_all(isActive: false)
+    announcements.destroy_all
+    redirect_to '/'
   end
 
   def update_multiple

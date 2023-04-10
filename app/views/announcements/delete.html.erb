@@ -5,9 +5,6 @@
 
       <p class="text-lg"><%= @announcement.title %></p>
       <br>
-      <button class="bg-red-500 active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-        <%= f.submit("Delete Announcement", :class=> "cursor-pointer") %>
-      </button>
-
+        <%= f.submit "Delete", :class=> "cursor-pointer w-[72px] h-[32px] bg-red-500 active:bg-red-600 font-bold uppercase text-xs rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150" %>
     <% end %>
 </div>

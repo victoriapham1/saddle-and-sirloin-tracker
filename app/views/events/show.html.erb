@@ -15,7 +15,7 @@
 
 
 <%# Conditionally render UIN submission for user event creation as well as the event attendance. Only allow officers to see this! %>
-<% if User.find_by(email: current_admin.email).role == 1 %>
+<% if User.find_by(email: current_admin.email).role > 0 %>
 
     <div class = "container mx-auto">
         <%= form_for( @user_event, :url => user_event_path(@event.id), :html => { :method => :post }) do |form| %>
