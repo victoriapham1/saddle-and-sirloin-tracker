@@ -45,7 +45,7 @@ class UsersController < ApplicationController
 
     # Don't allow duplicate user creation (Unique user per email)
     if User.find_by(email: @user.email)
-        redirect_to "/"
+      redirect_to '/'
     else
       respond_to do |format|
         if @user.save
@@ -80,7 +80,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update(user_params)
         # NEED TO MAKE ONLY PRES/VP ALLOWED TO PROMOTE TO PRES/VP
-        changer = User.find_by(email: current_admin.email)#This is the active user that submitted the update request (officer, pres, vp, self)
+        changer = User.find_by(email: current_admin.email) # This is the active user that submitted the update request (officer, pres, vp, self)
         # This shows the pushed update is to promote a user to PRES or VP
         # -> a PRES or VP is stepping down and promoting a user
         # Rendering on _form creates invariant: IF a user is being updated to a Pres VP role -> the changer must be a pres or vp.
@@ -102,12 +102,10 @@ class UsersController < ApplicationController
   def waiting
     # Protects route from non-users
     user = User.find_by(email: current_admin.email)
-    if user.nil? 
+    if user.nil?
       redirect_to(controller: 'users', action: 'new')
-    else
-      if user.isActive
-        redirect_to '/'
-      end
+    elsif user.isActive
+      redirect_to '/'
     end
   end
 
@@ -131,13 +129,11 @@ class UsersController < ApplicationController
 
     if p.isReset && vp.isReset
       redirect_to confirm_path
-      return
     else
-      redirect_to edit_user_path(user.id) 
-      return
+      redirect_to edit_user_path(user.id)
     end
+    nil
   end
-
 
   def confirm
     user = User.find_by(email: current_admin.email)
@@ -146,7 +142,7 @@ class UsersController < ApplicationController
 
     # 2 factor auth
     if !(p.isReset && vp.isReset) || user.role < 2
-      redirect_to edit_user_path(user.id) 
+      redirect_to edit_user_path(user.id)
       return
     end
 
@@ -162,11 +158,11 @@ class UsersController < ApplicationController
     vp = User.find_by(role: 3)
     # 2 factor auth
     if !(p.isReset && vp.isReset) || user.role < 2
-      redirect_to edit_user_path(user.id) 
+      redirect_to edit_user_path(user.id)
       return
     end
 
-    users = User.where(isActive: true, role:[0,1]).update_all(isActive: false, isRequesting: false, role: 0)
+    users = User.where(isActive: true, role: [0, 1]).update_all(isActive: false, isRequesting: false, role: 0)
     events = Event.all
     announcements = Announcement.all
 
@@ -233,13 +229,11 @@ class UsersController < ApplicationController
 
   # URL protection: don't allow members to view officer pages/actions
   def authorize_profile
-    if User.find_by(email: current_admin.email).role == 0
-      id = params[:id]
-      if User.find_by(email: current_admin.email).id != id.to_i
-        redirect_to "/"
-      else
-        return
-      end
-    end
+    return unless User.find_by(email: current_admin.email).role.zero?
+
+    id = params[:id]
+    return unless User.find_by(email: current_admin.email).id != id.to_i
+
+    redirect_to '/'
   end
 end

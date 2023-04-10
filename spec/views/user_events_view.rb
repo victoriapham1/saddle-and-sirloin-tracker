@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 user_events_view_spec.rb
 # frozen_string_literal: true
 

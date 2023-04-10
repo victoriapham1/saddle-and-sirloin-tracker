@@ -15,11 +15,13 @@ class EventsController < ApplicationController
   # GET /events or /events.json
   def index
     # @events = Event.paginate(page: params[:page], per_page: 5)
-    @events = Event.search(params[:search], params[:category]).paginate(page: params[:page], per_page: 5).order("date ASC")
+    @events = Event.search(params[:search], params[:category]).paginate(page: params[:page],
+                                                                        per_page: 5).order('date ASC')
   end
 
   def previous
-    @events = Event.prev_search(params[:search], params[:category]).paginate(page: params[:page], per_page: 5).order("date DESC")
+    @events = Event.prev_search(params[:search], params[:category]).paginate(page: params[:page],
+                                                                             per_page: 5).order('date DESC')
   end
 
   # GET /events/1 or /events/1.json
@@ -60,7 +62,6 @@ class EventsController < ApplicationController
   # POST /events or /events.json
   # syncs the events made to the calendar
   def create
-  
     @event = Event.new(event_params)
 
     respond_to do |format|
@@ -75,7 +76,7 @@ class EventsController < ApplicationController
 
         @event.google_event_id = params[:event][:google_event_id]
         @event.save
-        
+
         flash[:notice] = 'Event was successfully added.'
 
         format.html { redirect_to(event_url(@event), notice: 'Event was successfully created.') }
@@ -89,7 +90,6 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1 or /events/1.json
   def update
-
     @event = Event.find(params[:id])
 
     respond_to do |format|
