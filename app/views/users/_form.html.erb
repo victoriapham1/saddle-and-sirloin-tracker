@@ -44,6 +44,19 @@
                 <%= form.select :role, roleOptions, {},{:disabled => true}, style: "width: 70%; height: 10%"%>
               <% end %>
             <% end %>
+
+            <%# TODO: THE RESET %>
+            <%if User.find_by(email: current_admin.email) != nil %>
+              <%# Renders ONLY for president/vice-president. %>
+              <% if User.find_by(email: current_admin.email).role > 1 %>
+                <br><br>
+                <%# TODO: UNCOMMENT TO DISPLAY WHEN USER HAS CLICKED BUTTON TRUE. %>
+                <%# if User.find_by(email: current_admin.email).isReset %>
+                  <%# <h2 class="text-center font-bold text-red-800 uppercase text-lg">Click again to deactivate reset.</h2> %>
+                <%# end %>
+                <button class="bg-red-400 active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">Activate Yearly Reset</button>
+              <% end %>
+            <% end %>
             
         </div>
       </div>
