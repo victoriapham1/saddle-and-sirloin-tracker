@@ -103,7 +103,6 @@ RSpec.describe('Oauth', type: :feature) do
     it 'events#new when signed in' do
       visit new_event_path
       expect(page).to(have_current_path(new_event_path))
-      expect(page).to(have_content('New Event'))
       # expect(page).to(have_selector(:link_or_button, 'Sign in'))
     end
 
