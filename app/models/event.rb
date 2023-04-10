@@ -6,8 +6,8 @@ class Event < ApplicationRecord
   validates :date, presence: true
   validates :event_type, presence: true
   validates :description, presence: true
-  validates :start_time, presence: false
-  validates :end_time, presence: false
+  validates :start_time, comparison: { less_than: :end_time }
+  validates :end_time, comparison: { greater_than: :start_time }
 
   has_many :user_events, dependent: :destroy
   has_many :users, through: :user_events
