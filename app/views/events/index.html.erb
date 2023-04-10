@@ -2,11 +2,7 @@
 <div>
   <div class="container mx-auto">
     <br>
-    <%# Conditionally render create new event to only officers %>
-    <% if User.find_by(email: current_admin.email).role == 1 %>
-      <%= link_to("Create new event", new_event_path, class: "action new")%>
-    <%end%>
-    <h1 class="text-3xl font-bold text-center">Events</h1>
+    <h1 class="text-3xl font-bold text-center">Upcoming Events</h1>
     <br>
   </div>
 </div>
@@ -16,17 +12,17 @@
 <% end %>
 
 <div class="container mx-auto px-10">
-  <div>
-    <%= render "events_search" %>
-  </div>
-  <div>
-    <%= button_to "Previous Events", previous_event_path(0), method: :get, class:"myClass" %>
-  </div>
+  <%= render "events_search" %>
+  <br>
+  <%= button_to "Previous Events", previous_event_path(0), method: :get, class:"bg-sky-500 active:bg-sky-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" %>
+  <%# Conditionally render create new event to only officers %>
+  <% if User.find_by(email: current_admin.email).role == 1 %>
+    <%= link_to("Create new event", new_event_path, class: "bg-sky-500 active:bg-sky-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150")%>
+  <%end%>
 </div>
-
+<br>
 
 <% @events.each do |event|%>
   <%# checks event date and compares it to current date. Only renderes the events that are either today or later %>
   <%= render(:partial => "events_card", :locals => {:event => event}) if event.date >= Time.now.to_date%>
-  <br>
 <%end%>

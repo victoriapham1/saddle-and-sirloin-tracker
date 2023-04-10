@@ -61,17 +61,20 @@ class EventsController < ApplicationController
   # POST /events or /events.json
   # syncs the events made to the calendar
   def create
-    client = get_google_calendar_client
-    task = params[:event]
-    event = get_event(task)
-    # USING the CALENDAR_ID, be sure to set this to the correct calendar (View comment over CALENDAR_ID)
-    ge = client.insert_event(CALENDAR_ID, event)
-    params[:event][:google_event_id] = ge.id
-    flash[:notice] = 'Event was successfully added.'
+  
     @event = Event.new(event_params)
 
     respond_to do |format|
       if @event.save
+
+        client = get_google_calendar_client
+        task = params[:event]
+        event = get_event(task)
+        # USING the CALENDAR_ID, be sure to set this to the correct calendar (View comment over CALENDAR_ID)
+        ge = client.insert_event(CALENDAR_ID, event)
+        params[:event][:google_event_id] = ge.id
+        flash[:notice] = 'Event was successfully added.'
+
         format.html { redirect_to(event_url(@event), notice: 'Event was successfully created.') }
         format.json { render(:show, status: :created, location: @event) }
       else
@@ -83,18 +86,20 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1 or /events/1.json
   def update
-    client = get_google_calendar_client
 
     @event = Event.find(params[:id])
-    client.delete_event(CALENDAR_ID, @event[:google_event_id])
-
-    task = params[:event]
-    event = get_event(task)
-    ge = client.insert_event(CALENDAR_ID, event)
-    params[:event][:google_event_id] = ge.id
 
     respond_to do |format|
       if @event.update(event_params)
+
+        client = get_google_calendar_client
+        client.delete_event(CALENDAR_ID, @event[:google_event_id])
+
+        task = params[:event]
+        event = get_event(task)
+        ge = client.insert_event(CALENDAR_ID, event)
+        params[:event][:google_event_id] = ge.id
+        
         format.html { redirect_to(event_url(@event), notice: 'Event was successfully updated.') }
         format.json { render(:show, status: :ok, location: @event) }
       else

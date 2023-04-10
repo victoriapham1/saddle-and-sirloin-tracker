@@ -30,7 +30,4 @@ RSpec.describe(Event, type: :model) do
       expect(event).to(eq(false))
     end
   end
-
-  context 'page loading tests' do
-  end
 end

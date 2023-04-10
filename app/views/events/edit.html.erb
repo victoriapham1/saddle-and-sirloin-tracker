@@ -1,62 +1,61 @@
-<%#= render "nav-bar" %>
-<div class="container mx-auto">
-    <br>
-    <h1 class="text-3xl font-bold">Edit Event</h1>
-    <br>
-</div>
+<br>
+<br>
 
-<div class = "container mx-auto">
-<%= form_for(@event) do |form| %>
-  <% if @event.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+<div class="container mx-auto rounded-lg" style="width: 50%;">
+    <div class="shadow shadow-2xl border border-red-900  border-4 rounded-lg p-10" style="background-color: white">
+      <%= form_for(@event) do |form| %>
+      <% if @event.errors.any? %>
+        <div style="color: red">
+          <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
 
-      <ul>
-        <% @event.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+          <ul>
+            <% @event.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+        <br>
+      <% end %>
+
+      <div>
+        <%= form.label :name, style: "display: block; font-weight: bold;" %>
+        <%= form.text_field(:name) %>
+      </div>
+
+      <div>
+        <br>
+        <%= form.label :date, style: "display: block; font-weight: bold;" %>
+        <%= form.date_select :date %>
+      </div>
+
+      <div>
+        <br>
+        <%= form.label :start_time, style: "display: block; font-weight: bold;" %>
+        <%= form.time_select(:start_time) %>
+      </div>
+
+      <div>
+        <br>
+        <%= form.label :end_time, style: "display: block; font-weight: bold;" %>
+        <%= form.time_select(:end_time) %>
+      </div>
+
+      <div>
+        <br>
+        <%= form.label :event_type, style: "display: block; font-weight: bold;" %>
+        <%= form.select :event_type, [["Service", 1], ["Meeting", 2], ["Social", 3]] %>
+      </div>
+
+      <div>
+        <br>
+        <%= form.label :description, style: "display: block; font-weight: bold;" %>
+        <%= form.text_area(:description, class: "block p-2.5 w-full text-sm") %>
+      </div>
+
+      <div>
+        <br>
+        <%= form.submit class: "bg-sky-500 active:bg-sky-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" %>
+      </div>
+      <% end %>
     </div>
-  <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field(:name) %>
-  </div>
-
-  <div>
-    <br>
-    <%= form.label :date, style: "display: block" %>
-    <%= form.date_select :date %>
-  </div>
-
-  <div>
-    <br>
-    <%= form.label :start_time, style: "display: block" %>
-    <%= form.time_select(:start_time) %>
-  </div>
-
-  <div>
-    <br>
-    <%= form.label :end_time, style: "display: block" %>
-    <%= form.time_select(:end_time) %>
-  </div>
-
-  <div>
-    <br>
-    <%= form.label :event_type, style: "display: block" %>
-    <%= form.select :event_type, [["Service", 1], ["Meeting", 2], ["Social", 3]] %>
-  </div>
-
-  <div>
-    <br>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_field(:description) %>
-  </div>
-
-  <div>
-    <br>
-    <%= form.submit %>
-  </div>
-<% end %>
 </div>
