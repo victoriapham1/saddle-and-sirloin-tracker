@@ -3,7 +3,7 @@
 <div class="container mx-auto rounded-lg" style="width: 50%;">
     <div class="shadow shadow-2xl border border-red-900  border-4 rounded-lg p-10" style="background-color: white">
         <br>
-        <h1 class="break-all text-3xl font-bold"><%= @event.name%></h1>
+        <h1 class="break-words text-3xl font-bold"><%= @event.name%></h1>
         <h2 class = "text-maroon font-bold"><%= @event.formatted_type %></h2>
         <h3 class = "font-bold"><%= @event.date.strftime("%m/%d/%Y") %></h3>
         <% if @event.start_time%>
@@ -11,7 +11,7 @@
         <%end%>
         <div class="container mx-auto">
             <br>
-            <p class = "break-all text-3xl font-bold"><%= @event.description%></p>
+            <p class = "break-words text-3xl font-bold"><%= @event.description%></p>
         </div>
         <%# Conditionally render UIN submission for user event creation as well as the event attendance. Only allow officers to see this! %>
         <% if User.find_by(email: current_admin.email).role > 0 %>
