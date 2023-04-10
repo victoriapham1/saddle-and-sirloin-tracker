@@ -26,7 +26,7 @@
 
  <%# Displays the nav bar on all pages EXCEPT sign in, new user creation and waiting queue  %>
   <% if !current_page?("/admins/sign_in") && !current_page?("/users/new") && !current_page?("/waiting") && !@error%>
-    <header class="header sticky top-0 bg-white shadow-md flex items-center justify-between px-8 py-02">
+    <header class="header sticky top-0 bg-white shadow-md flex items-center justify-between px-8 py-02 z-50">
       <!-- navigation -->
       <nav class="nav font-semibold text-lg">
         <ul class="flex items-center">
@@ -34,14 +34,6 @@
             <%# Customer Logo (/app/assets/images) %>
             <%= link_to image_tag("SnS.jfif", height: 40, width: 40), "/"  %> 
           </li>
-          <a href="/announcements">
-            <li class="p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100
-            hover:text-maroon duration-200 cursor-pointer active">Announcements</li>
-          </a>
-          <a href="/calendar">
-            <li class="p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100
-            hover:text-maroon duration-200 cursor-pointer active">Calendar</li>
-          </a>
           <a href="/events">
             <li class="p-4 border-b-2 border-maroon border-opacity-0 hover:border-opacity-100
             hover:text-maroon duration-200 cursor-pointer active">Events</li>
@@ -56,17 +48,37 @@
       </nav>
       
       <!-- profile picture/sign-out -->
-      <div class="w-3/12 flex justify-end mr-4 relative">
+      <div class="w-3/12 flex justify-end mr-6 relative">
       <%# UPDATED hat line to use rails asset pipeline (Fixes not showing on ID'd pages) %>
+
       <div class="absolute z-10 -mt-3" style="width:37.83px; height:19.58px;"> <%= image_tag "CBHresize.png" %> </div>
-        <div class="group dropdown relative font-semibold">
-          <label tabindex="0">
+      <div class="group relative">
+          <button class="rounded-full w-11 h-11">
             <img class="rounded-full w-11 h-11 z-0 cursor-pointer" src=<%= current_admin.avatar_url %> referrerpolicy="no-referrer"/>
-          </label>
-          <ul tabindex="0" class="absolute hidden group-hover:block bg-white shadow-md w-20 mr-3">
-            <li class="cursor-pointer h-8 text-center bg-white hover:text-maroon duration-200"><a><%= link_to "Sign Out", destroy_admin_session_path %><a></li>
-          </ul>
-        </div>
+          </button>
+          <nav tabindex="0" class="border-2 bg-white invisible border-gray-800 rounded w-24 absolute left-0 top-full transition-all 
+          opacity-0 group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-1 text-sm">
+              <ul class="py-1">
+                  <li>
+                      <a href="<%= edit_user_path(User.find_by(email: current_admin.email).id) %>" class="block px-4 py-2 hover:bg-gray-100">
+                          Profile
+                      </a>
+                  </li>    
+                  <li>
+                      <a href="<%= '/faq' %>" class="block px-4 py-2 hover:bg-gray-100">
+                          FAQs
+                      </a>
+                  </li>        
+                  <li>
+                      <a href="<%=destroy_admin_session_path%>" class="block px-4 py-2 hover:bg-gray-100">
+                          Sign Out
+                      </a>
+                  </li>
+              </ul>
+          </nav>
+      </div>
+  </div>
+
 
     </header>
   <% end %>

@@ -14,16 +14,14 @@ class AnnouncementsController < ApplicationController
 
   def create
     @announcement = Announcement.new(announcement_params)
-    if @announcement.title === '' || @announcement.description === ''
-      flash.alert = 'Invalid input'
-      redirect_to(announcements_path)
-    elsif @announcement.save
-      redirect_to(announcements_path, notice: 'Announcement created.')
-    else
-      # The new action is not being called
-      # assign any instance vars needed for the template
-      render('new') # just renders the view new
-      flash.alert = 'Announcement not found.'
+    respond_to do |format|
+      if @announcement.update(announcement_params)
+        format.html { redirect_to('/', notice: 'Announcement was successfully created.') }
+        format.json { render(:show, status: :ok, location: @announcement) }
+      else
+        format.html { render(:new, status: :unprocessable_entity) }
+        format.json { render(json: @announcement.errors, status: :unprocessable_entity) }
+      end
     end
   end
 
@@ -33,11 +31,14 @@ class AnnouncementsController < ApplicationController
 
   def update
     @announcement = Announcement.find(params[:id])
-    if @announcement.update(announcement_params)
-      redirect_to(announcement_path(@announcement), notice: 'Announcement updated.')
-    else
-      render('edit')
-      flash.alert = 'Announcement not found.'
+    respond_to do |format|
+      if @announcement.update(announcement_params)
+        format.html { redirect_to('/', notice: 'Announcement was successfully updated.') }
+        format.json { render(:show, status: :ok, location: @announcement) }
+      else
+        format.html { render(:edit, status: :unprocessable_entity) }
+        format.json { render(json: @announcement.errors, status: :unprocessable_entity) }
+      end
     end
   end
 
@@ -52,7 +53,7 @@ class AnnouncementsController < ApplicationController
   def destroy
     @announcement = Announcement.find(params[:id])
     @announcement.destroy
-    redirect_to(announcements_path, notice: 'Announcement was successfully destroyed.')
+    redirect_to('/', notice: 'Announcement was deleted.')
   end
 
   def calendar; end

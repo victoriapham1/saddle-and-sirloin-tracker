@@ -1,37 +1,64 @@
 <div class="grid place-items-center"> 
-    <h1 class="text-3xl font-bold text-center">You're logged in!<br> Welcome to the Admin Dashboard!</h1>
     <%# FOR TESTING, will be removed %>
-    <%= button_to "Swap Role", "/swapRole", method: :put%>
+    <%# button_to "Swap Role", "/swapRole", method: :put%>
 </div>
 
+
 <%# ANNOUNCEMENT FEED DIV!%>
-<%# style directions make scrollbar on left! %>
-<%# w-[404px] prevents horizontal scrollbar %>
-<div class="w-[404px] h-[430px] overflow-auto border-2 border-gray-200 rounded-lg ml-4" style="direction:rtl">
-    <% @announcements.each do |ann|%>
-        <%# Vars for like button interaction %>
-        <% like = UserAnnouncement.where(announcement_id: ann.id).length %>
-        <% not_liked = UserAnnouncement.where(announcement_id: ann.id, user_id: @user_id).empty?%>
-        <% ann_id = ann.id %>
-        <br>
+<br>
+<div class="flex flex-row gap-x-10 w-full h-[85vh] flex-wrap ">
 
-    <%# Individual Announcement! %>
-    <div class="container w-96 h-16 rounded-lg px-10" style="direction:ltr" id="annBox">
-        <%= link_to announcement_path(ann), class: 'action show' do%>
-        <div class="h-16 border-gray-200 border-2 rounded-sm p-5 transition duration-700 ease-in-out 
-                     hover:bg-gray-100 transform 
-                       hover:-translate-y-1 hover:scale-110">
-            <h1 class = "grid place-items-center"><%= ann.title %></h3>
+    <%# style directions make scrollbar on left! %>
+    <div class="w-1/4 h-full min-w-[200px] flex flex-col items-center flex-grow overflow-auto border-2 border-maroon rounded-lg" style="direction:rtl">
+
+        
+        <div class="flex flex-row place-content-center items-center w-full gap-x-1">
+        
+            <%if User.find_by(email: current_admin.email).role > 0 %>
+                <%# Add event icon %>
+                <div class="flex min-w-[24px] min-h-[24px]">
+                    <a href= "<%= new_announcement_path %>" class="w-6 h-6 rounded-full
+                hover:bg-blue-500 hover:opacity-50 duration-300 cursor-pointer">
+                        <span class="material-icons">add</span>
+                    </a>
+                </div>
+            <% end %>
+            <%# Announcements title %>
+            <div class="text-center font-semibold text-lg p-2">Announcements</div>
         </div>
-    </div>
-    <%end%>
-        <div class="relative mb-4 mt-1">
-        <%# TURBO START %>
-        <%= turbo_frame_tag "like" do%>
-            <%= render(partial: "likes", locals:  {like: like, not_liked: not_liked, user_id: @user_id, announcement_id: ann_id} ) %>
-        <%# TURBO END %>
+        
+
+        <%# Individual Announcement! %>
+        <% @announcements.each do |ann|%>
+            <div class="w-4/5 h-16" style="direction:ltr">
+                <%= link_to announcement_path(ann), class: 'action show' do%>
+                <div class="h-16 border-gray-200 border-2 rounded-sm p-5 transition duration-700 ease-in-out 
+                            hover:bg-white transform 
+                            hover:-translate-y-1 hover:scale-110 hover:border-maroon bg-white">
+                    <h1 class = "text-center truncate block"><%= ann.title %></h3>
+                </div>
+            </div>
+            <%end%>
+            <%# Edit icon/link %>
+            <div class="relative w-4/5 h-6 min-h-[24px] mb-2">
+                <div class="absolute left-0 top-0">
+                    <%= ann.updated_at.strftime("%m/%d/%Y")%>
+                </div>
+                <%if User.find_by(email: current_admin.email).role > 0%>
+                    <a href="<%= edit_announcement_path(ann.id)%>" class="absolute right-7 w-[20px] h-[20px] rounded-full
+                hover:bg-emerald-500 hover:opacity-50 duration-300 cursor-pointer">
+                        <span class="material-icons absolute right-0 top-0" style="font-size: 20px">edit_note</span>
+                    </a>
+                    <a href="<%= delete_announcement_path(ann.id)%>" class="absolute right-0 w-[20px] h-[20px] rounded-full
+                hover:bg-red-500 hover:opacity-50 duration-300 cursor-pointer">
+                    <span class="material-icons absolute right-0 top-0" style="font-size: 20px">delete</span>
+                    </a>
+                <%end%>    
+            </div>
         <%end%>
-        </div>
-    <%end%>
+    </div>
 
+    <div class="flex flex-grow w-2/3 h-full">
+        <iframe class="w-full h-full" src="https://calendar.google.com/calendar/embed?src=c_1b2ba3a0c5d0ac6eb82d42ca9e7763c8bcb8755d05c39efe5f875fe3d7dabe25%40group.calendar.google.com&ctz=America%2FChicago" style="border: 0" frameborder="0" scrolling="no"></iframe>
+    </div>
 </div>
