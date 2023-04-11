@@ -6,7 +6,7 @@ require 'googleauth'
 class EventsController < ApplicationController
   # VERY IMPORTANT! This ID is FROM the settings of the specified Google Calendar
   # Get this from the Google Calendar website, under the settings of that calendar
-  CALENDAR_ID = 'c_1b2ba3a0c5d0ac6eb82d42ca9e7763c8bcb8755d05c39efe5f875fe3d7dabe25@group.calendar.google.com'
+  CALENDAR_ID = 'saddleandsirlointamu@gmail.com'
   before_action :authorize_user
   before_action :block_member, except: %i[index show previous]
   helper_method :sort_column, :sort_direction
@@ -138,7 +138,7 @@ class EventsController < ApplicationController
 
     event = Google::Apis::CalendarV3::Event.new(
       summary: task[:name],
-      location: '275 Joe Routt Blvd, College Station, TX 77840',
+      # location: '275 Joe Routt Blvd, College Station, TX 77840',
 
       description: task[:description],
       start: {
@@ -151,11 +151,6 @@ class EventsController < ApplicationController
         date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], task['end_time(4i)'], task['end_time(5i)']).to_datetime
       }, primary: true
     )
-  end
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_book
-    @book = Book.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
@@ -191,8 +186,4 @@ class EventsController < ApplicationController
     redirect_to '/'
   end
 
-  def self.bool_false(_upcoming)
-    $upcoming = false
-    redirect_to event_path
-  end
 end

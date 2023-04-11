@@ -22,9 +22,7 @@
                 <% end %>
 
                 <div>
-                    <%# TODO: Throwing error?  %>
-                    <%# <h1 class="break-words font-bold text-2xl text-center text-maroon font-bold">Welcome to the <%# Event.find_by(id: params[:event_id]).name %> Event!</h1><br> %>
-                    <h1 class="break-words font-bold text-2xl text-center text-maroon font-bold">Welcome!</h1><br>
+                    <h1 class="break-words font-bold text-2xl text-center text-maroon">Welcome!</h1><br>
                     <%= form.hidden_field :attendance, value: true %>
                     <%= form.hidden_field :event_id, value: params[:event_id] %>
                     <%= form.hidden_field :user_id, value: User.find_by(email: current_admin.email).id %>
