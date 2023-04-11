@@ -6,7 +6,7 @@ RSpec.describe('UserEvent', type: :feature) do
     it 'Loads link to mark attendance' do
       visit '/user_event/50/new'
       expect(page).to(have_current_path('/user_event/50/new'))
-      expect(page).to(have_selector(:link_or_button, 'Create User event'))
+      expect(page).to(have_selector(:link_or_button, 'Check in'))
     end
   end
 end
