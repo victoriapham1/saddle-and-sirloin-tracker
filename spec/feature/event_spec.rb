@@ -10,7 +10,7 @@ RSpec.describe('Upcoming Event Search', type: :feature) do
     event = Event.new(name: 'Tailgate', event_type: 3, date: '12/12/2099',
                       description: 'cookout where you can meet fellow members.', start_time: Time.now,
                       end_time: Time.now + 2.hours).save
-    events = Event.search('tail', '')
+    events = Event.search('Tailgate', '')
     expect(events[0].name).to(eq('Tailgate'))
   end
 
@@ -56,7 +56,7 @@ RSpec.describe('Previous Event Search', type: :feature) do
     event = Event.new(name: 'Tailgate', event_type: 3, date: '12/12/2013',
                       description: 'cookout where you can meet fellow members.', start_time: Time.now,
                       end_time: Time.now + 2.hours).save
-    events = Event.prev_search('tail', '')
+    events = Event.prev_search('Tailgate', '')
     expect(events[0].name).to(eq('Tailgate'))
   end
 

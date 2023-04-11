@@ -153,11 +153,6 @@ class EventsController < ApplicationController
     )
   end
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_book
-    @book = Book.find(params[:id])
-  end
-
   # Only allow a list of trusted parameters through.
   def event_params
     params.require(:event).permit(:name, :date, :event_type, :description, :start_time, :end_time, :search,
@@ -191,8 +186,4 @@ class EventsController < ApplicationController
     redirect_to '/'
   end
 
-  def self.bool_false(_upcoming)
-    $upcoming = false
-    redirect_to event_path
-  end
 end
