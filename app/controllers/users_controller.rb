@@ -146,10 +146,13 @@ class UsersController < ApplicationController
       return
     end
 
-    p.isReset = false
-    vp.isReset = false
-    p.save
-    vp.save
+    if user.role == 2
+      vp.isReset = false
+      vp.save
+    else
+      p.isReset = false
+      p.save
+    end
   end
 
   def reset
@@ -157,7 +160,7 @@ class UsersController < ApplicationController
     p = User.find_by(role: 2)
     vp = User.find_by(role: 3)
     # 2 factor auth
-    if !(p.isReset && vp.isReset) || user.role < 2
+    if !p.isReset && !vp.isReset || user.role < 2
       redirect_to edit_user_path(user.id)
       return
     end
@@ -168,6 +171,10 @@ class UsersController < ApplicationController
 
     events.update_all(isActive: false)
     announcements.destroy_all
+
+    p.isReset = false
+    vp.isReset = false
+
     redirect_to '/'
   end
 
