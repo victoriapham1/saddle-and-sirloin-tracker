@@ -1,18 +1,10 @@
-<h1>Editing announcement</h1>
-
-  <%= form_for(@announcement) do |f| %>
-    <% # url: tasks_path, method: 'post' %>
-
-    <%= render(partial: 'form',locals: {f: f}) %>
-
-    <div class="form-buttons">
-      <%= f.submit("Edit Announcement") %>
+<div class="container mx-auto rounded-lg text-center" style="width: 48%;">
+  <br><br>
+  <div class="shadow shadow-2xl border border-red-900  border-4 rounded-lg p-10 bg-white">
+  <div class="flex items-center text-center">
+    <div class="w-full h-full">
+      <%= render(partial: 'form') %>
     </div>
-
-  <% end %>
-
-<br>
-
-<div>
-  <%= link_to "Show this announcement", @announcement %> |
+  </div>
+  </div>
 </div>

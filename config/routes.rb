@@ -47,9 +47,12 @@ Rails.application.routes.draw do
 
   match 'like', to: 'dashboards#like', via: :get
 
-  match 'swapRole', to: 'dashboards#swapRole', via: :put
   match 'waiting', to: 'users#waiting', via: :get
-  match 'approve', to: 'users#approve', via: :put
+
+  match 'activate_reset', to: 'users#activate_reset', via: :get
+  match 'confirm', to: 'users#confirm', via: :get
+  match 'reset', to: 'users#reset', via: :get
+  match 'faq', to: 'users#faq', via: :get
 
   # OATH
   devise_for :admins, controllers: { omniauth_callbacks: 'admins/omniauth_callbacks' }

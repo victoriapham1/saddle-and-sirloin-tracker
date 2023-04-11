@@ -6,7 +6,7 @@ require 'googleauth'
 class EventsController < ApplicationController
   # VERY IMPORTANT! This ID is FROM the settings of the specified Google Calendar
   # Get this from the Google Calendar website, under the settings of that calendar
-  CALENDAR_ID = 'c_1b2ba3a0c5d0ac6eb82d42ca9e7763c8bcb8755d05c39efe5f875fe3d7dabe25@group.calendar.google.com'
+  CALENDAR_ID = 'saddleandsirlointamu@gmail.com'
   before_action :authorize_user
   before_action :block_member, except: %i[index show previous]
   helper_method :sort_column, :sort_direction
@@ -14,21 +14,23 @@ class EventsController < ApplicationController
   $upcoming = true
   # GET /events or /events.json
   def index
-    @events = Event.all
-    @events = Event.search(params[:search], params[:category]).sort_by(&:date)
+    # @events = Event.paginate(page: params[:page], per_page: 5)
+    @events = Event.search(params[:search], params[:category]).paginate(page: params[:page],
+                                                                        per_page: 5).order('date ASC')
   end
 
   def previous
-    @events = Event.all
-    @events = Event.search(params[:search], params[:category]).sort_by(&:date)
+    @events = Event.prev_search(params[:search], params[:category]).paginate(page: params[:page],
+                                                                             per_page: 5).order('date DESC')
   end
 
   # GET /events/1 or /events/1.json
   def show
     @event = Event.find(params[:id])
     @user_event = UserEvent.new
-    @users = User.order("#{sort_column} #{sort_direction}")
-    @count_users = 0
+    @users = User.where(id: UserEvent.where(event_id: @event.id).select('user_id')).order("#{sort_column} #{sort_direction}").paginate(
+      page: params[:page], per_page: 10
+    )
   end
 
   # GET /events/new
@@ -60,17 +62,23 @@ class EventsController < ApplicationController
   # POST /events or /events.json
   # syncs the events made to the calendar
   def create
-    client = get_google_calendar_client
-    task = params[:event]
-    event = get_event(task)
-    # USING the CALENDAR_ID, be sure to set this to the correct calendar (View comment over CALENDAR_ID)
-    ge = client.insert_event(CALENDAR_ID, event)
-    params[:event][:google_event_id] = ge.id
-    flash[:notice] = 'Event was successfully added.'
     @event = Event.new(event_params)
 
     respond_to do |format|
       if @event.save
+
+        client = get_google_calendar_client
+        task = params[:event]
+        event = get_event(task)
+        # USING the CALENDAR_ID, be sure to set this to the correct calendar (View comment over CALENDAR_ID)
+        ge = client.insert_event(CALENDAR_ID, event)
+        params[:event][:google_event_id] = ge.id
+
+        @event.google_event_id = params[:event][:google_event_id]
+        @event.save
+
+        flash[:notice] = 'Event was successfully added.'
+
         format.html { redirect_to(event_url(@event), notice: 'Event was successfully created.') }
         format.json { render(:show, status: :created, location: @event) }
       else
@@ -82,18 +90,22 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1 or /events/1.json
   def update
-    client = get_google_calendar_client
-
     @event = Event.find(params[:id])
-    client.delete_event(CALENDAR_ID, @event[:google_event_id])
-
-    task = params[:event]
-    event = get_event(task)
-    ge = client.insert_event(CALENDAR_ID, event)
-    params[:event][:google_event_id] = ge.id
 
     respond_to do |format|
       if @event.update(event_params)
+
+        client = get_google_calendar_client
+        client.delete_event(CALENDAR_ID, @event.google_event_id)
+
+        task = params[:event]
+        event = get_event(task)
+        ge = client.insert_event(CALENDAR_ID, event)
+        params[:event][:google_event_id] = ge.id
+
+        @event.google_event_id = params[:event][:google_event_id]
+        @event.save
+
         format.html { redirect_to(event_url(@event), notice: 'Event was successfully updated.') }
         format.json { render(:show, status: :ok, location: @event) }
       else
@@ -112,7 +124,7 @@ class EventsController < ApplicationController
     client = get_google_calendar_client
 
     @event = Event.find(params[:id])
-    client.delete_event(CALENDAR_ID, @event[:google_event_id])
+    client.delete_event(CALENDAR_ID, @event.google_event_id)
     @event.destroy
 
     redirect_to(events_path, notice: 'Event was successfully destroyed.')
@@ -126,7 +138,7 @@ class EventsController < ApplicationController
 
     event = Google::Apis::CalendarV3::Event.new(
       summary: task[:name],
-      location: '275 Joe Routt Blvd, College Station, TX 77840',
+      # location: '275 Joe Routt Blvd, College Station, TX 77840',
 
       description: task[:description],
       start: {
@@ -139,11 +151,6 @@ class EventsController < ApplicationController
         date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], task['end_time(4i)'], task['end_time(5i)']).to_datetime
       }, primary: true
     )
-  end
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_book
-    @book = Book.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
@@ -179,8 +186,4 @@ class EventsController < ApplicationController
     redirect_to '/'
   end
 
-  def self.bool_false(_upcoming)
-    $upcoming = false
-    redirect_to event_path
-  end
 end

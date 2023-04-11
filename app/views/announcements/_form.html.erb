@@ -1,10 +1,37 @@
-<table summary="Announcement form fields">
-  <tr>
-    <th>Title</th>
-    <td><%= f.text_field(:title) %></td>
-  </tr>
-  <tr>
-    <th>Description</th>
-    <td><%= f.text_field(:description) %></td>
-  </tr>
-</table>
+
+    <div class="hero container max-w-screen-lg mx-auto pb-10 flex justify-center">
+        <%= image_tag ("SnSnoBg.png"), :class => "w-20 h-20" %>
+    </div>
+    <%= form_for(@announcement) do |f| %>
+        <div class="w-full h-full">
+      
+    <%# Checks if users inputted has all necessary attributes.%> 
+    <div class="absolute left-0 w-full">
+      <% if @announcement.errors.any? %>
+        <div style="color: red">
+          <h2 class="text-2xl font-bold absolute"><%= pluralize(@announcement.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+          <ul class="absolute top-16">
+            <% @announcement.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="justify-center">
+        <%= f.label :title, required: true, class: "block text-xxs", style: "font-weight: bold;" %>
+        <%= f.text_field(:title, placeholder: "Title*", required: true, class: "form-input mt-1 block w-full text-field focus:shadow-outline focus:border-green-300") %>
+
+        <br>
+        <%= f.label :description, required: true, class: "block text-xxs", style: "font-weight: bold;" %>
+        <%= f.text_area(:description, required:true, placeholder: "Description*", class: "rounded-sm w-full form-input mt-1 block w-full text-field focus:shadow-outline focus:border-green-300") %>
+    </div>
+
+        <br>
+        <%= f.submit "Submit", :class=> "cursor-pointer w-[72px] h-[32px] bg-sky-500 active:bg-sky-600 font-bold uppercase text-xs rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150" %>
+        </div>
+    <% end %>
+  </div>
+</div>

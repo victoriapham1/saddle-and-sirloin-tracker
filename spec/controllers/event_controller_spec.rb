@@ -18,13 +18,36 @@ RSpec.describe(EventsController, type: :controller) do
         expect(response).to(have_http_status(:success))
       end
 
-      it 'routes to #edit' do
-        expect(get: '/events/1/edit').to(route_to('events#edit', id: '1'))
+      it 'routes to previous' do
+        get :previous, params: { id: 0 }
+        expect(response).to(have_http_status(:success))
       end
 
-      it 'routes to #new' do
-        expect(get: '/events/new').to(route_to('events#new'))
+      it 'routes to edit' do
+        event = Event.create(name: 'edit test', event_type: 3, date: '12/12/2099',
+          description: 'cookout where you can meet fellow members.', start_time: Time.now,
+          end_time: Time.now + 2.hours)
+        get :edit, params: {id: event.id}
+        expect(response).to(have_http_status(:success))
       end
+
+      it 'routes to new' do
+        get :new
+        expect(response).to(have_http_status(:success))
+      end
+
+      it 'routes to show' do
+        event = Event.create(name: 'edit test', event_type: 3, date: '12/12/2099',
+          description: 'cookout where you can meet fellow members.', start_time: Time.now,
+          end_time: Time.now + 2.hours)
+        get :show, params: {id: event.id}
+        expect(response).to(have_http_status(:success))
+      end
+
+      # it 'routes to create' do
+      #   post :create, params: {"event" => {name: "create test", event_type: 3, date: '12/12/2099', description: "cookout", start_time: Time.now, end_time: Time.now + 2.hours}}
+      #   expect(Event.find_by(name: "create test")).not_to eq(nil)
+      # end
     end
   end
 end

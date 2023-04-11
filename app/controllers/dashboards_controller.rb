@@ -5,7 +5,7 @@ class DashboardsController < ApplicationController
   before_action :authorize_user
 
   def show
-    @announcements = Announcement.all
+    @announcements = Announcement.all.reverse
     @user_id = User.find_by(email: current_admin.email).id
   end
 
@@ -27,22 +27,6 @@ class DashboardsController < ApplicationController
 
   def like_params
     params.permit(:user_id, :announcement_id, :like, :not_liked)
-  end
-
-  # FIXEME
-  def update_like
-    render turbo_stream:
-      turbo_stream.replace('like',
-                           partial: 'likes',
-                           locals: like_params)
-  end
-
-  # FOR TESTING! REMOVE
-  def swapRole
-    @user = User.find_by(email: current_admin.email)
-    @user.role = @user.role == 1 ? 0 : 1
-    @user.save
-    redirect_to '/'
   end
 
   # Verify User has created thier profile. Redirect to create profile if not

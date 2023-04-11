@@ -3,7 +3,8 @@
 class UsersController < ApplicationController
   before_action :authorize_user, except: %i[new create waiting approve]
   before_action :unique_user, only: [:new]
-  before_action :block_member, except: %i[new create waiting approve]
+  before_action :block_member, except: %i[new create waiting approve update edit faq]
+  before_action :authorize_profile, only: [:edit]
   helper_method :sort_column, :sort_direction
   before_action :set_user, only: %i[show edit update destroy]
 
@@ -44,14 +45,12 @@ class UsersController < ApplicationController
 
     # Don't allow duplicate user creation (Unique user per email)
     if User.find_by(email: @user.email)
-      Rails.logger.debug('USER EXISTS!') # Show error here
-    # DEBUG
-    # puts("USER CLASSIFY: " + @user.classify.to_s)
+      redirect_to '/'
     else
       respond_to do |format|
         if @user.save
           @error = false
-          format.html { redirect_to(users_path, notice: 'User was successfully created.') }
+          format.html { redirect_to(users_path) }
           format.json { render(:show, status: :created, location: @user) }
         else
           Rails.logger.debug(@user.errors.inspect)
@@ -63,14 +62,15 @@ class UsersController < ApplicationController
     end
   end
 
+  # TODO: Delete? We don't use that view.
   def show
-    @user = User.find(params[:id])
+    # @user = User.find(params[:id])
   end
 
   def edit
     @user = User.find(params[:id])
     # This will allow categorization of events by event_type
-    @categorize_events = Event.all.group_by(&:event_type)
+    @categorize_events = Event.where(isActive: true).group_by(&:event_type)
 
     # To calculate participation score
     @total_attended = 0
@@ -79,7 +79,18 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to(users_path, notice: 'User was successfully updated.') }
+        # NEED TO MAKE ONLY PRES/VP ALLOWED TO PROMOTE TO PRES/VP
+        changer = User.find_by(email: current_admin.email) # This is the active user that submitted the update request (officer, pres, vp, self)
+        # This shows the pushed update is to promote a user to PRES or VP
+        # -> a PRES or VP is stepping down and promoting a user
+        # Rendering on _form creates invariant: IF a user is being updated to a Pres VP role -> the changer must be a pres or vp.
+        # Additionally, pres/vp cannot change themselves, they must promote someone to update themselves
+        if @user.role > 1
+          changer.role = 1
+          changer.save
+        end
+
+        format.html { redirect_to(edit_user_path(@user.id), notice: 'Member successfully updated.') }
         format.json { render(:show, status: :ok, location: @user) }
       else
         format.html { render(:edit, status: :unprocessable_entity) }
@@ -88,14 +99,82 @@ class UsersController < ApplicationController
     end
   end
 
-  def waiting; end
+  def waiting
+    # Protects route from non-users
+    user = User.find_by(email: current_admin.email)
+    if user.nil?
+      redirect_to(controller: 'users', action: 'new')
+    elsif user.isActive
+      redirect_to '/'
+    end
+  end
 
-  # FOR TESTING, allows member to approve themselves through the queue. WILL BE REMOVED
-  def approve
-    @user = User.find_by(email: current_admin.email)
-    @user.isActive = true
-    @user.isRequesting = false
-    @user.save!
+  def activate_reset
+    user = User.find_by(email: current_admin.email)
+    if user.role != 2 && user.role != 3
+      redirect_to '/'
+      return
+    end
+
+    p = User.find_by(role: 2)
+    vp = User.find_by(role: 3)
+
+    if user.id == p.id
+      p.isReset = !p.isReset
+      p.save
+    elsif user.id == vp.id
+      vp.isReset = !vp.isReset
+      vp.save
+    end
+
+    if p.isReset && vp.isReset
+      redirect_to confirm_path
+    else
+      redirect_to edit_user_path(user.id)
+    end
+    nil
+  end
+
+  def confirm
+    user = User.find_by(email: current_admin.email)
+    p = User.find_by(role: 2)
+    vp = User.find_by(role: 3)
+
+    # 2 factor auth
+    if !(p.isReset && vp.isReset) || user.role < 2
+      redirect_to edit_user_path(user.id)
+      return
+    end
+
+    if user.role == 2
+      vp.isReset = false
+      vp.save
+    else
+      p.isReset = false
+      p.save
+    end
+  end
+
+  def reset
+    user = User.find_by(email: current_admin.email)
+    p = User.find_by(role: 2)
+    vp = User.find_by(role: 3)
+    # 2 factor auth
+    if !p.isReset && !vp.isReset || user.role < 2
+      redirect_to edit_user_path(user.id)
+      return
+    end
+
+    users = User.where(isActive: true, role: [0, 1]).update_all(isActive: false, isRequesting: false, role: 0)
+    events = Event.all
+    announcements = Announcement.all
+
+    events.update_all(isActive: false)
+    announcements.destroy_all
+
+    p.isReset = false
+    vp.isReset = false
+
     redirect_to '/'
   end
 
@@ -151,6 +230,16 @@ class UsersController < ApplicationController
   # URL protection: don't allow members to view officer pages/actions
   def block_member
     return unless User.find_by(email: current_admin.email).role.zero?
+
+    redirect_to '/'
+  end
+
+  # URL protection: don't allow members to view officer pages/actions
+  def authorize_profile
+    return unless User.find_by(email: current_admin.email).role.zero?
+
+    id = params[:id]
+    return unless User.find_by(email: current_admin.email).id != id.to_i
 
     redirect_to '/'
   end

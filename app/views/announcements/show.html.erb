@@ -1,9 +1,25 @@
-<h1>Announcement: <%= @announcement.title %></h1>
-<%= render @announcement %>
+<div class="container mx-auto rounded-lg text-center" style="width: 48%;">
+  <br><br>
+  <div class="shadow shadow-2xl border border-red-900  border-4 rounded-lg p-10 bg-white">
+  <div class="flex items-center text-center">
+    <div class="w-full h-full">
+      <div class="hero container max-w-screen-lg mx-auto pb-10 flex justify-center">
+        <%= image_tag ("SnSnoBg.png"), :class => "w-20 h-20" %>
+      </div>
 
-<% if User.find_by(email: current_admin.email).role == 1 %>
-  <div>
-    <%= link_to "Edit announcement", edit_announcement_path(@announcement) %> |
-    <%= link_to "Delete announcement", delete_announcement_path(@announcement) %> 
+      <h1 class="break-words text-2xl text-maroon font-bold"><%= @announcement.title %></h1>
+      <br>
+      <h2 class="break-words text-xl font-bold"><%= @announcement.description %></h2>
+      <br>
+      <h3 class="text-base"><%= @announcement.updated_at.strftime("%m/%d/%Y")%></h3>
+      <% if User.find_by(email: current_admin.email).role > 0  %>
+        <div>
+          <br>
+          <%= link_to "Edit", edit_announcement_path(@announcement), class: "bg-sky-500 active:bg-sky-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"%>
+          <%= link_to "Delete", delete_announcement_path(@announcement), class: "bg-red-400 active:bg-sky-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" %> 
+        </div>
+      <%end%>
+    </div>
   </div>
-<%end%>
+  </div>
+</div>

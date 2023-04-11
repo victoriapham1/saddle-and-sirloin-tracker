@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+user_events_view_spec.rb
+# frozen_string_literal: true
+
 RSpec.describe('UserEvent', type: :feature) do
   login
   describe 'UserEvent Usability Tests' do

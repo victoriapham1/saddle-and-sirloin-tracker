@@ -1,8 +1,28 @@
 <%# OATH %>
-<div class="grid h-screen place-items-center">
-    <h2 class="text-3xl font-bold text-center">You're Logged out!<br> Log in to the Admin Dashboard</h2>
-     <%# <%= link_to "Sign in with Google", admin_google_oauth2_omniauth_authorize_path, method: :post  %>
-     <%= button_to admin_google_oauth2_omniauth_authorize_path, class: "btn btn-danger", method: :post, data: {turbo: "false"} do %>
-        <p class = "underline">Sign in</p>
-    <% end %>
+<div class="h-screen flex items-center text-center">
+    <div class="container mx-auto rounded-lg text-center" style="width: 45%;">
+    <br>
+        <div class="shadow shadow-2xl border border-red-900  border-4 rounded-lg p-10 bg-white">
+            <div class="hero container max-w-screen-lg mx-auto pb-10 flex justify-center">
+                <%= image_tag ("SnSnoBg.png"), :class => "w-20 h-20" %>
+            </div>
+            
+            <h1 class="font-bold text-2xl text-center text-maroon font-bold">Saddle & Sirloin Club</h1><br>
+            <h1 class="font-bold text-center text-maroon font-bold">Texas A&M University</h1><br>
+            <h1 class="font-bold text-center text-maroon font-bold">(Members-Only)</h1>
+
+            <br>
+            <%= link_to "", admin_google_oauth2_omniauth_authorize_path, method: :post %>
+            <%= button_to admin_google_oauth2_omniauth_authorize_path, class: "bg-sky-500 active:bg-sky-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 w-full", method: :post, data: {turbo: "false"} do %>
+                <p>Sign in</p>
+            <% end %>
+            
+            <br>
+            <%= link_to "", admin_google_oauth2_omniauth_authorize_path, method: :post %>
+            <%= button_to admin_google_oauth2_omniauth_authorize_path, class: "bg-sky-500 active:bg-sky-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 w-full", method: :post, data: {turbo: "false"} do %>
+                <p>New User</p>
+            <% end %>
+        </div>
+    </div>
+    <br>
 </div>

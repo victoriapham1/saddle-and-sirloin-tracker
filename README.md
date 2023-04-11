@@ -51,3 +51,21 @@ Run the app
 `rails server --binding:0.0.0.0`
 
 The application can be seen using a browser and navigating to http://localhost:3000/
+
+## Deployment
+Customer App: https://tamusaddleandsirloinclub.herokuapp.com/
+
+Maintenance Document:
+https://docs.google.com/document/d/1u4u-mGnNX-hqRsXlfHhtP1DfxZOBIDun0lZXv-LoDD8/edit?usp=sharing 
+
+## CI/CD
+For Continuous Integration, a workflow was generated to run with Rspec and Brakeman for every push and pull requests.
+
+For Continuous Deployment, the app will auto-deploy on the test and/or main branch after Continuous Integration has passed on the Heroku platflorm.
+
+
+## Support
+For addtional questions or assistance, please contact the development team below.
+- Product Owner: Victoria Pham (vtp283@tamu.edu)
+- Scrum Master: Evan Burriola (evanburriola12@tamu.edu)
+- Development Team: Bernardo Gonzalez, Justin Chai, Evan Burriola, Victoria Pham

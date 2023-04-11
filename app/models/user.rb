@@ -29,6 +29,7 @@ class User < ApplicationRecord
     less_than_or_equal_to: 5
   }
   validates :isRequesting, presence: true, allow_blank: true # Needed to set to false
+  validates :isReset, presence: true, allow_blank: true # Needed to set to false
 
   has_many :user_events, dependent: :destroy
   has_many :events, through: :user_events
