@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This ia an application that assists in managing user attendance of organization events as well as all users within the organization. It offers features to view and interact with announcements and events through Google Calendar API and user authentication with Google Oauth. Users are able to sign-in to events via automitcally generated QR codes and have their attendance tallied and compared to the points baseline. For additional security, a queue system is implemented, allowing officers to approve new users after creation of an account or the start of a new year.
+This is an application that assists in managing user attendance of organization events, as well as all users within the organization. It offers features to view announcements and events through Google Calendar API and user authentication with Google Oauth. Users are able to sign-in to events via generated QR codes and have their attendance tallied and compared to the points baseline. For additional security, a queue system is implemented, allowing officers to approve new users after the creation of an account or the start of a new year. The yearly reset, only initiated by the President & Vice-President, will 'reset' the application, giving the website a clean slate for the year by deleting all announcements, deactivating all current events, and demoting and kicking all users out of the website other than the President and Vice-President.
 
 ## Requirements
 
@@ -65,7 +65,7 @@ For Continuous Deployment, the app will auto-deploy on the test and/or main bran
 
 
 ## Support
-For addtional questions or assistance, please contact the development team below.
+For additional questions or assistance, please contact the development team below.
 - Product Owner: Victoria Pham (vtp283@tamu.edu)
 - Scrum Master: Evan Burriola (evanburriola12@tamu.edu)
 - Development Team: Bernardo Gonzalez, Justin Chai, Evan Burriola, Victoria Pham
