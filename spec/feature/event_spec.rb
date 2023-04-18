@@ -156,7 +156,8 @@ RSpec.describe('Event Views', type: :feature) do
     end
 
     it 'Officers can see attendance sheet' do
-      visit event_path(46)
+      user_events = UserEvent.all
+      visit event_path(user_events[0].event_id)
       expect(page).to have_table('attendance table')
     end
   end
@@ -195,7 +196,8 @@ RSpec.describe('Event Views', type: :feature) do
     end
 
     it 'Members can not see attendance sheet' do
-      visit event_path(46)
+      user_events = UserEvent.all
+      visit event_path(user_events[0].event_id)
       expect(page).not_to have_table('attendance table')
     end
   end
