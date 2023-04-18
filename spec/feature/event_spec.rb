@@ -125,6 +125,9 @@ RSpec.describe('Event Views', type: :feature) do
     login
 
     it 'Officers can see delete button on page' do
+      event = Event.create(name: 'edit test', event_type: 3, date: '12/12/2099',
+        description: 'cookout where you can meet fellow members.', start_time: Time.now,
+        end_time: Time.now + 2.hours)
       visit events_path
       expect(page).to have_link('Delete')
     end
@@ -191,6 +194,9 @@ RSpec.describe('Event Views', type: :feature) do
     end
 
     it 'Members can not create a new event' do
+      event = Event.create(name: 'edit test', event_type: 3, date: '12/12/2099',
+        description: 'cookout where you can meet fellow members.', start_time: Time.now,
+        end_time: Time.now + 2.hours)
       visit events_path
       expect(page).not_to have_link('Create new event', href: new_event_path)
     end
