@@ -25,8 +25,8 @@ RSpec.describe(EventsController, type: :controller) do
 
       it 'routes to edit' do
         event = Event.create(name: 'edit test', event_type: 3, date: '12/12/2099',
-          description: 'cookout where you can meet fellow members.', start_time: Time.now,
-          end_time: Time.now + 2.hours)
+          description: 'cookout where you can meet fellow members.', start_time: Time.zone.now,
+          end_time: Time.zone.now + 2.hours)
         get :edit, params: {id: event.id}
         expect(response).to(have_http_status(:success))
       end
@@ -38,16 +38,100 @@ RSpec.describe(EventsController, type: :controller) do
 
       it 'routes to show' do
         event = Event.create(name: 'edit test', event_type: 3, date: '12/12/2099',
-          description: 'cookout where you can meet fellow members.', start_time: Time.now,
-          end_time: Time.now + 2.hours)
+          description: 'cookout where you can meet fellow members.', start_time: Time.zone.now,
+          end_time: Time.zone.now + 2.hours)
         get :show, params: {id: event.id}
         expect(response).to(have_http_status(:success))
       end
 
       # it 'routes to create' do
-      #   post :create, params: {"event" => {name: "create test", event_type: 3, date: '12/12/2099', description: "cookout", start_time: Time.now, end_time: Time.now + 2.hours}}
-      #   expect(Event.find_by(name: "create test")).not_to eq(nil)
+      #   post :create, params: {"event"=>
+      #     {"name"=>"Calendar Test",
+      #      "date(1i)"=>"2023",
+      #      "date(2i)"=>"4",
+      #      "date(3i)"=>"12",
+      #      "start_time(1i)"=>"2023",
+      #      "start_time(2i)"=>"4",
+      #      "start_time(3i)"=>"12",
+      #      "start_time(4i)"=>"00",
+      #      "start_time(5i)"=>"19",
+      #      "end_time(1i)"=>"2023",
+      #      "end_time(2i)"=>"4",
+      #      "end_time(3i)"=>"12",
+      #      "end_time(4i)"=>"02",
+      #      "end_time(5i)"=>"19",
+      #      "event_type"=>"1",
+      #      "description"=>"Testing calendar"},
+      #    "commit"=>"Submit"}
+      #   expect(response).to(have_http_status(:found))
       # end
+
+      # it 'routes to create and fails' do
+      #   post :create, params: {"event"=>
+      #     {"name"=>"Calendar Test",
+      #      "date(1i)"=>"2023",
+      #      "date(2i)"=>"4",
+      #      "date(3i)"=>"12",
+      #      "start_time(1i)"=>"2023",
+      #      "start_time(2i)"=>"4",
+      #      "start_time(3i)"=>"12",
+      #      "start_time(4i)"=>"00",
+      #      "start_time(5i)"=>"19",
+      #      "end_time(1i)"=>"2023",
+      #      "end_time(2i)"=>"4",
+      #      "end_time(3i)"=>"11",
+      #      "end_time(4i)"=>"02",
+      #      "end_time(5i)"=>"19",
+      #      "event_type"=>"1",
+      #      "description"=>"Testing calendar"},
+      #    "commit"=>"Submit"}
+      #   expect(response).to(have_http_status(:unprocessable_entity))
+      # end
+
+      # it 'routes to update' do
+      #   post :update, params: {"event"=>
+      #     {"name"=>"Calendar Test",
+      #      "date(1i)"=>"2023",
+      #      "date(2i)"=>"4",
+      #      "date(3i)"=>"12",
+      #      "start_time(1i)"=>"2023",
+      #      "start_time(2i)"=>"4",
+      #      "start_time(3i)"=>"12",
+      #      "start_time(4i)"=>"00",
+      #      "start_time(5i)"=>"19",
+      #      "end_time(1i)"=>"2023",
+      #      "end_time(2i)"=>"4",
+      #      "end_time(3i)"=>"12",
+      #      "end_time(4i)"=>"02",
+      #      "end_time(5i)"=>"19",
+      #      "event_type"=>"1",
+      #      "description"=>"Testing calendar"},
+      #    "commit"=>"Submit"}
+      #   expect(response).to(have_http_status(:found))
+      # end
+
+      # it 'routes to update and fails' do
+      #   post :update, params: {"event"=>
+      #     {"name"=>"Calendar Test",
+      #      "date(1i)"=>"2023",
+      #      "date(2i)"=>"4",
+      #      "date(3i)"=>"12",
+      #      "start_time(1i)"=>"2023",
+      #      "start_time(2i)"=>"4",
+      #      "start_time(3i)"=>"12",
+      #      "start_time(4i)"=>"00",
+      #      "start_time(5i)"=>"19",
+      #      "end_time(1i)"=>"2023",
+      #      "end_time(2i)"=>"4",
+      #      "end_time(3i)"=>"11",
+      #      "end_time(4i)"=>"02",
+      #      "end_time(5i)"=>"19",
+      #      "event_type"=>"1",
+      #      "description"=>"Testing calendar"},
+      #    "commit"=>"Submit"}
+      #   expect(response).to(have_http_status(:unprocessable_entity))
+      # end
+
     end
   end
 end

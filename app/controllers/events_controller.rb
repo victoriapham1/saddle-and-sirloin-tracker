@@ -134,12 +134,11 @@ class EventsController < ApplicationController
 
   # creates a google calendar event with all of the required fill ins from the events table.
   def get_event(task)
-    # puts task[:start_time].inspect
 
+    # puts task[:start_time].inspect
     event = Google::Apis::CalendarV3::Event.new(
       summary: task[:name],
       # location: '275 Joe Routt Blvd, College Station, TX 77840',
-
       description: task[:description],
       start: {
         date_time: Time.zone.local(task['date(1i)'], task['date(2i)'], task['date(3i)'], task['start_time(4i)'], task['start_time(5i)']).to_datetime

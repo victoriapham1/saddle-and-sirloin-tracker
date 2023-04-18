@@ -1,7 +1,7 @@
 <%# Only display table if there are users attendance to be viewed. -%>
 <% if @users.count > 0 -%>
     <p style="text-indent: 15%;">Total attendees: <%=h @users.count %> </p>
-    <table style="width: 70%; margin-left: auto; margin-right: auto;" class="table-auto pretty">
+    <table style="width: 70%; margin-left: auto; margin-right: auto;" class="table-auto pretty" id="attendance table">
         <thead class="text-white uppercase bg-maroon dark:bg-maroon dark:text-white ">
             <tr>
                 <th><%= sortable "uin" %></th>
