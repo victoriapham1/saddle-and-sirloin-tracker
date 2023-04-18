@@ -3,11 +3,6 @@
 RSpec.describe('Event', type: :feature) do
   login
   describe 'Event Usability Tests' do
-    it 'Loads link to create new event' do
-      visit events_path
-      expect(page).to have_link('Create new event', href: new_event_path)
-    end
-
     it 'Loads button to view previous events' do
       visit events_path
       expect(page).to have_button('Previous Events')
@@ -28,9 +23,19 @@ RSpec.describe('Event', type: :feature) do
       expect(page).to have_button('Search')
     end
 
-    # it "Reders edit button for all events" do
-    #     visit events_path
-    #     expect(page).to have_link("Edit")
-    # end
+    it 'Loads link to create new event' do
+      visit events_path
+      expect(page).to have_link('Create new event', href: new_event_path)
+    end
+
+  end
+
+  describe 'As an officer, I want to be able to delete the events from the Google Calendar to declutter the calendar.' do
+    it 'Sunny day: Officers can see delete button on page' do
+      login
+      visit events_path
+      expect(page).to have_link('Delete')
+    end
+
   end
 end
