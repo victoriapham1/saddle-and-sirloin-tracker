@@ -159,8 +159,15 @@ RSpec.describe('Event Views', type: :feature) do
     end
 
     it 'Officers can see attendance sheet' do
-      user_events = UserEvent.all
-      visit event_path(user_events[0].event_id)
+      event = Event.create(name: 'edit test', event_type: 3, date: '12/12/2099',
+        description: 'cookout where you can meet fellow members.', start_time: Time.now,
+        end_time: Time.now + 2.hours)
+      user = User.create_with(uin: '111222333',
+          first_name: 'Tryston', last_name: 'Burriola',
+          email: 'trystonburriola@tamu.edu', phone: '5125952682',
+          password: 'password', isActive: true, role: 1, classify: 1).find_or_create_by!(email: 'trystonburriola@tamu.edu')
+      user_event = UserEvent.create(event_id: event.id, user_id: user.id, attendance: true)
+      visit event_path(event.id)
       expect(page).to have_table('attendance table')
     end
   end
@@ -176,11 +183,6 @@ RSpec.describe('Event Views', type: :feature) do
       event = Event.create(name: 'edit test', event_type: 3, date: '12/12/2099',
         description: 'cookout where you can meet fellow members.', start_time: Time.now,
         end_time: Time.now + 2.hours)
-      user = User.create_with(uin: '111222333',
-          first_name: 'Tryston', last_name: 'Burriola',
-          email: 'trystonburriola@tamu.edu', phone: '5125952682',
-          password: 'password', isActive: true, role: 1, classify: 1).find_or_create_by!(email: 'trystonburriola@tamu.edu')
-      user_event = UserEvent.create(event_id: event.id, user_id: user.id)
       visit event_path(event.id)
       expect(page).not_to have_button('Check-in')
     end
@@ -202,8 +204,15 @@ RSpec.describe('Event Views', type: :feature) do
     end
 
     it 'Members can not see attendance sheet' do
-      user_events = UserEvent.all
-      visit event_path(user_events[0].event_id)
+      event = Event.create(name: 'edit test', event_type: 3, date: '12/12/2099',
+        description: 'cookout where you can meet fellow members.', start_time: Time.now,
+        end_time: Time.now + 2.hours)
+      user = User.create_with(uin: '111222333',
+          first_name: 'Tryston', last_name: 'Burriola',
+          email: 'trystonburriola@tamu.edu', phone: '5125952682',
+          password: 'password', isActive: true, role: 1, classify: 1).find_or_create_by!(email: 'trystonburriola@tamu.edu')
+      user_event = UserEvent.create(event_id: event.id, user_id: user.id, attendance: true)
+      visit event_path(event.id)
       expect(page).not_to have_table('attendance table')
     end
   end
