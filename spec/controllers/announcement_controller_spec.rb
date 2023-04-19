@@ -7,9 +7,9 @@ RSpec.describe(AnnouncementsController, type: :controller) do
   test = Announcement.create_with(title: 'Test Announcement!',
                                   description: 'This is the test description!').find_or_create_by(title: 'Test Announcement!')
 
-    # These routes are protected from SQL injecitons by using ActiveRecord. NO raw queries are performed
-    # for the announcement controller. Additionally, announcement params are collected and use 'requre' and 'permit'
-    # for further security.
+  # These routes are protected from SQL injecitons by using ActiveRecord. NO raw queries are performed
+  # for the announcement controller. Additionally, announcement params are collected and use 'requre' and 'permit'
+  # for further security.
 
   describe 'Announcement Routes' do
     context 'prior login' do

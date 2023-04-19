@@ -134,7 +134,6 @@ class EventsController < ApplicationController
 
   # creates a google calendar event with all of the required fill ins from the events table.
   def get_event(task)
-
     # puts task[:start_time].inspect
     event = Google::Apis::CalendarV3::Event.new(
       summary: task[:name],
@@ -184,5 +183,4 @@ class EventsController < ApplicationController
 
     redirect_to '/'
   end
-
 end

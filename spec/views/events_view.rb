@@ -27,7 +27,6 @@ RSpec.describe('Event', type: :feature) do
       visit events_path
       expect(page).to have_link('Create new event', href: new_event_path)
     end
-
   end
 
   describe 'As an officer, I want to be able to delete the events from the Google Calendar to declutter the calendar.' do
@@ -36,6 +35,5 @@ RSpec.describe('Event', type: :feature) do
       visit events_path
       expect(page).to have_link('Delete')
     end
-
   end
 end

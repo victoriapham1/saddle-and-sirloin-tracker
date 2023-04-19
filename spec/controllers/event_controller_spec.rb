@@ -25,9 +25,9 @@ RSpec.describe(EventsController, type: :controller) do
 
       it 'routes to edit' do
         event = Event.create(name: 'edit test', event_type: 3, date: '12/12/2099',
-          description: 'cookout where you can meet fellow members.', start_time: Time.zone.now,
-          end_time: Time.zone.now + 2.hours)
-        get :edit, params: {id: event.id}
+                             description: 'cookout where you can meet fellow members.', start_time: Time.zone.now,
+                             end_time: Time.zone.now + 2.hours)
+        get :edit, params: { id: event.id }
         expect(response).to(have_http_status(:success))
       end
 
@@ -38,9 +38,9 @@ RSpec.describe(EventsController, type: :controller) do
 
       it 'routes to show' do
         event = Event.create(name: 'edit test', event_type: 3, date: '12/12/2099',
-          description: 'cookout where you can meet fellow members.', start_time: Time.zone.now,
-          end_time: Time.zone.now + 2.hours)
-        get :show, params: {id: event.id}
+                             description: 'cookout where you can meet fellow members.', start_time: Time.zone.now,
+                             end_time: Time.zone.now + 2.hours)
+        get :show, params: { id: event.id }
         expect(response).to(have_http_status(:success))
       end
 
@@ -131,7 +131,6 @@ RSpec.describe(EventsController, type: :controller) do
       #    "commit"=>"Submit"}
       #   expect(response).to(have_http_status(:unprocessable_entity))
       # end
-
     end
   end
 end

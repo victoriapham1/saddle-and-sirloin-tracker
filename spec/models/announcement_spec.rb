@@ -4,7 +4,6 @@ require 'rails_helper'
 
 RSpec.describe(Announcement, type: :model) do
   context 'validation tests' do
-    
     # Rainy
     it 'ensures announcement title' do
       ann = Announcement.new(description: 'This is the description!').save

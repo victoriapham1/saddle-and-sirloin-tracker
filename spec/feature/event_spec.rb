@@ -96,7 +96,6 @@ RSpec.describe('Previous Event Search', type: :feature) do
 end
 
 RSpec.describe('Event Views', type: :feature) do
-
   describe 'Event Usability Tests' do
     login
     it 'Loads button to view previous events' do
@@ -118,7 +117,6 @@ RSpec.describe('Event Views', type: :feature) do
       visit events_path
       expect(page).to have_button('Search')
     end
-
   end
 
   describe 'Sunny Day' do
@@ -126,29 +124,29 @@ RSpec.describe('Event Views', type: :feature) do
 
     it 'Officers can see delete button on page' do
       event = Event.create(name: 'edit test', event_type: 3, date: '12/12/2099',
-        description: 'cookout where you can meet fellow members.', start_time: Time.now,
-        end_time: Time.now + 2.hours)
+                           description: 'cookout where you can meet fellow members.', start_time: Time.now,
+                           end_time: Time.now + 2.hours)
       visit events_path
       expect(page).to have_link('Delete')
     end
 
     it 'Officers can manually add attendees to event' do
       event = Event.create(name: 'edit test', event_type: 3, date: '12/12/2099',
-        description: 'cookout where you can meet fellow members.', start_time: Time.now,
-        end_time: Time.now + 2.hours)
+                           description: 'cookout where you can meet fellow members.', start_time: Time.now,
+                           end_time: Time.now + 2.hours)
       user = User.create_with(uin: '111222333',
-          first_name: 'Tryston', last_name: 'Burriola',
-          email: 'trystonburriola@tamu.edu', phone: '5125952682',
-          password: 'password', isActive: true, role: 1, classify: 1).find_or_create_by!(email: 'trystonburriola@tamu.edu')
+                              first_name: 'Tryston', last_name: 'Burriola',
+                              email: 'trystonburriola@tamu.edu', phone: '5125952682',
+                              password: 'password', isActive: true, role: 1, classify: 1).find_or_create_by!(email: 'trystonburriola@tamu.edu')
       user_event = UserEvent.create(event_id: event.id, user_id: user.id)
       visit event_path(event.id)
       expect(page).to have_button('Check-in')
     end
 
-    it "Officers can show QR code for members to scan" do
+    it 'Officers can show QR code for members to scan' do
       event = Event.create(name: 'edit test', event_type: 3, date: '12/12/2099',
-        description: 'cookout where you can meet fellow members.', start_time: Time.now,
-        end_time: Time.now + 2.hours)
+                           description: 'cookout where you can meet fellow members.', start_time: Time.now,
+                           end_time: Time.now + 2.hours)
       visit event_path(event.id)
       expect(page).to have_selector('svg')
     end
@@ -160,19 +158,19 @@ RSpec.describe('Event Views', type: :feature) do
 
     it 'Officers can see attendance sheet' do
       event = Event.create(name: 'edit test', event_type: 3, date: '12/12/2099',
-        description: 'cookout where you can meet fellow members.', start_time: Time.now,
-        end_time: Time.now + 2.hours)
+                           description: 'cookout where you can meet fellow members.', start_time: Time.now,
+                           end_time: Time.now + 2.hours)
       user = User.create_with(uin: '111222333',
-          first_name: 'Tryston', last_name: 'Burriola',
-          email: 'trystonburriola@tamu.edu', phone: '5125952682',
-          password: 'password', isActive: true, role: 1, classify: 1).find_or_create_by!(email: 'trystonburriola@tamu.edu')
+                              first_name: 'Tryston', last_name: 'Burriola',
+                              email: 'trystonburriola@tamu.edu', phone: '5125952682',
+                              password: 'password', isActive: true, role: 1, classify: 1).find_or_create_by!(email: 'trystonburriola@tamu.edu')
       user_event = UserEvent.create(event_id: event.id, user_id: user.id, attendance: true)
       visit event_path(event.id)
       expect(page).to have_table('attendance table')
     end
   end
 
-  describe "Rainy Day" do 
+  describe 'Rainy Day' do
     member_login
     it 'Members can not see delete button on page' do
       visit events_path
@@ -181,36 +179,36 @@ RSpec.describe('Event Views', type: :feature) do
 
     it 'Members can not  manually add attendees to event' do
       event = Event.create(name: 'edit test', event_type: 3, date: '12/12/2099',
-        description: 'cookout where you can meet fellow members.', start_time: Time.now,
-        end_time: Time.now + 2.hours)
+                           description: 'cookout where you can meet fellow members.', start_time: Time.now,
+                           end_time: Time.now + 2.hours)
       visit event_path(event.id)
       expect(page).not_to have_button('Check-in')
     end
 
-    it "Members can not show QR code for members to scan" do
+    it 'Members can not show QR code for members to scan' do
       event = Event.create(name: 'edit test', event_type: 3, date: '12/12/2099',
-        description: 'cookout where you can meet fellow members.', start_time: Time.now,
-        end_time: Time.now + 2.hours)
+                           description: 'cookout where you can meet fellow members.', start_time: Time.now,
+                           end_time: Time.now + 2.hours)
       visit event_path(event.id)
       expect(page).not_to have_selector('svg')
     end
 
     it 'Members can not create a new event' do
       event = Event.create(name: 'edit test', event_type: 3, date: '12/12/2099',
-        description: 'cookout where you can meet fellow members.', start_time: Time.now,
-        end_time: Time.now + 2.hours)
+                           description: 'cookout where you can meet fellow members.', start_time: Time.now,
+                           end_time: Time.now + 2.hours)
       visit events_path
       expect(page).not_to have_link('Create new event', href: new_event_path)
     end
 
     it 'Members can not see attendance sheet' do
       event = Event.create(name: 'edit test', event_type: 3, date: '12/12/2099',
-        description: 'cookout where you can meet fellow members.', start_time: Time.now,
-        end_time: Time.now + 2.hours)
+                           description: 'cookout where you can meet fellow members.', start_time: Time.now,
+                           end_time: Time.now + 2.hours)
       user = User.create_with(uin: '111222333',
-          first_name: 'Tryston', last_name: 'Burriola',
-          email: 'trystonburriola@tamu.edu', phone: '5125952682',
-          password: 'password', isActive: true, role: 1, classify: 1).find_or_create_by!(email: 'trystonburriola@tamu.edu')
+                              first_name: 'Tryston', last_name: 'Burriola',
+                              email: 'trystonburriola@tamu.edu', phone: '5125952682',
+                              password: 'password', isActive: true, role: 1, classify: 1).find_or_create_by!(email: 'trystonburriola@tamu.edu')
       user_event = UserEvent.create(event_id: event.id, user_id: user.id, attendance: true)
       visit event_path(event.id)
       expect(page).not_to have_table('attendance table')
