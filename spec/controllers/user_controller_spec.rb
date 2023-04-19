@@ -209,6 +209,20 @@ RSpec.describe(UsersController, type: :controller) do
       get :confirm
       expect(response).to(have_http_status(:success))
     end
+
+    it 'routes to reset' do
+      # Set condition to route to confirm page
+      p = User.find_by(role: 2)
+      vp = User.find_by(role: 3)
+      p.isReset = true
+      vp.isReset = true
+      p.save!
+      vp.save!
+
+      get :reset
+      expect(response).to(have_http_status(:found))
+    end
+
   end
 
   describe 'Vice-President' do
@@ -239,6 +253,19 @@ RSpec.describe(UsersController, type: :controller) do
       get :confirm
       expect(response).to(have_http_status(:success))
     end
+      it 'routes to reset' do
+        # Set condition to route to confirm page
+        p = User.find_by(role: 2)
+        vp = User.find_by(role: 3)
+        p.isReset = true
+        vp.isReset = true
+        p.save!
+        vp.save!
+
+        get :reset
+        expect(response).to(have_http_status(:found))
+     end
+
   end
 
 end
