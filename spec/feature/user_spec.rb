@@ -14,6 +14,7 @@ RSpec.describe('User Features', type: :feature) do
 
   describe('creation of new account') do
     bypass_oauth
+    User.where(first_name: "Lisa").destroy_all # Ensure this user does not exist yet
     it 'is a new user' do
       visit root_path
       expect(current_path).to eq('/users/new')
@@ -77,11 +78,13 @@ RSpec.describe('User Features', type: :feature) do
     end
 
     it 'is approving queue member' do
-      User.create_with(uin: '430500123',
+      User.where(first_name: "Lily").destroy_all
+      user = User.create_with(uin: '430500123',
                        first_name: 'Pauline', last_name: 'Wade',
                        email: 'paulinewade@tamu.edu', phone: '5125952682',
-                       password: 'password', role: 0, classify: 5).find_or_create_by!(email: 'paulinewade@tamu.edu')
-
+                       password: 'password', role: 0, classify: 5, isRequesting: true).find_or_create_by!(email: 'paulinewade@tamu.edu')
+      # user.isActive = false
+      # user.save!
       visit users_path
       select 'Approval', from: :category
       click_button('Search')
