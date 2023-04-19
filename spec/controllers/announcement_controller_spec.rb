@@ -7,6 +7,10 @@ RSpec.describe(AnnouncementsController, type: :controller) do
   test = Announcement.create_with(title: 'Test Announcement!',
                                   description: 'This is the test description!').find_or_create_by(title: 'Test Announcement!')
 
+  # These routes are protected from SQL injecitons by using ActiveRecord. NO raw queries are performed
+  # for the announcement controller. Additionally, announcement params are collected and use 'requre' and 'permit'
+  # for further security.
+
   describe 'Announcement Routes' do
     context 'prior login' do
       it 'index blocks route' do
@@ -56,17 +60,20 @@ RSpec.describe(AnnouncementsController, type: :controller) do
         expect(response).to(have_http_status(:success))
       end
 
+      # Sunny
       it 'create returns 302' do
         post :create,
              params: { 'announcement' => { 'title' => test.title, 'description' => test.description },
                        'commit' => 'Submit' }
         expect(response).to(have_http_status(:found))
       end
+      # Rainy
       it 'create returns 422' do
         post :create,
              params: { 'announcement' => { 'title' => '', 'description' => test.description }, 'commit' => 'Submit' }
         expect(response).to(have_http_status(:unprocessable_entity))
       end
+      # Rainy
       it 'create returns 422' do
         post :create, params: { 'announcement' => { 'title' => test.title, 'description' => '' }, 'commit' => 'Submit' }
         expect(response).to(have_http_status(:unprocessable_entity))
@@ -77,18 +84,21 @@ RSpec.describe(AnnouncementsController, type: :controller) do
         expect(response).to(have_http_status(:success))
       end
 
+      # Sunny
       it 'update returns 302' do
         patch :update,
               params: { 'announcement' => { 'title' => test.title, 'description' => test.description }, 'commit' => 'Submit',
                         'id' => test.id }
         expect(response).to(have_http_status(:found))
       end
+      # Rainy
       it 'update returns 422' do
         patch :update,
               params: { 'announcement' => { 'title' => '', 'description' => test.description }, 'commit' => 'Submit',
                         'id' => test.id }
         expect(response).to(have_http_status(:unprocessable_entity))
       end
+      # Rainy
       it 'update returns 422' do
         patch :update,
               params: { 'announcement' => { 'title' => test.title, 'description' => '' }, 'commit' => 'Submit',

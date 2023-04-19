@@ -14,8 +14,14 @@ RSpec.describe('User Features', type: :feature) do
 
   describe('creation of new account') do
     bypass_oauth
+    User.where(first_name: 'Lisa').destroy_all # Ensure this user does not exist yet
     it 'is a new user' do
       visit root_path
+      expect(current_path).to eq('/users/new')
+    end
+
+    it 'cannot access other pages' do
+      visit waiting_path
       expect(current_path).to eq('/users/new')
     end
 
@@ -39,9 +45,15 @@ RSpec.describe('User Features', type: :feature) do
   end
 
   describe('member logged in') do
+    login
     member_login
     it 'is not able to access member directory' do
       visit users_path
+      expect(current_path).to eq('/')
+    end
+
+    it 'is not able to access other member profile' do
+      visit edit_user_path(User.where(first_name: 'Tryston').ids.first)
       expect(current_path).to eq('/')
     end
   end
@@ -77,11 +89,11 @@ RSpec.describe('User Features', type: :feature) do
     end
 
     it 'is approving queue member' do
-      User.create_with(uin: '430500123',
-                       first_name: 'Pauline', last_name: 'Wade',
-                       email: 'paulinewade@tamu.edu', phone: '5125952682',
-                       password: 'password', role: 0, classify: 5).find_or_create_by!(email: 'paulinewade@tamu.edu')
-
+      User.where(first_name: 'Lily').destroy_all
+      user = User.create_with(uin: '430500123',
+                              first_name: 'Pauline', last_name: 'Wade',
+                              email: 'paulinewade@tamu.edu', phone: '5125952682',
+                              password: 'password', role: 0, classify: 5, isRequesting: true).find_or_create_by!(email: 'paulinewade@tamu.edu')
       visit users_path
       select 'Approval', from: :category
       click_button('Search')
@@ -89,6 +101,11 @@ RSpec.describe('User Features', type: :feature) do
       check 'user_ids[]'
       click_button('Activate')
       expect(page).to(have_content('Pauline'))
+    end
+
+    it 'is not able to access the reset' do
+      visit activate_reset_path
+      expect(current_path).to eq('/')
     end
   end
 
@@ -115,6 +132,34 @@ RSpec.describe('User Features', type: :feature) do
       click_on('Save')
       visit users_path
       expect(page).to(have_content('281-494-1234'))
+    end
+  end
+
+  describe('the reset') do
+    vp_login
+    p_login
+    it 'if both p & vp approves reset' do
+      p = User.find_by(role: 2)
+      vp = User.find_by(role: 3)
+      vp.isReset = true
+      vp.save!
+      visit edit_user_path(p.id)
+      click_on('Activate Yearly Reset')
+      expect(page).to(have_current_path('/confirm'))
+    end
+  end
+
+  describe('presidential change') do
+    login
+    p_login
+    it 'if new president' do
+      user = User.find_by(role: 0)
+      visit edit_user_path(user.id)
+      select 'President'
+      click_on('Save')
+      p = User.find_by(role: 2)
+      visit edit_user_path(p.id)
+      expect(page).not_to(have_content('Activiate Yearly Reset'))
     end
   end
 end

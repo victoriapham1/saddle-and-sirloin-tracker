@@ -5,14 +5,15 @@ require 'rails_helper'
 RSpec.describe(Event, type: :model) do
   context 'validation tests' do
     it 'ensures event name' do
-      event = Event.new(event_type: 3, date: '12/12/2023',
-                        description: 'cookout where you can meet fellow members.').save
+      event = Event.new(event_type: 3, date: '12/12/2099',
+                        description: 'cookout where you can meet fellow members.', start_time: Time.zone.now,
+                        end_time: Time.zone.now + 2.hours).save
       expect(event).to(eq(false))
     end
 
     it 'ensures event date' do
-      event = Event.new(event_type: 3, name: 'Cookout',
-                        description: 'cookout where you can meet fellow members.').save
+      event = Event.new(name: 'Tailgate', event_type: 3, description: 'cookout where you can meet fellow members.',
+                        start_time: Time.zone.now, end_time: Time.zone.now + 2.hours).save
       expect(event).to(eq(false))
     end
 
@@ -20,14 +21,29 @@ RSpec.describe(Event, type: :model) do
     # #ensures the date is of the format DD/MM/YYYY (or change it so it has to be MM/DD/YYYY)
 
     it 'ensures event description' do
-      event = Event.new(event_type: 3, date: '12/12/2012', name: 'Cookout').save
+      event = Event.new(name: 'Tailgate', event_type: 3, date: '12/12/2099', start_time: Time.zone.now,
+                        end_time: Time.zone.now + 2.hours).save
       expect(event).to(eq(false))
     end
 
-    it 'ensrues event type' do
-      event = Event.new(name: 'Cookout', date: '12/12/2012',
-                        description: 'cookout where you can meet fellow members.').save
+    it 'ensures event type' do
+      event = Event.new(name: 'Tailgate', date: '12/12/2099',
+                        description: 'cookout where you can meet fellow members.', start_time: Time.zone.now,
+                        end_time: Time.zone.now + 2.hours).save
       expect(event).to(eq(false))
+    end
+
+    it 'ensures start time is before end time' do
+      event = Event.new(name: 'Tailgate', event_type: 3, date: '12/12/2099',
+                        description: 'cookout where you can meet fellow members.', start_time: Time.zone.now + 2.hours,
+                        end_time: Time.zone.now).save
+      expect(event).to(eq(false))
+    end
+
+    it 'ensures all attributes are present' do
+      event = Event.new(name: 'Tailgate', event_type: 3, date: '12/12/2099',
+                        description: 'cookout where you can meet fellow members.', start_time: Time.zone.now,
+                        end_time: Time.zone.now + 2.hours).save
     end
   end
 end
