@@ -14,18 +14,21 @@ RSpec.describe('User Features', type: :feature) do
 
   describe('creation of new account') do
     bypass_oauth
-    User.where(first_name: 'Lisa').destroy_all # Ensure this user does not exist yet
     it 'is a new user' do
+      User.destroy_all
+      User.where(first_name: 'Lisa').destroy_all # Ensure this user does not exist yet
       visit root_path
       expect(current_path).to eq('/users/new')
     end
 
     it 'cannot access other pages' do
+      User.where(first_name: 'Lisa').destroy_all # Ensure this user does not exist yet
       visit waiting_path
       expect(current_path).to eq('/users/new')
     end
 
     it 'create a new account unsuccessfully' do
+      User.where(first_name: 'Lisa').destroy_all # Ensure this user does not exist yet
       visit root_path
       expect(current_path).to eq('/users/new')
       fill_in 'user[first_name]', with: 'Lisa'
@@ -34,6 +37,7 @@ RSpec.describe('User Features', type: :feature) do
     end
 
     it 'create a new account successfully' do
+      User.where(first_name: 'Lisa').destroy_all # Ensure this user does not exist yet
       visit root_path
       fill_in 'user[first_name]', with: 'Lisa'
       fill_in 'user[last_name]', with: 'Tran'
@@ -88,8 +92,27 @@ RSpec.describe('User Features', type: :feature) do
       expect(page).not_to(have_content('Tryston'))
     end
 
+    it 'is denying queue member' do
+      # User.where(first_name: 'Lily').destroy_all
+      User.where.not(first_name: 'Tryston').destroy_all
+      user = User.create_with(uin: '430500123',
+                              first_name: 'Pauline', last_name: 'Wade',
+                              email: 'paulinewade@tamu.edu', phone: '5125952682',
+                              password: 'password', role: 0, classify: 5, isRequesting: true).find_or_create_by!(email: 'paulinewade@tamu.edu')
+      visit users_path
+      select 'Approval', from: :category
+      click_button('Search')
+      expect(page).to(have_content('Pauline'))
+      check 'user_ids[]'
+      click_button('Deny')
+      select 'Deactive', from: :category
+      click_button('Search')
+      expect(page).to(have_content('Pauline'))
+    end
+
     it 'is approving queue member' do
-      User.where(first_name: 'Lily').destroy_all
+      # User.where(first_name: 'Lily').destroy_all
+      User.where.not(first_name: 'Tryston').destroy_all
       user = User.create_with(uin: '430500123',
                               first_name: 'Pauline', last_name: 'Wade',
                               email: 'paulinewade@tamu.edu', phone: '5125952682',
@@ -153,7 +176,7 @@ RSpec.describe('User Features', type: :feature) do
     login
     p_login
     it 'if new president' do
-      user = User.find_by(role: 0)
+      user = User.find_by(role: 1)
       visit edit_user_path(user.id)
       select 'President'
       click_on('Save')
