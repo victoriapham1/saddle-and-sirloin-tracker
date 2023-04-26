@@ -1,1 +1,1 @@
-<h3 class = <%=locals[:style]%>><%= locals[:event].start_time.to_fs(:time)%> - <%= locals[:event].end_time.to_fs(:time) %></h3>
+<h3 class = <%=locals[:style]%>><%= locals[:event].start_time.strftime("%I:%M %p")%> - <%= locals[:event].end_time.strftime("%I:%M %p") %></h3>
