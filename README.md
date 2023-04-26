@@ -6,14 +6,14 @@ This is an application that assists in managing user attendance of organization 
 
 ## 🕮 Table of Contents
 
-1. [📃Requirements](#-requirements)
+1. [📃 Requirements](#-requirements)
 2. [📬 External Dependencies](#-external-deps)
 3. [📂 Installation](#-installation)
 4. [🧪 Tests](#-tests)
 5. [🔨 Execute Code](#-execute-code)
 6. [🚀 Deployment](#-deployment)
 7. [🔬 CI/CD](#-cicd)
-8. [🙏🏻Support](#-support)
+8. [🙏🏻 Support](#-support)
 
 ## 📃 Requirements
 

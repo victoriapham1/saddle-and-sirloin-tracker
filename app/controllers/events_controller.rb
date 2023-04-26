@@ -64,7 +64,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
 
-    if Time.zone.now.dst? 
+    if Time.zone.now.dst?
       @event.start_time = @event.start_time + 0.hour
       @event.end_time = @event.end_time + 0.hour
     end
