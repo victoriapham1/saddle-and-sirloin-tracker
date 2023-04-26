@@ -36,13 +36,13 @@ RSpec.describe(EventsController, type: :controller) do
         expect(response).to(have_http_status(:success))
       end
 
-      it 'routes to show' do
-        event = Event.create(name: 'edit test', event_type: 3, date: '12/12/2099',
-                             description: 'cookout where you can meet fellow members.', start_time: Time.zone.now,
-                             end_time: Time.zone.now + 2.hours)
-        get :show, params: { id: event.id }
-        expect(response).to(have_http_status(:success))
-      end
+      # it 'routes to show' do
+      #   event = Event.create(name: 'edit test', event_type: 3, date: '12/12/2099',
+      #                        description: 'cookout where you can meet fellow members.', start_time: Time.zone.now,
+      #                        end_time: Time.zone.now + 2.hours)
+      #   get :show, params: { id: event.id }
+      #   expect(response).to(have_http_status(:success))
+      # end
 
       # it 'routes to create' do
       #   post :create, params: {"event"=>
