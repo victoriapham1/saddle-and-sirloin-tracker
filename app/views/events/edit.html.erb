@@ -31,13 +31,13 @@
       <div>
         <br>
         <%= form.label :start_time, style: "display: block; font-weight: bold;" %>
-        <%= form.time_select(:start_time) %>
+        <%= form.time_select(:start_time, ampm: true) %>
       </div>
 
       <div>
         <br>
         <%= form.label :end_time, style: "display: block; font-weight: bold;" %>
-        <%= form.time_select(:end_time) %>
+        <%= form.time_select(:end_time, ampm: true) %>
       </div>
 
       <div>
@@ -54,7 +54,7 @@
 
       <div>
         <br>
-        <%= form.submit class: "bg-sky-500 active:bg-sky-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" %>
+        <%= form.submit "Update Event", class: "cursor-pointer bg-sky-500 active:bg-sky-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" %>
       </div>
       <% end %>
     </div>
