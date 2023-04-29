@@ -13,7 +13,7 @@
     <% end %>
 
     <div class="grid lg:grid-cols-2 gap-12 lg:gap-0 lg:flex lg:justify-center lg:items-center">
-      <div class="w-full max-w-md mx-auto">
+      <div class="w-full max-w-md mx-auto break-all">
         <div class="hero container max-w-screen-lg mx-auto pb-10 flex justify-center">
           <% if Admin.find_by(email: user.email) != nil %>
             <img class="rounded-full object-center" src=<%= Admin.find_by(email: user.email).avatar_url %> referrerpolicy="no-referrer" style="display:block" />

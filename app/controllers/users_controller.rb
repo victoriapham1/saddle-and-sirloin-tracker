@@ -62,11 +62,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # TODO: Delete? We don't use that view.
-  def show
-    # @user = User.find(params[:id])
-  end
-
   def edit
     @user = User.find(params[:id])
     # This will allow categorization of events by event_type
@@ -180,8 +175,12 @@ class UsersController < ApplicationController
 
   def update_multiple
     if params[:user_ids].present?
-      User.where(id: params[:user_ids]).update_all(isActive: true,
-                                                   isRequesting: false)
+      if params[:deny_select]
+        User.where(id: params[:user_ids]).update_all(isRequesting: false)
+      else
+        User.where(id: params[:user_ids]).update_all(isActive: true,
+                                                     isRequesting: false)
+      end
     end
     redirect_to users_path
   end

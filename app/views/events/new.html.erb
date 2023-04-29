@@ -1,7 +1,7 @@
 <br>
 <br>
 
-<div class="container mx-auto rounded-lg" style="width: 50%;">
+<div class="container mx-auto rounded-lg" style="width: 60%;">
     <div class="shadow shadow-2xl border border-red-900  border-4 rounded-lg p-10" style="background-color: white">
       <%= form_for(@event) do |form| %>
       <% if @event.errors.any? %>
@@ -19,37 +19,37 @@
 
       <div>
         <%= form.label :name, style: "display: block; font-weight: bold;" %>
-        <%= form.text_field(:name, placeholder: "Event Name") %>
+        <%= form.text_field(:name, required: true, class: "form-input mt-1 block w-full text-field focus:shadow-outline focus:border-green-300", placeholder: "Event Name", style: "width: 95%; height: 10%") %>
       </div>
 
       <div>
         <br>
         <%= form.label :date, style: "display: block; font-weight: bold;" %>
-        <%= form.date_select :date %>
+        <%= form.date_select :date, style: "width: 90%; height: 10%" %>
       </div>
 
       <div>
         <br>
         <%= form.label :start_time, style: "display: block; font-weight: bold;" %>
-        <%= form.time_select(:start_time) %>
+        <%= form.time_select(:start_time, ampm: true) %>
       </div>
 
       <div>
         <br>
         <%= form.label :end_time, style: "display: block; font-weight: bold;" %>
-        <%= form.time_select(:end_time) %>
+        <%= form.time_select(:end_time, ampm: true) %>
       </div>
 
       <div>
         <br>
         <%= form.label :event_type, style: "display: block; font-weight: bold;" %>
-        <%= form.select :event_type, [["Service", 1], ["Meeting", 2], ["Social", 3]] %>
+        <%= form.select :event_type, [["Service", 1], ["Meeting", 2], ["Social", 3]], style: "width: 90%; height: 10%" %>
       </div>
 
       <div>
         <br>
         <%= form.label :description, style: "display: block; font-weight: bold;" %>
-        <%= form.text_area(:description,  placeholder: "Description", class: "block p-2.5 w-full text-sm") %>
+        <%= form.text_area(:description,  placeholder: "Description", class: "block p-2.5 w-full text-sm", style: "width: 95%; height: 10%;") %>
       </div>
 
       <div>
