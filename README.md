@@ -4,6 +4,9 @@
 
 This is an application that assists in managing user attendance of organization events, as well as all users within the organization. It offers features to view announcements and events through Google Calendar API and user authentication with Google Oauth. Users are able to sign-in to events via generated QR codes and have their attendance tallied and compared to the points baseline. For additional security, a queue system is implemented, allowing officers to approve new users after the creation of an account or the start of a new year. The yearly reset, only initiated by the President & Vice-President, will 'reset' the application, giving the website a clean slate for the year by deleting all announcements, deactivating all current events, resetting attendance points, and demoting and kicking all users out of the website other than the President and Vice-President.
 
+https://user-images.githubusercontent.com/112124748/235284125-58cea54f-4623-41cd-ac77-cef729166235.mp4
+
+
 ## 🕮 Table of Contents
 
 1. [📃 Requirements](#-requirements)
