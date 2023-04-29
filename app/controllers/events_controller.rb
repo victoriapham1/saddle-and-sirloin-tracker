@@ -128,11 +128,19 @@ class EventsController < ApplicationController
   def destroy
     client = get_google_calendar_client
 
+
     @event = Event.find(params[:id])
-    client.delete_event(CALENDAR_ID, @event.google_event_id)
+
+    # Only deletes events from calendar that exists. Allows deletion of 'local' events.
+    begin
+      client.delete_event(CALENDAR_ID, @event.google_event_id)
+    rescue => e
+      puts "No Calendar event to delete!"
+    end
+
     @event.destroy
 
-    redirect_to(events_path, notice: 'Event was successfully destroyed.')
+    redirect_to(events_path, notice: "Event was successfully deleted.")
   end
 
   private

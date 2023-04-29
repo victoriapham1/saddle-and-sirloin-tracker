@@ -12,8 +12,8 @@
       <%# In the future make it so the edit/delete links only appear for officers or only the officer who made it %>
       <% if User.find_by(email: current_admin.email).role > 0 %>
         <br>
-        <%= link_to("Edit", edit_event_path(event), class: "bg-sky-500 active:bg-sky-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150")%>
-        <%= link_to("Delete", delete_event_path(event), class: "bg-red-400 active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150")%>
+        <%= link_to("Edit", edit_event_path(event), class: "cursor-pointer bg-sky-500 active:bg-sky-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150")%>
+        <%= link_to("Delete", delete_event_path(event), class: "cursor-pointer bg-red-400 active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150")%>
       <%end%>
     </div>
 </div>
