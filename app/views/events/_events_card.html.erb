@@ -8,7 +8,7 @@
         <%= render "events_time", locals: { event: event, style: "text-right" } %>
       <%end%>
       <h2>Type: <%= event.formatted_type %></h2>
-      <p class="break-all"> <%= event.description %> </p>
+      <p class="break-word"> <%= event.description %> </p>
       <%# In the future make it so the edit/delete links only appear for officers or only the officer who made it %>
       <% if User.find_by(email: current_admin.email).role > 0 %>
         <br>

@@ -6,7 +6,6 @@ This is an application that assists in managing user attendance of organization 
 
 https://user-images.githubusercontent.com/112124748/235284125-58cea54f-4623-41cd-ac77-cef729166235.mp4
 
-
 ## 🕮 Table of Contents
 
 1. [📃 Requirements](#-requirements)
@@ -61,7 +60,7 @@ This will run both the unit and integration tests.
 
 ## 🔨 Execute Code
 
-Run the following code in Powershell if using windows or the terminal using Linux/Mac
+Run the following code in Powershell if using Windows or the terminal using Linux/Mac
 
 ```
 cd saddle-and-sirloin-tracker
@@ -72,13 +71,13 @@ docker run --rm -it --volume "${PWD}:/csce431" -e DATABASE_USER=test_app -e DATA
 Install the app
 
 ```
-bundle install && rails webpacker:install && rails db:create && db:migrate
+bundle install && rails db:create && rails db:migrate
 ```
 
 Run the app
 
 ```
-rails server --binding:0.0.0.0
+bin/dev
 ```
 
 The application can be seen using a browser and navigating to http://localhost:3000/
