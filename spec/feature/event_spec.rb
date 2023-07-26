@@ -29,7 +29,7 @@ RSpec.describe('Upcoming Event Search', type: :feature) do
     event2 = Event.new(name: 'cookout', event_type: 2, date: '08/12/2099',
                        description: 'cookout where you can meet fellow members.', start_time: Time.now,
                        end_time: Time.now + 2.hours).save
-    all_events = Event.where('date >= ?', Time.now.to_date).and(Event.where(isActive: true))
+    all_events = Event.where('date >= ?', Time.now.in_time_zone('Central Time (US & Canada)').to_date).and(Event.where(isActive: true))
     events = Event.search('xyz', '')
 
     expect(events).to(eq(all_events))
@@ -42,7 +42,7 @@ RSpec.describe('Upcoming Event Search', type: :feature) do
     event2 = Event.new(name: 'cookout', event_type: 2, date: '08/12/2099',
                        description: 'cookout where you can meet fellow members.', start_time: Time.now,
                        end_time: Time.now + 2.hours).save
-    all_events = Event.where('date >= ?', Time.now.to_date).and(Event.where(isActive: true))
+    all_events = Event.where('date >= ?', Time.now.in_time_zone('Central Time (US & Canada)').to_date).and(Event.where(isActive: true))
     events = Event.search('xyz', 'Social')
 
     expect(events).to(eq(all_events))
@@ -75,7 +75,7 @@ RSpec.describe('Previous Event Search', type: :feature) do
     event2 = Event.new(name: 'cookout', event_type: 2, date: '08/12/2013',
                        description: 'cookout where you can meet fellow members.', start_time: Time.now,
                        end_time: Time.now + 2.hours).save
-    all_events = Event.where('date < ?', Time.now.to_date).or(Event.where(isActive: false))
+    all_events = Event.where('date < ?', Time.now.in_time_zone('Central Time (US & Canada)').to_date).or(Event.where(isActive: false))
     events = Event.prev_search('xyz', '')
 
     expect(events).to(eq(all_events))
@@ -88,7 +88,7 @@ RSpec.describe('Previous Event Search', type: :feature) do
     event2 = Event.new(name: 'cookout', event_type: 2, date: '08/12/2023',
                        description: 'cookout where you can meet fellow members.', start_time: Time.now,
                        end_time: Time.now + 2.hours).save
-    all_events = Event.where('date < ?', Time.now.to_date).or(Event.where(isActive: false))
+    all_events = Event.where('date < ?', Time.now.in_time_zone('Central Time (US & Canada)').to_date).or(Event.where(isActive: false))
     events = Event.prev_search('xyz', 'Social')
 
     expect(events).to(eq(all_events))
