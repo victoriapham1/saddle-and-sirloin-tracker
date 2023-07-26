@@ -6,8 +6,11 @@ class Event < ApplicationRecord
   validates :date, presence: true
   validates :event_type, presence: true
   validates :description, presence: true
-  validates :start_time, comparison: { less_than: :end_time }
-  validates :end_time, comparison: { greater_than: :start_time }
+  # Because we set Time data type (it includes YYYY-MM-DD, although we only use the time (& seperate date to account for day))
+  # When comparing start & end_time together w/o parsing, it will include the unset day, and leads to errors revolving the comparision of start and end date.
+  # validates :start_time, comparison: { less_than: :end_time }
+  # validates :end_time, comparison: { greater_than: :start_time }
+  validate :end_must_be_after_start
 
   has_many :user_events, dependent: :destroy
   has_many :users, through: :user_events
@@ -108,5 +111,13 @@ class Event < ApplicationRecord
   # Set page to default of size 10 - will change.
   def self.per_page
     10
+  end
+
+  def end_must_be_after_start
+    starting = start_time.strftime("%H%M")
+    ending = end_time.strftime("%H%M")
+    if starting >= ending
+      errors.add(:end_time, "must be after start time")
+    end
   end
 end
