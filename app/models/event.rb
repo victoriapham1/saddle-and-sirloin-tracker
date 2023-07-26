@@ -26,33 +26,33 @@ class Event < ApplicationRecord
     if category == ''
       if search
         named_event = Event.where('name ilike ? AND date >= ?', "%#{search}%",
-                                  Time.now.to_date).and(Event.where(isActive: true))
+                                  Time.now.in_time_zone('Central Time (US & Canada)').to_date).and(Event.where(isActive: true))
         # if event with  name exists show the events with that name
         @events = if named_event != []
                     # here we use .where method since we need @events to be an array. .find_by only returns 1 obj
                     Event.where('name ilike ? AND date >= ?', "%#{search}%",
-                                Time.now.to_date).and(Event.where(isActive: true))
+                                Time.now.in_time_zone('Central Time (US & Canada)').to_date).and(Event.where(isActive: true))
                   # if no events with that name exist print all events
                   else
-                    Event.where('date >= ?', Time.now.to_date).and(Event.where(isActive: true))
+                    Event.where('date >= ?', Time.now.in_time_zone('Central Time (US & Canada)').to_date).and(Event.where(isActive: true))
                   end
       else
-        @events = Event.where('date >= ?', Time.now.to_date).and(Event.where(isActive: true))
+        @events = Event.where('date >= ?', Time.now.in_time_zone('Central Time (US & Canada)').to_date).and(Event.where(isActive: true))
       end
     elsif search
       named_event = Event.where('name ilike ? AND event_type = ? AND date >= ?', "%#{search}%", TYPE[category],
-                                Time.now.to_date).and(Event.where(isActive: true))
+                                Time.now.in_time_zone('Central Time (US & Canada)').to_date).and(Event.where(isActive: true))
       # if event with  name exists show the events with that name
       @events = if named_event != []
                   # here we use .where method since we need @events to be an array. .find_by only returns 1 obj
                   Event.where('name ilike ? AND event_type = ? AND date >= ?', "%#{search}%", TYPE[category],
-                              Time.now.to_date).and(Event.where(isActive: true))
+                              Time.now.in_time_zone('Central Time (US & Canada)').to_date).and(Event.where(isActive: true))
                 # if no events with that name exist print all events
                 else
-                  Event.where('date >= ?', Time.now.to_date).and(Event.where(isActive: true))
+                  Event.where('date >= ?', Time.now.in_time_zone('Central Time (US & Canada)').to_date).and(Event.where(isActive: true))
                 end
     else
-      @events = Event.where('date >= ?', Time.now.to_date).and(Event.where(isActive: true))
+      @events = Event.where('date >= ?', Time.now.in_time_zone('Central Time (US & Canada)').to_date).and(Event.where(isActive: true))
     end
   end
 
@@ -61,36 +61,36 @@ class Event < ApplicationRecord
       if search
         named_event = Event.where('name ilike ?',
                                   "%#{search}%").and(Event.where('date < ?',
-                                                                 Time.now.to_date).or(Event.where(isActive: false)))
+                                                                 Time.now.in_time_zone('Central Time (US & Canada)').to_date).or(Event.where(isActive: false)))
         # if event with  name exists show the events with that name
         @events = if named_event != []
                     # here we use .where method since we need @events to be an array. .find_by only returns 1 obj
                     Event.where('name ilike ?',
                                 "%#{search}%").and(Event.where('date < ?',
-                                                               Time.now.to_date).or(Event.where(isActive: false)))
+                                                               Time.now.in_time_zone('Central Time (US & Canada)').to_date).or(Event.where(isActive: false)))
                   # if no events with that name exist print all events
                   else
-                    Event.where('date < ?', Time.now.to_date).or(Event.where(isActive: false))
+                    Event.where('date < ?', Time.now.in_time_zone('Central Time (US & Canada)').to_date).or(Event.where(isActive: false))
                   end
       else
-        @events = Event.where('date < ?', Time.now.to_date).or(Event.where(isActive: false))
+        @events = Event.where('date < ?', Time.now.in_time_zone('Central Time (US & Canada)').to_date).or(Event.where(isActive: false))
       end
     elsif search
       named_event = Event.where('name ilike ? AND event_type = ?', "%#{search}%",
                                 TYPE[category]).and(Event.where('date < ?',
-                                                                Time.now.to_date).or(Event.where(isActive: false)))
+                                                                Time.now.in_time_zone('Central Time (US & Canada)').to_date).or(Event.where(isActive: false)))
       # if event with  name exists show the events with that name
       @events = if named_event != []
                   # here we use .where method since we need @events to be an array. .find_by only returns 1 obj
                   Event.where('name ilike ? AND event_type = ?', "%#{search}%",
                               TYPE[category]).and(Event.where('date < ?',
-                                                              Time.now.to_date).or(Event.where(isActive: false)))
+                                                              Time.now.in_time_zone('Central Time (US & Canada)').to_date).or(Event.where(isActive: false)))
                 # if no events with that name exist print all events
                 else
-                  Event.where('date < ?', Time.now.to_date).or(Event.where(isActive: false))
+                  Event.where('date < ?', Time.now.in_time_zone('Central Time (US & Canada)').to_date).or(Event.where(isActive: false))
                 end
     else
-      @events = Event.where('date < ?', Time.now.to_date).or(Event.where(isActive: false))
+      @events = Event.where('date < ?', Time.now.in_time_zone('Central Time (US & Canada)').to_date).or(Event.where(isActive: false))
     end
   end
 
