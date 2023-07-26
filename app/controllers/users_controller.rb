@@ -73,14 +73,16 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
+      # @user.update() --> user is updated before checking the changer's role
       if @user.update(user_params)
         # NEED TO MAKE ONLY PRES/VP ALLOWED TO PROMOTE TO PRES/VP
         changer = User.find_by(email: current_admin.email) # This is the active user that submitted the update request (officer, pres, vp, self)
         # This shows the pushed update is to promote a user to PRES or VP
         # -> a PRES or VP is stepping down and promoting a user
-        # Rendering on _form creates invariant: IF a user is being updated to a Pres VP role -> the changer must be a pres or vp.
         # Additionally, pres/vp cannot change themselves, they must promote someone to update themselves
-        if @user.role > 1
+        # @user != changer --> Ensures that when a pres/vp update their own profile, they do not get reverted to officer
+        # @user.role == changer.role --> Accounts for if a vp/pres update each other's pf
+        if (changer.role > 1) && (@user != changer) && (@user.role == changer.role)
           changer.role = 1
           changer.save
         end
